@@ -1,0 +1,249 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+  <Profiles />
+  <Settings>
+    <Setting Name="campotarifa" Type="System.String" Scope="User">
+      <Value Profile="(Default)">tarifa</Value>
+    </Setting>
+    <Setting Name="campoaguafija" Type="System.String" Scope="User">
+      <Value Profile="(Default)">pago_agua</Value>
+    </Setting>
+    <Setting Name="campoano" Type="System.String" Scope="User">
+      <Value Profile="(Default)">periodo</Value>
+    </Setting>
+    <Setting Name="booleanmedido" Type="System.String" Scope="User">
+      <Value Profile="(Default)">medido</Value>
+    </Setting>
+    <Setting Name="tablacuotas" Type="System.String" Scope="User">
+      <Value Profile="(Default)">cuotas</Value>
+    </Setting>
+    <Setting Name="booleanalcantarillado" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ALCANTARILLADO</Value>
+    </Setting>
+    <Setting Name="booleanIVA" Type="System.String" Scope="User">
+      <Value Profile="(Default)">IVA</Value>
+    </Setting>
+    <Setting Name="booleanrecargos" Type="System.String" Scope="User">
+      <Value Profile="(Default)">RECARGOS</Value>
+    </Setting>
+    <Setting Name="booleancobrarfijoalcantarillado" Type="System.String" Scope="User">
+      <Value Profile="(Default)">alcapcuo</Value>
+    </Setting>
+    <Setting Name="Porcentajedealcantarillado" Type="System.String" Scope="User">
+      <Value Profile="(Default)">PorcAlca</Value>
+    </Setting>
+    <Setting Name="booleansaneamiento" Type="System.String" Scope="User">
+      <Value Profile="(Default)">saneacuo</Value>
+    </Setting>
+    <Setting Name="booleancobrarfijosaneamiento" Type="System.String" Scope="User">
+      <Value Profile="(Default)">sanepcuo</Value>
+    </Setting>
+    <Setting Name="camposaneamiento" Type="System.String" Scope="User">
+      <Value Profile="(Default)">sanecuo</Value>
+    </Setting>
+    <Setting Name="Porcentajedesaneamiento" Type="System.String" Scope="User">
+      <Value Profile="(Default)">porcsanea</Value>
+    </Setting>
+    <Setting Name="campoalcantarillo" Type="System.String" Scope="User">
+      <Value Profile="(Default)">PorcAlca</Value>
+    </Setting>
+    <Setting Name="tipocaja" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Cobro</Value>
+    </Setting>
+    <Setting Name="folio" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="caja" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="serie" Type="System.String" Scope="User">
+      <Value Profile="(Default)">F</Value>
+    </Setting>
+    <Setting Name="escajamovil" Type="System.String" Scope="User">
+      <Value Profile="(Default)">NO</Value>
+    </Setting>
+    <Setting Name="esAdministrativa" Type="System.String" Scope="User">
+      <Value Profile="(Default)">DIRECTOR</Value>
+    </Setting>
+    <Setting Name="Porcentajederecargo" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
+    <Setting Name="Clavedeconsumo" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-4</Value>
+    </Setting>
+    <Setting Name="Clavedealcantarillado" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-6</Value>
+    </Setting>
+    <Setting Name="clavedesaneamiento" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="Clavederecargo" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-3</Value>
+    </Setting>
+    <Setting Name="Clavedeiva" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-26</Value>
+    </Setting>
+    <Setting Name="formatorecibo" Type="System.String" Scope="User">
+      <Value Profile="(Default)">tic1</Value>
+    </Setting>
+    <Setting Name="ClavedeRezago" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-14</Value>
+    </Setting>
+    <Setting Name="campousuariotarifa" Type="System.String" Scope="User">
+      <Value Profile="(Default)">tarifa</Value>
+    </Setting>
+    <Setting Name="TimbrarPrueba" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SI</Value>
+    </Setting>
+    <Setting Name="copiasderecibo" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="Pass" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Pwd</Value>
+    </Setting>
+    <Setting Name="ClaveAgua" Type="System.String" Scope="User">
+      <Value Profile="(Default)">26</Value>
+    </Setting>
+    <Setting Name="GuardaCobroexpress" Type="System.String" Scope="User">
+      <Value Profile="(Default)">NO</Value>
+    </Setting>
+    <Setting Name="TopeRecargo" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">100</Value>
+    </Setting>
+    <Setting Name="imprimirhitorial" Type="System.String" Scope="User">
+      <Value Profile="(Default)">NO</Value>
+    </Setting>
+    <Setting Name="FormatoCopia" Type="System.String" Scope="User">
+      <Value Profile="(Default)">REC2</Value>
+    </Setting>
+    <Setting Name="clavevalvulista" Type="System.String" Scope="User">
+      <Value Profile="(Default)">VALVUL</Value>
+    </Setting>
+    <Setting Name="cobrarvalvulista" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SI</Value>
+    </Setting>
+    <Setting Name="MENSAJECORREO" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Sean estas Lineas el amable conducto para enviarte un coordial sauldo, y al mismo tiempo agradecerte por pago, anexamos la factura de tu pago.
+
+Es un placer servirte
+
+
+DEPARTAMENTO COMERCIAL</Value>
+    </Setting>
+    <Setting Name="Usuariocorreo" Type="System.String" Scope="User">
+      <Value Profile="(Default)">caposafacturacion@gmail.com</Value>
+    </Setting>
+    <Setting Name="Passwordcorreo" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Caposa2015</Value>
+    </Setting>
+    <Setting Name="Asuntocorreo" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Factura Electronica C.A.P.O.S.A.</Value>
+    </Setting>
+    <Setting Name="CorreoFacturas" Type="System.String" Scope="User">
+      <Value Profile="(Default)">caposafacturacion@gmail.com</Value>
+    </Setting>
+    <Setting Name="Correodefault" Type="System.String" Scope="User">
+      <Value Profile="(Default)">enviofacturas@caposa.gob.mx</Value>
+    </Setting>
+    <Setting Name="CAJAS_cancelafactupronto_wsCancelacion" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://fprontorojo.n5nitro.com/prometheus/ws_cancel.php</Value>
+    </Setting>
+    <Setting Name="direcciondepruebas" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://fprontorojo.n5nitro.com/prometheus/txt_timbrado_factupronto.php</Value>
+    </Setting>
+    <Setting Name="direccionwebservice" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://www.factupronto.mx/prometheus/txt_timbrado_factupronto.php</Value>
+    </Setting>
+    <Setting Name="RFC" Type="System.String" Scope="User">
+      <Value Profile="(Default)">CAP030509QX9</Value>
+    </Setting>
+    <Setting Name="Regimen" Type="System.String" Scope="User">
+      <Value Profile="(Default)">603</Value>
+    </Setting>
+    <Setting Name="UsuarioMultifacturas" Type="System.String" Scope="User">
+      <Value Profile="(Default)">CAA930101333</Value>
+    </Setting>
+    <Setting Name="PassFacturaMultifacturas" Type="System.String" Scope="User">
+      <Value Profile="(Default)">CAA930101333</Value>
+    </Setting>
+    <Setting Name="ProduccionMultifacturas" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SI
+</Value>
+    </Setting>
+    <Setting Name="CER" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\\sdk2\\certificados\\ACTOPAN.cer</Value>
+    </Setting>
+    <Setting Name="KEY" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\\sdk2\\certificados\\ACTOPAN.key</Value>
+    </Setting>
+    <Setting Name="KeyContrasena" Type="System.String" Scope="User">
+      <Value Profile="(Default)">CAASA2021</Value>
+    </Setting>
+    <Setting Name="ProvedorFacturacion" Type="System.String" Scope="User">
+      <Value Profile="(Default)">MULTIFACTURAS</Value>
+    </Setting>
+    <Setting Name="usuariopruebasfactupronto" Type="System.String" Scope="User">
+      <Value Profile="(Default)">eduardovime@outlook.com</Value>
+    </Setting>
+    <Setting Name="passwordpruebasfactupronto" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Kelcay74@</Value>
+    </Setting>
+    <Setting Name="usuarioprodfactupronto" Type="System.String" Scope="User">
+      <Value Profile="(Default)">victorfalcon@caposa.gob.mx</Value>
+    </Setting>
+    <Setting Name="passwordprodfactupronto" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Victor2014@</Value>
+    </Setting>
+    <Setting Name="cuentabancariadestino" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1234567890</Value>
+    </Setting>
+    <Setting Name="rfcbancodestino" Type="System.String" Scope="User">
+      <Value Profile="(Default)">BBA830831LJ2</Value>
+    </Setting>
+    <Setting Name="servidorreporte" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Agua</Value>
+    </Setting>
+    <Setting Name="usuarioreporte" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Caja01</Value>
+    </Setting>
+    <Setting Name="passreporte" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Caja01</Value>
+    </Setting>
+    <Setting Name="basereporte" Type="System.String" Scope="User">
+      <Value Profile="(Default)">agua_actopan</Value>
+    </Setting>
+    <Setting Name="manejacatalogocalles" Type="System.String" Scope="User">
+      <Value Profile="(Default)">NO</Value>
+    </Setting>
+    <Setting Name="claveConvenio" Type="System.String" Scope="User">
+      <Value Profile="(Default)">CON001</Value>
+    </Setting>
+    <Setting Name="colorfactura" Type="System.String" Scope="User">
+      <Value Profile="(Default)">AzulLogoCuau</Value>
+    </Setting>
+    <Setting Name="CAJAs_SoapCancelar_Timbrado_Remoto_de_INI" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://pac1.multifacturas.com/pac/timbrarini.php</Value>
+    </Setting>
+    <Setting Name="CAJAs_WSCancelarFactura40_Cancelar_cfdi_4_0_SAT" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://pac1.multifacturas.com/cancelacion2022/index.php</Value>
+    </Setting>
+    <Setting Name="Periodicidad" Type="System.String" Scope="User">
+      <Value Profile="(Default)">03</Value>
+    </Setting>
+    <Setting Name="baseaguaConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Dsn=Agua&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.Odbc&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Dsn=Agua</Value>
+    </Setting>
+    <Setting Name="ConexionCobroexpress" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;server=192.168.1.5; Database=aguaprogreso; user id=root; password=root;&lt;/ConnectionString&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">server=192.168.1.5; Database=aguaprogreso; user id=root; password=root;</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

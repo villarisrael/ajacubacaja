@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-16"?>
+<SchemaMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Compressed="true">
+  <SchemaEntry OriginalSchemaUri="C:\Users\vigma\Documents\VIGMA SIAAPI\proyecto 15 de juLio 2021\Actopan\CAJAS  3.3\CAJASH\Clases\catcfdi.xsd" ResourceSchemaUri="Cfdv33ValidatorSchema1.zxsd" TargetNamespaceUri="http://www.sat.gob.mx/sitio_internet/cfd/catalogos" ExplicitlyLoad="false" />
+  <SchemaEntry OriginalSchemaUri="C:\Users\vigma\Documents\VIGMA SIAAPI\proyecto 15 de juLio 2021\Actopan\CAJAS  3.3\CAJASH\Clases\tdcfdi.xsd" ResourceSchemaUri="Cfdv33ValidatorSchema2.zxsd" TargetNamespaceUri="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" ExplicitlyLoad="false" />
+  <SchemaEntry OriginalSchemaUri="C:\Users\vigma\Documents\VIGMA SIAAPI\proyecto 15 de juLio 2021\Actopan\CAJAS  3.3\CAJASH\Clases\cfdv33.xsd" ResourceSchemaUri="Cfdv33ValidatorSchema3.zxsd" TargetNamespaceUri="http://www.sat.gob.mx/cfd/3" ExplicitlyLoad="true" />
+</SchemaMap>

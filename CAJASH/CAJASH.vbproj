@@ -1,0 +1,857 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F6062DE8-4DA3-4BD3-B982-7A4EAF896DF2}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>CAJAS.My.MyApplication</StartupObject>
+    <RootNamespace>CAJAS</RootNamespace>
+    <AssemblyName>CAJAs</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>D:\software\Mulege\caja\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>12</ApplicationRevision>
+    <ApplicationVersion>10.3.3.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>CAJAs.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>CAJAs.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>1439935169_save_water.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>57986BE51AE2FE7F1464DB275F7FAE34B4B51637</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>CAJASH_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Release\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.6.1\lib\BouncyCastle.Crypto.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Catalogo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Librerias\Catalogo.dll</HintPath>
+    </Reference>
+    <Reference Include="DevComponents.Charts.Design, Version=14.0.0.3, Culture=neutral, PublicKeyToken=90f470f34c89ccaf, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Administrativo\Administrativo\Nuevo\bin\Debug\DevComponents.Charts.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="DevComponents.DotNetBar.Charts, Version=14.0.0.3, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Administrativo\Administrativo\Nuevo\bin\Debug\DevComponents.DotNetBar.Charts.dll</HintPath>
+    </Reference>
+    <Reference Include="DevComponents.DotNetBar.Design, Version=14.0.0.3, Culture=neutral, PublicKeyToken=90f470f34c89ccaf, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Administrativo\Administrativo\Nuevo\bin\Debug\DevComponents.DotNetBar.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="DevComponents.DotNetBar.Keyboard, Version=14.0.0.3, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Administrativo\Administrativo\Nuevo\bin\Debug\DevComponents.DotNetBar.Keyboard.dll</HintPath>
+    </Reference>
+    <Reference Include="DevComponents.DotNetBar.Layout, Version=14.0.0.3, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Administrativo\Administrativo\Nuevo\bin\Debug\DevComponents.DotNetBar.Layout.dll</HintPath>
+    </Reference>
+    <Reference Include="DevComponents.DotNetBar.Layout.Design, Version=14.0.0.3, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Administrativo\Administrativo\Nuevo\bin\Debug\DevComponents.DotNetBar.Layout.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="DevComponents.DotNetBar.Schedule, Version=14.0.0.3, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Administrativo\Administrativo\Nuevo\bin\Debug\DevComponents.DotNetBar.Schedule.dll</HintPath>
+    </Reference>
+    <Reference Include="DevComponents.DotNetBar.SuperGrid, Version=14.0.0.3, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Administrativo\Administrativo\Nuevo\bin\Debug\DevComponents.DotNetBar.SuperGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="DevComponents.DotNetBar2, Version=14.0.0.3, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Administrativo\Administrativo\Nuevo\bin\Debug\DevComponents.DotNetBar2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevComponents.TreeGX, Version=14.0.0.3, Culture=neutral, PublicKeyToken=055db68f670cfeab, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Administrativo\Administrativo\Nuevo\bin\Debug\DevComponents.TreeGX.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.2, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.2\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LiquidTechnologies.XmlObjects.Runtime, Version=19.0.10.10866, Culture=neutral, PublicKeyToken=64bee40f6e1c14f0, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiquidTechnologies.XmlObjects.Runtime.19.0.10\lib\net45\LiquidTechnologies.XmlObjects.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="MultiFacturasSDK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Librerias\MultiFacturasSDK.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartAssembly.Attributes, Version=8.0.2.4779, Culture=neutral, PublicKeyToken=7f465a1c156d4d57, processorArchitecture=MSIL">
+      <HintPath>..\packages\RedGate.SmartAssembly.Attributes.8.0.2.4779\lib\net20\SmartAssembly.Attributes.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Telerik.WinControls, Version=2012.3.1017.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CAJA\Caja\Express\DVD-5\DiskImages\DISK1\program files\VIGMA CONSULTORES SAS DE CV\My Product Name\Telerik.WinControls.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.GridView, Version=2012.3.1017.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CAJA\Caja\Express\DVD-5\DiskImages\DISK1\program files\VIGMA CONSULTORES SAS DE CV\My Product Name\Telerik.WinControls.GridView.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Scheduler, Version=2012.3.1017.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CAJA\Caja\Express\DVD-5\DiskImages\DISK1\program files\VIGMA CONSULTORES SAS DE CV\My Product Name\Telerik.WinControls.Scheduler.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Breeze, Version=2012.3.1017.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CAJA\Caja\Express\DVD-5\DiskImages\DISK1\program files\VIGMA CONSULTORES SAS DE CV\My Product Name\Telerik.WinControls.Themes.Breeze.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.HighContrastBlack, Version=2012.3.1017.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CAJA\Caja\Express\DVD-5\DiskImages\DISK1\program files\VIGMA CONSULTORES SAS DE CV\My Product Name\Telerik.WinControls.Themes.HighContrastBlack.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Office2007Black, Version=2012.3.1017.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CAJA\Caja\Express\DVD-5\DiskImages\DISK1\program files\VIGMA CONSULTORES SAS DE CV\My Product Name\Telerik.WinControls.Themes.Office2007Black.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Office2010Silver, Version=2012.3.1017.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CAJA\Caja\Express\DVD-5\DiskImages\DISK1\program files\VIGMA CONSULTORES SAS DE CV\My Product Name\Telerik.WinControls.Themes.Office2010Silver.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.WinControls.UI, Version=2012.3.1017.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CAJA\Caja\Express\DVD-5\DiskImages\DISK1\program files\VIGMA CONSULTORES SAS DE CV\My Product Name\Telerik.WinControls.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="TelerikCommon, Version=2012.3.1017.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CAJA\Caja\Express\DVD-5\DiskImages\DISK1\program files\VIGMA CONSULTORES SAS DE CV\My Product Name\TelerikCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="ThoughtWorks.QRCode">
+      <HintPath>Libreria\ThoughtWorks.QRCode.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Clases\base.vb" />
+    <Compile Include="Clases\cfdv33.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>cfdv33.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Clases\Clsaporcfijo.vb" />
+    <Compile Include="Clases\clsclave.vb" />
+    <Compile Include="Clases\clscobrofijo.vb" />
+    <Compile Include="Clases\Clscolorreporte.vb" />
+    <Compile Include="Clases\Clsconcepto.vb" />
+    <Compile Include="Clases\Clscontrolpago.vb" />
+    <Compile Include="Clases\clscuota.vb" />
+    <Compile Include="Clases\clsDocumentoTXT.vb" />
+    <Compile Include="Clases\CLSFACTURA.vb" />
+    <Compile Include="Clases\clsfechas.vb" />
+    <Compile Include="Clases\clsimprimeformato.vb" />
+    <Compile Include="Clases\clsiva.vb" />
+    <Compile Include="Clases\clslectura.vb" />
+    <Compile Include="Clases\Clspagoenlinea.vb" />
+    <Compile Include="Clases\clspagofijo.vb" />
+    <Compile Include="Clases\ClsPagoMedido.vb" />
+    <Compile Include="Clases\clsrecargo.vb" />
+    <Compile Include="Clases\clsrecibo.vb" />
+    <Compile Include="Clases\ClsRegistrolectura.vb" />
+    <Compile Include="Clases\Clssaneamiento.vb" />
+    <Compile Include="Clases\clsunidadmes.vb" />
+    <Compile Include="Clases\Clsvalvulista.vb" />
+    <Compile Include="Clases\Convenios.vb" />
+    <Compile Include="Clases\decodificadorSAT.vb" />
+    <Compile Include="Clases\Encriptar.vb" />
+    <Compile Include="Clases\FuncFacturas_v4.vb" />
+    <Compile Include="Clases\ModuleRemoto.vb" />
+    <Compile Include="Formularios\AñadeFecha.Designer.vb">
+      <DependentUpon>AñadeFecha.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\AñadeFecha.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\ConveniosPagos.Designer.vb">
+      <DependentUpon>ConveniosPagos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\ConveniosPagos.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Facturas\CancelarFactura40.Designer.vb">
+      <DependentUpon>CancelarFactura40.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Facturas\CancelarFactura40.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Facturas\Frmlistadofacturas.Designer.vb">
+      <DependentUpon>Frmlistadofacturas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Facturas\Frmlistadofacturas.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Facturas\MotivosCancelacionSAT40.vb" />
+    <Compile Include="Formularios\Formatos.Designer.vb">
+      <DependentUpon>Formatos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Formatos.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmAgrBitacora.designer.vb">
+      <DependentUpon>FrmAgrBitacora.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmAgrBitacora.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmShowMeses.Designer.vb">
+      <DependentUpon>FrmShowMeses.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmShowMeses.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Clases\funcionesbasicas.vb" />
+    <Compile Include="Clases\Imprimirnet.vb" />
+    <Compile Include="Clases\Lineaimprimir.vb" />
+    <Compile Include="Clases\ModNumText.vb" />
+    <Compile Include="Caja.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Caja.Designer.vb">
+      <DependentUpon>Caja.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DatosRecibo.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DatosRecibo.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DatosRecibo.vb">
+      <DependentUpon>DatosRecibo.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmaimprimir.Designer.vb">
+      <DependentUpon>frmaimprimir.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmaimprimir.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frmBuscaSolicitud.Designer.vb">
+      <DependentUpon>frmBuscaSolicitud.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmBuscaSolicitud.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frmdesglose.designer.vb">
+      <DependentUpon>frmdesglose.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmdesglose.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frmHistorial.Designer.vb">
+      <DependentUpon>frmHistorial.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmHistorial.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frmListadoRecibos.Designer.vb">
+      <DependentUpon>frmListadoRecibos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmListadoRecibos.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Facturas\frmvalidafacturapublico.Designer.vb">
+      <DependentUpon>frmvalidafacturapublico.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Facturas\frmvalidafacturapublico.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Configuradores\FRmconfigcaja.Designer.vb">
+      <DependentUpon>FRmconfigcaja.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Configuradores\FRmconfigcaja.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frmfolio.Designer.vb">
+      <DependentUpon>frmfolio.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmfolio.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\fmrBuscaruserxpadron.Designer.vb">
+      <DependentUpon>fmrBuscaruserxpadron.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\fmrBuscaruserxpadron.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frmabono.Designer.vb">
+      <DependentUpon>frmabono.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmabono.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frmAcceso.Designer.vb">
+      <DependentUpon>frmAcceso.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmAcceso.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frmCancelarecibo.Designer.vb">
+      <DependentUpon>frmCancelarecibo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmCancelarecibo.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frmRestriccionDesc.Designer.vb">
+      <DependentUpon>frmRestriccionDesc.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmRestriccionDesc.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frmBuscaruser.Designer.vb">
+      <DependentUpon>frmBuscaruser.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmBuscaruser.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frmDescuentos.designer.vb">
+      <DependentUpon>frmDescuentos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmDescuentos.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frmPago.Designer.vb">
+      <DependentUpon>frmPago.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmPago.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\frmPagoefectivo.Designer.vb">
+      <DependentUpon>frmPagoefectivo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\frmPagoefectivo.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\pagomixto.Designer.vb">
+      <DependentUpon>pagomixto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\pagomixto.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Reportes\CorteCajaITSharp.vb" />
+    <Compile Include="Formularios\Reportes\cortexrubros.vb" />
+    <Compile Include="Formularios\Reportes\frmarqueo.Designer.vb">
+      <DependentUpon>frmarqueo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Reportes\frmarqueo.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Reportes\frmReportexrubros.Designer.vb">
+      <DependentUpon>frmReportexrubros.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Reportes\frmReportexrubros.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Facturas\frmvalidafactura.Designer.vb">
+      <DependentUpon>frmvalidafactura.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Facturas\frmvalidafactura.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Clases\FuncFacturas.vb" />
+    <Compile Include="Formularios\Reportes\HistorialLecturas.vb" />
+    <Compile Include="Formularios\Reportes\reporteResumenFecha.vb" />
+    <Compile Include="Formularios\Reportes\ReporteRubros.vb" />
+    <Compile Include="Formularios\Reportes\RptCajaDesglozado.vb" />
+    <Compile Include="Formularios\Reportes\Ticket.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Settings.vb" />
+    <Compile Include="Web References\cancelafactupronto\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\SoapCancelar\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\WSCancelarFactura40\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Caja.resx">
+      <DependentUpon>Caja.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Clases\Cfdv33Resources\Cfdv33ValidatorSchemaData.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\AñadeFecha.resx">
+      <DependentUpon>AñadeFecha.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\ConveniosPagos.resx">
+      <DependentUpon>ConveniosPagos.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Facturas\CancelarFactura40.resx">
+      <DependentUpon>CancelarFactura40.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Facturas\Frmlistadofacturas.resx">
+      <DependentUpon>Frmlistadofacturas.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Formatos.resx">
+      <DependentUpon>Formatos.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmAgrBitacora.resx">
+      <DependentUpon>FrmAgrBitacora.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmShowMeses.resx">
+      <DependentUpon>FrmShowMeses.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmaimprimir.resx">
+      <DependentUpon>frmaimprimir.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmBuscaSolicitud.resx">
+      <DependentUpon>frmBuscaSolicitud.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmdesglose.resx">
+      <DependentUpon>frmdesglose.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmHistorial.resx">
+      <DependentUpon>frmHistorial.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmListadoRecibos.resx">
+      <DependentUpon>frmListadoRecibos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Facturas\frmvalidafacturapublico.resx">
+      <DependentUpon>frmvalidafacturapublico.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Configuradores\FRmconfigcaja.resx">
+      <DependentUpon>FRmconfigcaja.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmfolio.resx">
+      <DependentUpon>frmfolio.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\fmrBuscaruserxpadron.resx">
+      <DependentUpon>fmrBuscaruserxpadron.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmabono.resx">
+      <DependentUpon>frmabono.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmAcceso.resx">
+      <DependentUpon>frmAcceso.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmCancelarecibo.resx">
+      <DependentUpon>frmCancelarecibo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmRestriccionDesc.resx">
+      <DependentUpon>frmRestriccionDesc.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmBuscaruser.resx">
+      <DependentUpon>frmBuscaruser.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmDescuentos.resx">
+      <DependentUpon>frmDescuentos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmPago.resx">
+      <DependentUpon>frmPago.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\frmPagoefectivo.resx">
+      <DependentUpon>frmPagoefectivo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\pagomixto.resx">
+      <DependentUpon>pagomixto.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Reportes\frmarqueo.resx">
+      <DependentUpon>frmarqueo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Reportes\frmReportexrubros.resx">
+      <DependentUpon>frmReportexrubros.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Facturas\frmvalidafactura.resx">
+      <DependentUpon>frmvalidafactura.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Clases\catcfdi.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Clases\cfdv33.xsd">
+      <SubType>Designer</SubType>
+      <Generator>LxCodeGenerator</Generator>
+      <LastGenOutput>cfdv33.vb</LastGenOutput>
+    </None>
+    <None Include="Clases\Cfdv33Resources\Cfdv33ValidatorSchema1.zxsd" />
+    <None Include="Clases\Cfdv33Resources\Cfdv33ValidatorSchema2.zxsd" />
+    <None Include="Clases\Cfdv33Resources\Cfdv33ValidatorSchema3.zxsd" />
+    <None Include="Clases\tdcfdi.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DatosRecibo.xsc">
+      <DependentUpon>DatosRecibo.xsd</DependentUpon>
+    </None>
+    <None Include="DatosRecibo.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DatosRecibo.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DatosRecibo.xss">
+      <DependentUpon>DatosRecibo.xsd</DependentUpon>
+    </None>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Web References\cancelafactupronto\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\cancelafactupronto\ws_cancel.wsdl" />
+    <None Include="Web References\SoapCancelar\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\SoapCancelar\RespuestaWS.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SoapCancelar\timbrarini.wsdl" />
+    <None Include="Web References\WSCancelarFactura40\index.wsdl" />
+    <None Include="Web References\WSCancelarFactura40\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\WSCancelarFactura40\respuesta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WSCancelarFactura40\respuestaCCancelar.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\login16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\login32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ex.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\salir24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconoAgregar.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IcoAgregar.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IcoCal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IcoReport.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IcoFactElectro2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IcoCortedia.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IcoHistorial.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IcoSalir.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IcoImp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IcoDesc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IcoDesc1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\log.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IcoPagar4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IcoFactElectro3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IcoPagar3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IcoBuscarUsa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IcoPatron.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Buscar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\INI.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Imprimir.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 y x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Login1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\Reportes\" />
+    <Folder Include="Cotizacion\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Contacts Folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Contacts Folder 32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Documents Library.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="1439935169_save_water.ico" />
+    <None Include="Clases\Cfdv33Resources\Cfdv33ValidatorFilenameMap.xml" />
+    <Content Include="Librerias\Catalogo.dll" />
+    <Content Include="Librerias\MultiFacturasSDK.dll" />
+    <Content Include="Resources\Abono.png" />
+    <None Include="Resources\arqueo caja.png" />
+    <None Include="Resources\alt-atlachinoli agua toma 1 60 X 70 PIXELES.png" />
+    <None Include="Resources\alt-atlachinoli fuego toma 2 100 PIXELES.png" />
+    <Content Include="Resources\c.ico.ico" />
+    <None Include="Resources\c.ico1.ico" />
+    <None Include="Resources\c.ico2.ico" />
+    <Content Include="Resources\Condonar.png" />
+    <Content Include="Resources\Desglozar.png" />
+    <None Include="Resources\f.ico" />
+    <Content Include="Resources\fac.ico" />
+    <None Include="Resources\fc.png" />
+    <None Include="Resources\favicon.ico" />
+    <Content Include="Resources\solicitud.png" />
+    <Content Include="Resources\x.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://fprontorojo.n5nitro.com/prometheus/ws_cancel.php%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\cancelafactupronto\</RelPath>
+      <UpdateFromURL>http://fprontorojo.n5nitro.com/prometheus/ws_cancel.php%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>CAJAS_cancelafactupronto_wsCancelacion</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://pac1.multifacturas.com/cancelacion2022/index.php%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\WSCancelarFactura40\</RelPath>
+      <UpdateFromURL>http://pac1.multifacturas.com/cancelacion2022/index.php%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>CAJAs_WSCancelarFactura40_Cancelar_cfdi_4_0_SAT</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://pac1.multifacturas.com/pac/timbrarini.php%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SoapCancelar\</RelPath>
+      <UpdateFromURL>http://pac1.multifacturas.com/pac/timbrarini.php%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>CAJAs_SoapCancelar_Timbrado_Remoto_de_INI</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

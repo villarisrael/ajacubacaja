@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="urn:wservicewsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="urn:wservicewsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="urn:wservicewsdl">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:import namespace="http://schemas.xmlsoap.org/wsdl/" />
+      <xsd:complexType name="RespuestaWS">
+        <xsd:all>
+          <xsd:element name="cfdi" type="xsd:string" />
+          <xsd:element name="png" type="xsd:string" />
+          <xsd:element name="idpac" type="xsd:int" />
+          <xsd:element name="pac" type="xsd:int" />
+          <xsd:element name="produccion" type="xsd:string" />
+          <xsd:element name="codigo_mf_numero" type="xsd:int" />
+          <xsd:element name="codigo_mf_texto" type="xsd:string" />
+          <xsd:element name="mensaje_original_pac_json" type="xsd:string" />
+          <xsd:element name="cancelada" type="xsd:string" />
+          <xsd:element name="saldo" type="xsd:int" />
+          <xsd:element name="uuid" type="xsd:string" />
+          <xsd:element name="servidor" type="xsd:string" />
+          <xsd:element name="representacion_impresa_cadena" type="xsd:string" />
+          <xsd:element name="representacion_impresa_certificado_no" type="xsd:string" />
+          <xsd:element name="representacion_impresa_fecha_timbrado" type="xsd:string" />
+          <xsd:element name="representacion_impresa_sello" type="xsd:string" />
+          <xsd:element name="representacion_impresa_selloSAT" type="xsd:string" />
+          <xsd:element name="representacion_impresa_certificadoSAT" type="xsd:string" />
+          <xsd:element name="debug" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="timbrarini1Request">
+    <wsdl:part name="rfc" type="xsd:string" />
+    <wsdl:part name="inib64" type="xsd:string" />
+    <wsdl:part name="cer" type="xsd:string" />
+    <wsdl:part name="key" type="xsd:string" />
+    <wsdl:part name="pass" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="timbrarini1Response">
+    <wsdl:part name="return" type="tns:RespuestaWS" />
+  </wsdl:message>
+  <wsdl:message name="timbrarini2Request">
+    <wsdl:part name="rfc" type="xsd:string" />
+    <wsdl:part name="inib64" type="xsd:string" />
+    <wsdl:part name="cer" type="xsd:string" />
+    <wsdl:part name="key" type="xsd:string" />
+    <wsdl:part name="pass" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="timbrarini2Response">
+    <wsdl:part name="return" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:portType name="Timbrado Remoto de INIPortType">
+    <wsdl:operation name="timbrarini1">
+      <documentation>Timbra remotamente un ini</documentation>
+      <wsdl:input message="tns:timbrarini1Request" />
+      <wsdl:output message="tns:timbrarini1Response" />
+    </wsdl:operation>
+    <wsdl:operation name="timbrarini2">
+      <documentation>Timbra remotamente un ini</documentation>
+      <wsdl:input message="tns:timbrarini2Request" />
+      <wsdl:output message="tns:timbrarini2Response" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Timbrado Remoto de INIBinding" type="tns:Timbrado Remoto de INIPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="timbrarini1">
+      <soap:operation soapAction="urn:wservicewsdl#timbrarini1" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:wservicewsdl" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:wservicewsdl" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="timbrarini2">
+      <soap:operation soapAction="urn:wservicewsdl#timbrarini2" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:wservicewsdl" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:wservicewsdl" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Timbrado Remoto de INI">
+    <wsdl:port name="Timbrado Remoto de INIPort" binding="tns:Timbrado Remoto de INIBinding">
+      <soap:address location="http://pac1.multifacturas.com/pac/timbrarini.php" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
