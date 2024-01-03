@@ -4,11 +4,11 @@ Imports System.Text
 Imports iTextSharp.text
 Imports iTextSharp.text.pdf
 Imports iTextSharp.text.pdf.qrcode
-Imports ZXing
+
 
 Public Class Ticket
 
-    Public Sub imprime_ticket58mm(Serie As String, folio As Integer, preview As Boolean)
+    Public Sub imprime_ticket58mm(Serie As String, folio As Integer, preview As Boolean, cambio As Decimal, Optional valeanterior As Decimal = 0)
 
         Dim DATOS As IDataReader
         Dim CONTE As IDataReader
@@ -345,6 +345,8 @@ Public Class Ticket
                 colmensaje.Border = 0
                 colmensaje.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
                 TableDatos2.AddCell(colmensaje)
+
+
                 colmensaje = New PdfPCell(New Phrase("IVA", Font6))
                 colmensaje.Border = 0
                 colmensaje.HorizontalAlignment = PdfPCell.ALIGN_LEFT
@@ -354,6 +356,28 @@ Public Class Ticket
                 colmensaje.Border = 0
                 colmensaje.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
                 TableDatos2.AddCell(colmensaje)
+
+
+                Try
+                    Dim vale As Decimal = Decimal.Parse(DATOS("VALE"))
+                    If vale > 0 Then
+                        colmensaje = New PdfPCell(New Phrase("Abono/Vale", Font6))
+                        colmensaje.Border = 0
+                        colmensaje.HorizontalAlignment = PdfPCell.ALIGN_LEFT
+                        TableDatos2.AddCell(colmensaje)
+
+                        colmensaje = New PdfPCell(New Phrase(vale.ToString("C"), Font6))
+                        colmensaje.Border = 0
+                        colmensaje.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+                        TableDatos2.AddCell(colmensaje)
+
+                    End If
+                Catch ex As Exception
+
+                End Try
+
+
+
                 colmensaje = New PdfPCell(New Phrase("TOTAL", Font6))
                 colmensaje.Border = 0
                 colmensaje.HorizontalAlignment = PdfPCell.ALIGN_LEFT
@@ -365,6 +389,39 @@ Public Class Ticket
                 colmensaje.Border = 0
                 colmensaje.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
                 TableDatos2.AddCell(colmensaje)
+
+
+                Try
+
+                    If valeanterior > 0 Then
+                        colmensaje = New PdfPCell(New Phrase("Tu Abono Aplicado", Font6))
+                        colmensaje.Border = 0
+                        colmensaje.HorizontalAlignment = PdfPCell.ALIGN_LEFT
+                        TableDatos2.AddCell(colmensaje)
+
+                        colmensaje = New PdfPCell(New Phrase(valeanterior.ToString("C"), Font6))
+                        colmensaje.Border = 0
+                        colmensaje.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+                        TableDatos2.AddCell(colmensaje)
+
+                        colmensaje = New PdfPCell(New Phrase("Neto A pagar", Font6))
+                        colmensaje.Border = 0
+                        colmensaje.HorizontalAlignment = PdfPCell.ALIGN_LEFT
+                        TableDatos2.AddCell(colmensaje)
+
+                        Dim neto As Decimal = TOTAL - valeanterior
+
+                        colmensaje = New PdfPCell(New Phrase(neto.ToString("C"), Font6))
+                        colmensaje.Border = 0
+                        colmensaje.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+                        TableDatos2.AddCell(colmensaje)
+
+                    End If
+                Catch ex As Exception
+
+                End Try
+
+
 
                 pdfDoc.Add(TableDatos2)
 

@@ -872,7 +872,7 @@ Public Class Frmvalidafactura
             ' imprime = New clsimprimeformato()
             ' imprimerecibo(My.Settings.folio + 1, My.Settings.serie)
             Dim tic As Ticket = New Ticket
-            tic.imprime_ticket58mm(My.Settings.serie, My.Settings.folio + 1, False)
+            tic.imprime_ticket58mm(My.Settings.serie, My.Settings.folio + 1, False, 0, 0)
 
         Catch ex As Exception
             MessageBox.Show("Fallas en la impresion")

@@ -17,6 +17,9 @@
         End If
         Dim nuevoimporte As Double = 0
         Dim iva As Double = 0
+        If concepto.Concepto.Contains("RECARGO") Then
+            concepto.llevaiva = 0
+        End If
         If concepto.llevaiva Then
             nuevoimporte = Math.Round(diAbono.Value / (1 + (variable_iva / 100)), 2)
             iva = Math.Round(nuevoimporte * (variable_iva / 100), 2)

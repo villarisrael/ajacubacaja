@@ -78,7 +78,16 @@
             End If
 
 
-            If contadorperiodos = Year(Now) And contadormeses >= Now.Month - 1 Then
+            If contadorperiodos = Year(Now) - 1 And contadormeses = 12 And Now.Month = 1 Then
+                Dim noseporquelorepito As IDataReader = ConsultaSql("select * from usuario inner join descuentos on usuario.cuenta=" & cuenta & " and usuario.iddescuento=descuentos. iddescuento ").ExecuteReader()
+                If (noseporquelorepito.Read()) Then
+                    If (noseporquelorepito("npctdsct") > 0) Then
+                        objeto.descuento = objeto.total * (noseporquelorepito("npctdsct") / 100)
+                        objeto.total = objeto.total - (objeto.total * (noseporquelorepito("npctdsct") / 100))
+                        objeto.totalcondescuento = objeto.total
+                    End If
+                End If
+            ElseIf contadorperiodos = Year(Now) And contadormeses >= Now.Month - 1 Then
                 Dim noseporquelorepito As IDataReader = ConsultaSql("select * from usuario inner join descuentos on usuario.cuenta=" & cuenta & " and usuario.iddescuento=descuentos. iddescuento ").ExecuteReader()
                 If (noseporquelorepito.Read()) Then
                     If (noseporquelorepito("npctdsct") > 0) Then

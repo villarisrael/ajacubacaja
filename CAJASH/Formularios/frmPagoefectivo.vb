@@ -356,7 +356,7 @@ Public Class frmPagoefectivo
 
 
             Ejecucion(cadenainanti.ToString())
-            Ejecucion("UPDATE usuario SET credito=Credito + " & totalAnticipo & "  WHERE CUENTA='" & control.cuenta & "'")
+            '   Ejecucion("UPDATE usuario SET credito=Credito + " & totalAnticipo & "  WHERE CUENTA='" & control.cuenta & "'")
 
 
         Catch ex As Exception
@@ -1116,7 +1116,7 @@ Public Class frmPagoefectivo
                     '  imprime = New clsimprimeformato()
                     '  imprimerecibo(My.Settings.folio + 1, My.Settings.serie)
                     Dim TIC As New Ticket
-                    TIC.imprime_ticket58mm(My.Settings.serie, My.Settings.folio + 1, False) 'false directo a la impresora o true a la ventana
+                    TIC.imprime_ticket58mm(My.Settings.serie, My.Settings.folio + 1, False, cambio, vale) 'false directo a la impresora o true a la ventana
                 End If
             Catch ex As Exception
                 MessageBox.Show("Fallas en la impresion")

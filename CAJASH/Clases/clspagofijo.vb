@@ -169,7 +169,34 @@ Public Class clspagofijo
             '// si queieres que el conusmo sea solo el año actuak es  If contadorperiodos = Year(Now) Then
             ' siquieres que sea rezago lo de meses atras del actual  contadorperiodos = Year(Now) And contadormeses >= Now.Month - 1
 
-            If contadorperiodos = Year(Now) And contadormeses >= DateAdd(DateInterval.Month, -1, Now).Month Then
+            If contadorperiodos = Year(Now) And contadormeses >= 1 And Now.Month = 1 Then
+                objeto.totalcondescuento = objeto.total
+
+
+                objeto.tipo = "CONSUMO"
+                acumulador = acumulador + objeto.total
+
+
+                Dim noseporquelorepito As IDataReader = ConsultaSql("select * from usuario inner join descuentos on usuario.cuenta=" & cuenta & " and usuario.iddescuento=descuentos. iddescuento ").ExecuteReader()
+                If (noseporquelorepito.Read()) Then
+                    If (noseporquelorepito("npctdsct") > 0) Then
+                        objeto.descuento = objeto.total * (noseporquelorepito("npctdsct") / 100)
+                        objeto.totalcondescuento = objeto.total - objeto.descuento
+                    End If
+
+                End If
+
+
+
+
+                acumuladorcondescuento = acumuladorcondescuento + objeto.totalcondescuento
+                If llevaconsumo = False Then
+                    posicioninicialconsumo = i
+                End If
+                llevaconsumo = True
+                Periodoconsumo = "-" & objeto.mes & " " & contadorperiodos
+                collectionconsumo.Add(objeto)
+            ElseIf contadorperiodos = Year(Now) And contadormeses >= DateAdd(DateInterval.Month, -1, Now).Month Then
 
 
 
@@ -202,6 +229,9 @@ Public Class clspagofijo
                 collectionconsumo.Add(objeto)
             End If
 
+
+
+
             If contadorperiodos = Year(Now) And contadormeses < Now.Month - 1 Then
 
                 llevarezago = True
@@ -228,6 +258,63 @@ Public Class clspagofijo
                 PeriodoRezago = cadenacomodin & "-" & objeto.mes & " " & contadorperiodos
                 collectionrezago.Add(objeto)
             End If
+
+            If contadorperiodos = Year(Now) - 1 And contadormeses = 12 And Now.Month = 1 Then
+
+                objeto.totalcondescuento = objeto.total
+
+
+                objeto.tipo = "CONSUMO"
+                acumulador = acumulador + objeto.total
+
+
+                Dim noseporquelorepito As IDataReader = ConsultaSql("select * from usuario inner join descuentos on usuario.cuenta=" & cuenta & " and usuario.iddescuento=descuentos. iddescuento ").ExecuteReader()
+                If (noseporquelorepito.Read()) Then
+                    If (noseporquelorepito("npctdsct") > 0) Then
+                        objeto.descuento = objeto.total * (noseporquelorepito("npctdsct") / 100)
+                        objeto.totalcondescuento = objeto.total - objeto.descuento
+                    End If
+
+                End If
+
+
+
+
+                acumuladorcondescuento = acumuladorcondescuento + objeto.totalcondescuento
+                If llevaconsumo = False Then
+                    posicioninicialconsumo = i
+                End If
+                llevaconsumo = True
+                Periodoconsumo = "-" & objeto.mes & " " & contadorperiodos
+                collectionconsumo.Add(objeto)
+
+            ElseIf contadorperiodos < Year(Now) Then
+
+                llevarezago = True
+
+                objeto.tipo = "REZAGO"
+                acumuladorrezago += objeto.total
+                objeto.descuento = 0
+                objeto.totalcondescuento = objeto.total
+
+                If descontartodoslosperiodos Then
+                    objeto.descuento = objeto.total * (pordescuento / 100)
+                    objeto.totalcondescuento = objeto.total - objeto.descuento
+                Else
+                    If periodoscondescuento >= i And periodoscondescuento > 0 Then
+                        objeto.descuento = objeto.total * (pordescuento / 100)
+                        objeto.totalcondescuento = objeto.total - objeto.descuento
+                    End If
+                End If
+
+
+
+
+                acumuladorcondescuentorezago += objeto.totalcondescuento
+                PeriodoRezago = cadenacomodin & "-" & objeto.mes & " " & contadorperiodos
+                collectionrezago.Add(objeto)
+            End If
+
 
             collection.Add(objeto, i)
             contadormeses = contadormeses + 1

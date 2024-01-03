@@ -157,11 +157,13 @@
         sumar()
     End Sub
 
-    Private Sub iitarjetadecredito_TextAlignChanged(sender As Object, e As EventArgs) Handles iitarjetadecredito.TextAlignChanged
+
+
+    Private Sub iitarjetadedebito_TextChanged(sender As Object, e As EventArgs) Handles iitarjetadedebito.TextChanged, IIcheque.TabIndexChanged
         sumar()
     End Sub
 
-    Private Sub iitarjetadedebito_TextChanged(sender As Object, e As EventArgs) Handles iitarjetadedebito.TextChanged, IIcheque.TabIndexChanged
+    Private Sub iitarjetadecredito_TextChanged(sender As Object, e As EventArgs) Handles iitarjetadecredito.TextChanged
         sumar()
     End Sub
 End Class

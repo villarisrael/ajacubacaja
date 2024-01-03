@@ -70,7 +70,7 @@ Public Class Frmaimprimir
         If ask = MsgBoxResult.Ok Then
 
             Dim tic As New Ticket
-            tic.imprime_ticket58mm(txtserie.Text, txtrecibo.Text, True)
+            tic.imprime_ticket58mm(txtserie.Text, txtrecibo.Text, True, 0, 0)
 
 
 
