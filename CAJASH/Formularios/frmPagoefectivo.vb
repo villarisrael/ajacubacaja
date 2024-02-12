@@ -146,7 +146,7 @@ Public Class frmPagoefectivo
 
     Private Sub btncobrar_imprimir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btncobrar_imprimir.Click
         btncobrar_imprimir.Enabled = False
-        Dim DES As New FrmDescuentos
+        '  Dim DES As New FrmDescuentos
 
         If control.EsMEdido And control.desgloselecturas.Count > 0 Then
             GuardarLecturasAD()
@@ -456,6 +456,11 @@ Public Class frmPagoefectivo
                             End If
                 recibo.ccodpago = lblFormadepago.Text
 
+
+                If Not control.Listadeconceptos.Contains("Consumo") Then ' SI NO ELGIERON EL CONSUMO NO TIENE CASO GRABAR EL DESCUETO EN PESOS DEL CONSUMO
+                    recibo.Totaldescuentoenpesos = 0
+
+                End If
 
 
                 Ejecucion("INSERT INTO pagos (FECHA_ACT,

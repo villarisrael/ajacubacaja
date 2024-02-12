@@ -68,7 +68,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>1439935169_save_water.ico</ApplicationIcon>
+    <ApplicationIcon>CAJA.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -785,8 +785,8 @@
     <None Include="Resources\Documents Library.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="1439935169_save_water.ico" />
     <None Include="Clases\Cfdv33Resources\Cfdv33ValidatorFilenameMap.xml" />
+    <Content Include="CAJA.ico" />
     <Content Include="Librerias\Catalogo.dll" />
     <Content Include="Librerias\MultiFacturasSDK.dll" />
     <Content Include="Resources\Abono.png" />
@@ -802,6 +802,7 @@
     <Content Include="Resources\fac.ico" />
     <None Include="Resources\fc.png" />
     <None Include="Resources\favicon.ico" />
+    <None Include="Resources\Image1.bmp" />
     <Content Include="Resources\solicitud.png" />
     <Content Include="Resources\x.ico" />
   </ItemGroup>

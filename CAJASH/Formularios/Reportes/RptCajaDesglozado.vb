@@ -797,19 +797,22 @@ Imports iTextSharp.text
 
 
 
-            executeSQL = ConsultaSql(sqlformapago).ExecuteReader
-
             Dim Tableformapago As PdfPTable = New PdfPTable(4)
             Tableformapago.DefaultCell.Border = BorderStyle.None
             Tableformapago.WidthPercentage = 100
             Dim widthsfp As Single() = New Single() {250.0F, 250.0F, 250.0F, 250.0F}
             Tableformapago.SetWidths(widthsDesc)
 
-            Do While executeSQL.Read
 
-                Dim cuantos As Decimal = Decimal.Parse(executeSQL("cuantos"))
-                Dim ccodpago As String = executeSQL("ccodpago")
-                Dim descu As Decimal = executeSQL("Total").ToString()
+            Dim tabla As DataTable = agrupa(sqlformapago, sqlmixto)
+
+            For Each filaMixto As DataRow In tabla.Rows
+
+
+                Dim cuantos As Integer = filaMixto.Field(Of Integer)("Conteo")
+                Dim ccodpago As String = filaMixto.Field(Of String)("Descripcion")
+                Dim descu As Decimal = filaMixto.Field(Of Decimal)("Monto")
+
 
 
 
@@ -823,7 +826,7 @@ Imports iTextSharp.text
 
                 TotaCDesc = SumaTotal + SumaDescuento
 
-                ColDesc = New PdfPCell(New Phrase(descu, Font8))
+                ColDesc = New PdfPCell(New Phrase("", Font8))
                 ColDesc.Border = 0
                 ColDesc.HorizontalAlignment = PdfPCell.ALIGN_LEFT
                 'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
@@ -845,7 +848,9 @@ Imports iTextSharp.text
 
 
 
-            Loop
+            Next
+
+
 
 
 
@@ -900,6 +905,97 @@ Imports iTextSharp.text
 
     End Sub
 
+
+    Public Function agrupa(sqlformapago As String, sqlmixto As String) As DataTable
+        Dim miDataTable As New DataTable("Tablepagos")
+
+        ' Definir las columnas de la DataTable
+        miDataTable.Columns.Add("Conteo", GetType(Integer))
+        miDataTable.Columns.Add("Descripcion", GetType(String))
+        miDataTable.Columns.Add("Monto", GetType(Decimal))
+
+
+
+        executeSQL = ConsultaSql(sqlformapago).ExecuteReader
+
+        Do While executeSQL.Read
+            Dim cuantos As Integer = Integer.Parse(executeSQL("cuantos"))
+            Dim ccodpago As String = executeSQL("ccodpago")
+            Dim descu As Decimal = Decimal.Parse(executeSQL("Total").ToString())
+
+            miDataTable.Rows.Add(cuantos, ccodpago, descu)
+        Loop
+
+        Dim executeSQLmixto As IDataReader = ConsultaSql(sqlmixto).ExecuteReader
+
+        Dim miDataTablemixto As New DataTable("Mixto")
+
+        ' Definir las columnas de la DataTable
+        miDataTablemixto.Columns.Add("FormaOri", GetType(String))
+        miDataTablemixto.Columns.Add("Formareal", GetType(String))
+        miDataTablemixto.Columns.Add("Monto", GetType(Decimal))
+
+        Do While executeSQLmixto.Read
+            Dim formaori As String = executeSQLmixto("formaori").ToString()
+            Dim formareal As String = executeSQLmixto("formareal").ToString()
+            Dim Monto As Decimal = Decimal.Parse(executeSQLmixto("Monto").ToString())
+
+            miDataTablemixto.Rows.Add(formaori, formareal, Monto)
+        Loop
+
+        ' Restamos todo lo que tenga formaori=Descripcion
+
+        For Each filaTablaPagos As DataRow In miDataTable.Rows
+            Dim descripcion As String = filaTablaPagos.Field(Of String)("Descripcion")
+
+            Dim filasFiltradas = From row In miDataTablemixto.AsEnumerable()
+                                 Where row.Field(Of String)("FormaOri") = descripcion
+                                 Select row
+
+            Dim montoAcumuladoResta As Decimal = filasFiltradas.Sum(Function(row) row.Field(Of Decimal)("Monto"))
+            Dim montoOriginal As Decimal = filaTablaPagos.Field(Of Decimal)("Monto")
+            Dim nuevoMontoResta As Decimal = montoOriginal - montoAcumuladoResta
+
+            ' Mostrar y actualizar el resultado de la resta
+            Console.WriteLine($"Monto original: {montoOriginal}, Monto acumulado resta: {montoAcumuladoResta}, Nuevo monto: {nuevoMontoResta}")
+            filaTablaPagos.SetField("Monto", nuevoMontoResta)
+
+            ' Sumamos todo lo que tenga formaReal=Descripcion
+            Dim filasFiltradas2 = From row In miDataTablemixto.AsEnumerable()
+                                  Where row.Field(Of String)("Formareal") = descripcion
+                                  Select row
+
+            Dim montoAcumuladoSuma As Decimal = filasFiltradas2.Sum(Function(row) row.Field(Of Decimal)("Monto"))
+            Dim nuevoMontoSuma As Decimal = nuevoMontoResta + montoAcumuladoSuma
+
+            ' Mostrar y actualizar el resultado de la suma
+            Console.WriteLine($"Monto acumulado suma: {montoAcumuladoSuma}, Nuevo monto suma: {nuevoMontoSuma}")
+            filaTablaPagos.SetField("Monto", nuevoMontoSuma)
+
+        Next
+
+        ' Agregar las filas de miDataTablemixto que no coinciden con ninguna descripción en miDataTable
+        For Each filaMixto As DataRow In miDataTablemixto.Rows
+            Dim formaReal As String = filaMixto.Field(Of String)("Formareal")
+
+            ' Verificar si la formaReal no coincide con ninguna Descripcion en miDataTable
+            If Not miDataTable.AsEnumerable().Any(Function(row) row.Field(Of String)("Descripcion") = formaReal) Then
+                ' Calcular el monto acumulado de las filas que tienen formaReal igual a la formaReal actual
+                Dim filasFiltradas3 = From row In miDataTablemixto.AsEnumerable()
+                                      Where row.Field(Of String)("Formareal") = formaReal
+                                      Select row
+
+                Dim montoAcumulado3 As Decimal = filasFiltradas3.Sum(Function(row) row.Field(Of Decimal)("Monto"))
+
+                ' Agregar una nueva fila a miDataTablefinal
+                miDataTable.Rows.Add(filasFiltradas3.Count, formaReal, montoAcumulado3)
+            End If
+        Next
+
+        Return miDataTable
+
+
+    End Function
 
 End Class
 

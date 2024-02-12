@@ -181,7 +181,7 @@ Public Class ClsPagoMedido
                     objeto.Totalcondescuento = objeto.Total - objeto.Descuento
 
                 End If
-                Else
+            Else
                 objeto.Descuento = 0
                 objeto.Totalcondescuento = objeto.Total
 
@@ -608,6 +608,7 @@ Public Class ClsPagoMedido
 
         bas.conexion.Dispose()
         pagocondescuento = Math.Round(acumuladorcondescuento, 2)
+        totaldescuentopesos = Math.Round(acumuladorcondescuento, 2)
         montopago = Math.Round(acumulador, 2)
         '  pagocondescuentorezago = Math.Round(acumuladorcondescuentorezago, 2)
         ' montopagorezago = Math.Round(acumuladorrezago, 2)
