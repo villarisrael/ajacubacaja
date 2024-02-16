@@ -1151,6 +1151,7 @@ Line1:      Dim datosdescuento As IDataReader = ConsultaSql("select * from  desc
         If usuario = 1 Then
             Dim h As New FrmHistorial
             h.cuenta = Val(txtCuentaCliente.Text)
+            h.tipoUsuario = usuario
             h.Text = "Historial del usuario " & txtCuentaCliente.Text & " " & txtnombre.Text
             h.ShowDialog()
         Else
