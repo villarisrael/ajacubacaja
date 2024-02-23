@@ -356,7 +356,7 @@ Public Class frmPagoefectivo
 
 
             Ejecucion(cadenainanti.ToString())
-            '   Ejecucion("UPDATE usuario SET credito=Credito + " & totalAnticipo & "  WHERE CUENTA='" & control.cuenta & "'")
+            'Ejecucion("UPDATE usuario SET credito=Credito + " & totalAnticipo & "  WHERE CUENTA='" & control.cuenta & "'")
 
 
         Catch ex As Exception
@@ -706,7 +706,7 @@ Public Class frmPagoefectivo
                             End If
                         End If
 
-                        Ejecucion("UPDATE usuario SET deudafec='" & fechafinalmedido & "' WHERE CUENTA=" & recibo.cuenta)
+                        Ejecucion("UPDATE usuario SET deudafec='" & fechafinalmedido & "',credito=" & nuevovale & " WHERE CUENTA=" & recibo.cuenta)
 
                     End If
                 End If

@@ -414,7 +414,7 @@ Public Class ClsPagoMedido
                         registro.Montocobrado = registro.Montocobrado
 
                         acumulador = acumulador + registro.Total
-                        acumuladorcondescuento = acumuladorcondescuento + registro.Totalcondescuento
+                        acumuladorcondescuento = acumuladorcondescuento + registro.Descuento
                         lecturasgeneradas.Add(registro, registro.Periodo & CadenaNumeroMes(registro.Mes))
 
                         ''' aqui vamos a calcular la llave anterir

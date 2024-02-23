@@ -42,9 +42,7 @@ Public Class Caja
         bu.ShowDialog()
     End Sub
     Private Sub txtCuenta_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtCuentaCliente.KeyDown
-        Dim c As New base
-        ' c.MATACONExIONES()
-        c.conexion.Dispose()
+
         If e.KeyCode = 13 Then
             If txtCuentaCliente.Text = "" Then
                 MessageBox.Show("Debes ingresar el número de cuenta", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -2108,9 +2106,7 @@ Line1:      Dim datosdescuento As IDataReader = ConsultaSql("select * from  desc
 
     End Sub
 
-    Private Sub txtCuentaCliente_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtCuentaCliente.TextChanged
 
-    End Sub
 
     Private Sub ToolStripSplitButton1_ButtonClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripSplitButton1.ButtonClick
 
