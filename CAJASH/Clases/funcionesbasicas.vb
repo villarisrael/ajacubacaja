@@ -844,4 +844,19 @@ Module funcionesbasicas
         Dim nics() As NetworkInterface = NetworkInterface.GetAllNetworkInterfaces()
         Return nics(1).GetPhysicalAddress.ToString
     End Function
+
+    Public Sub RestaurarCreditosUsuario(ByVal cuentaP As Integer, ByVal serieP As String, ByVal reciboP As Integer)
+
+        Dim creditoActualizado As Decimal = 0.0
+
+        Dim creditoUsuario As Decimal = obtenerCampo($"select credito from usuario where cuenta = {cuentaP}", "credito")
+
+        Dim valePago As Decimal = obtenerCampo($"select vale from pagos where serie = '{serieP}' and recibo = {reciboP}", "vale")
+
+        creditoActualizado = creditoUsuario - valePago
+
+        Ejecucion($"UPDATE USUARIO SET CREDITO = {creditoActualizado} WHERE CUENTA = {cuentaP}")
+
+    End Sub
+
 End Module

@@ -294,59 +294,90 @@ Public Class Frmlistadofacturas
 
                             serie = dataGridView1.Item("serierecibo", dataGridView1.CurrentRow.Index).Value.ToString()
                             cuenta = obtenerCampo("select cuenta from pagos where recibo=" & recibo & " and serie='" & serie & "'", "cuenta")
-                            Try
-                                If dataGridView1.Item("es", dataGridView1.CurrentRow.Index).Value.ToString() = "usuario" Then
-                                    Dim per As String = ""
-                                    per = dataGridView1.Item("Fecha_Deuda", dataGridView1.CurrentRow.Index).Value.ToString()
-                                    fechaoriginal = Date.Parse(per)
-                                    Ejecucion("update usuario set deudafec = '" & fechaoriginal.ToString("yyyy-MM-dd") & "' where cuenta='" & cuenta & "' ")
-                                End If
-                            Catch ex As Exception
 
-                            End Try
-                            Ejecucion("update pagos set Cancelado='C' where recibo=" & recibo & " and serie='" & serie & "'")
-                            Ejecucion("update pagotros set Cancelado='C' where recibo=" & recibo & " and serie='" & serie & "'")
-                            Ejecucion("update otrosconceptos, pagotros set pagado=0,estado='Pendiente', otrosconceptos.Resta=otrosconceptos.Resta + (pagotros.monto+ (pagotros.monto*pagotros.iva*" & variable_iva / 100 & ")), otrosconceptos.subtotresta=otrosconceptos.subtotresta + pagotros.monto where otrosconceptos.clave=pagotros.clavemov and pagotros.recibo=" & recibo & " and pagotros.serie='" & serie & "'")
+                            Dim estatusRecibo = obtenerCampo($"select cancelado from pagos where serie = {serie} and recibo = {recibo}", "cancelado")
+
+                            If estatusRecibo = "A" Then
 
 
-                            Try
+                                Try
+                                    If dataGridView1.Item("es", dataGridView1.CurrentRow.Index).Value.ToString() = "usuario" Then
+                                        Dim per As String = ""
+                                        per = dataGridView1.Item("Fecha_Deuda", dataGridView1.CurrentRow.Index).Value.ToString()
+                                        fechaoriginal = Date.Parse(per)
+                                        Ejecucion("update usuario set deudafec = '" & fechaoriginal.ToString("yyyy-MM-dd") & "' where cuenta='" & cuenta & "' ")
+                                    End If
+                                Catch ex As Exception
 
-                                Dim dato As New base
-                                Dim consulta As OdbcDataReader
-                                consulta = dato.consultasql("SELECT * FROM pago_mes WHERE RECIBO = " & recibo & " AND SERIE='" & serie & "' and CONCEPTO='CONSUMO'")
-                                While consulta.Read
-                                    Dim mesquecancelo As String
-                                    Dim periodo As String
-                                    'mesquecancelo = consulta!periodo
-                                    mesquecancelo = consulta("mes")
-                                    periodo = consulta("ano")
+                                End Try
+                                Ejecucion("update pagos set Cancelado='C' where recibo=" & recibo & " and serie='" & serie & "'")
+                                Ejecucion("update pagotros set Cancelado='C' where recibo=" & recibo & " and serie='" & serie & "'")
+                                Ejecucion("update otrosconceptos, pagotros set pagado=0,estado='Pendiente', otrosconceptos.Resta=otrosconceptos.Resta + (pagotros.monto+ (pagotros.monto*pagotros.iva*" & variable_iva / 100 & ")), otrosconceptos.subtotresta=otrosconceptos.subtotresta + pagotros.monto where otrosconceptos.clave=pagotros.clavemov and pagotros.recibo=" & recibo & " and pagotros.serie='" & serie & "'")
 
-                                    Dim dato2 As New base
-                                    Dim consulta2 As OdbcDataReader
 
-                                    consulta2 = dato2.consultasql("SELECT * FROM lecturas  WHERE CUENTA=" & cuenta & " AND MES='" & mesquecancelo & "' AND AN_PER='" & periodo & "'")
-                                    Try
-                                        consulta2.Read()
-                                        If consulta2("ADELANT") = 1 Then
-                                            Ejecucion("DELETE FROM lecturas WHERE CUENTA=" & cuenta & " AND MES='" & mesquecancelo & "' AND AN_PER='" & periodo & "'")
-                                        End If
-                                        dato2.conexion.Dispose()
-                                    Catch ex As Exception
+                                Try
 
-                                    End Try
-                                    '  Dim cuenta_ As String = consulta!cuenta
-                                    Try
-                                        Ejecucion("UPDATE lecturas SET PAGADO=0 WHERE CUENTA=" & cuenta & " AND MES='" & mesquecancelo & "' AND AN_PER='" & periodo & "'")
-                                    Catch ex As Exception
-                                        guardatxt("c:\errorpagos", "errorpagos.txt", ex.Message)
-                                    End Try
+                                    Dim dato As New base
+                                    Dim consulta As OdbcDataReader
+                                    consulta = dato.consultasql("SELECT * FROM pago_mes WHERE RECIBO = " & recibo & " AND SERIE='" & serie & "' and CONCEPTO='CONSUMO'")
+                                    While consulta.Read
+                                        Dim mesquecancelo As String
+                                        Dim periodo As String
+                                        'mesquecancelo = consulta!periodo
+                                        mesquecancelo = consulta("mes")
+                                        periodo = consulta("ano")
 
-                                End While
-                                dato.conexion.Dispose()
-                            Catch ex As Exception
-                                MessageBox.Show(ex.Message)
-                            End Try
+                                        Dim dato2 As New base
+                                        Dim consulta2 As OdbcDataReader
 
+                                        consulta2 = dato2.consultasql("SELECT * FROM lecturas  WHERE CUENTA=" & cuenta & " AND MES='" & mesquecancelo & "' AND AN_PER='" & periodo & "'")
+                                        Try
+                                            consulta2.Read()
+                                            If consulta2("ADELANT") = 1 Then
+                                                Ejecucion("DELETE FROM lecturas WHERE CUENTA=" & cuenta & " AND MES='" & mesquecancelo & "' AND AN_PER='" & periodo & "'")
+                                            End If
+                                            dato2.conexion.Dispose()
+                                        Catch ex As Exception
+
+                                        End Try
+                                        '  Dim cuenta_ As String = consulta!cuenta
+                                        Try
+                                            Ejecucion("UPDATE lecturas SET PAGADO=0 WHERE CUENTA=" & cuenta & " AND MES='" & mesquecancelo & "' AND AN_PER='" & periodo & "'")
+                                        Catch ex As Exception
+                                            guardatxt("c:\errorpagos", "errorpagos.txt", ex.Message)
+                                        End Try
+
+
+                                        Try
+
+
+                                            Dim creditoUsuario = obtenerCampo($"select credito from usuario where cuenta = {cuenta}", "credito")
+
+                                            If creditoUsuario > 0 Then
+
+                                                RestaurarCreditosUsuario(cuenta, serie, recibo)
+
+                                            End If
+
+
+                                        Catch ex As Exception
+
+                                            MessageBox.Show($"Ocurrio un error al actualizar el crédito del usuario: {ex.ToString()}")
+
+                                        End Try
+
+
+                                    End While
+                                    dato.conexion.Dispose()
+                                Catch ex As Exception
+                                    MessageBox.Show(ex.Message)
+                                End Try
+
+                            Else
+
+                                MessageBox.Show("Este recibo ya ha sido cancelado anteriormente")
+
+                            End If
 
                             x.conexion.Dispose()
                         Catch ex As Exception
@@ -355,7 +386,10 @@ Public Class Frmlistadofacturas
 
                         MessageBox.Show("¡¡¡LOS SALDOS SE HAN RESTAURADO EXITOSAMENTE!!!", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
+
+
                     End If
+
 
 
 
