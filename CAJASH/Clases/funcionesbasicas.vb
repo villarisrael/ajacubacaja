@@ -853,9 +853,16 @@ Module funcionesbasicas
 
         Dim valePago As Decimal = obtenerCampo($"select vale from pagos where serie = '{serieP}' and recibo = {reciboP}", "vale")
 
-        creditoActualizado = creditoUsuario - valePago
+        creditoActualizado = creditoUsuario + (valePago * -1)
 
         Ejecucion($"UPDATE USUARIO SET CREDITO = {creditoActualizado} WHERE CUENTA = {cuentaP}")
+
+        Try
+            Dim unsed6 = EjecutarConsultaRemotaAsync($"UPDATE USUARIO SET CREDITO = {creditoActualizado} WHERE CUENTA = {cuentaP}")
+        Catch ex As Exception
+
+        End Try
+
 
     End Sub
 

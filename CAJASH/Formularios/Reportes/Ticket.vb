@@ -358,10 +358,19 @@ Public Class Ticket
                 TableDatos2.AddCell(colmensaje)
 
 
+                Dim TOTAL As Decimal = Decimal.Parse(DATOS("TOTAL").ToString())
+                Dim vale As Decimal = Decimal.Parse(DATOS("VALE"))
+                vale = vale + valeanterior
+
+
+                Dim subtotalmasvale As Decimal = subtotal + ivaA + vale
+
                 Try
-                    Dim vale As Decimal = Decimal.Parse(DATOS("VALE"))
+
+
+
                     If vale > 0 Then
-                        colmensaje = New PdfPCell(New Phrase("Abono/Vale", Font6))
+                        colmensaje = New PdfPCell(New Phrase("Nuevo Vale", Font6))
                         colmensaje.Border = 0
                         colmensaje.HorizontalAlignment = PdfPCell.ALIGN_LEFT
                         TableDatos2.AddCell(colmensaje)
@@ -383,9 +392,9 @@ Public Class Ticket
                 colmensaje.HorizontalAlignment = PdfPCell.ALIGN_LEFT
                 TableDatos2.AddCell(colmensaje)
 
-                Dim TOTAL As Decimal = Decimal.Parse(DATOS("TOTAL").ToString())
 
-                colmensaje = New PdfPCell(New Phrase(TOTAL.ToString("C"), Font6))
+
+                colmensaje = New PdfPCell(New Phrase(subtotalmasvale.ToString("C"), Font6))
                 colmensaje.Border = 0
                 colmensaje.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
                 TableDatos2.AddCell(colmensaje)
@@ -399,6 +408,8 @@ Public Class Ticket
                         colmensaje.HorizontalAlignment = PdfPCell.ALIGN_LEFT
                         TableDatos2.AddCell(colmensaje)
 
+
+
                         colmensaje = New PdfPCell(New Phrase(valeanterior.ToString("C"), Font6))
                         colmensaje.Border = 0
                         colmensaje.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
@@ -409,7 +420,7 @@ Public Class Ticket
                         colmensaje.HorizontalAlignment = PdfPCell.ALIGN_LEFT
                         TableDatos2.AddCell(colmensaje)
 
-                        Dim neto As Decimal = TOTAL - valeanterior
+                        Dim neto As Decimal = TOTAL
 
                         colmensaje = New PdfPCell(New Phrase(neto.ToString("C"), Font6))
                         colmensaje.Border = 0

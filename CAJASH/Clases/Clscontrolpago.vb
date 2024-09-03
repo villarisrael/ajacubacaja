@@ -182,6 +182,16 @@ Public Class Clscontrolpago
             periodo = Mid(periodorezago, 1, 9) & Mid(periodoconsumo, 10, 10)
         End If
 
+        If desgloseconsumo.Count = 0 Then
+            descuentoaconsumo = 0
+            totaldescuentopesos = 0
+        Else
+            totaldescuentopesos = 0
+            For Each objeto As Object In desgloseconsumo
+                totaldescuentopesos = totaldescuentopesos + objeto.totalcondescuento
+            Next
+        End If
+
 
 
         'If My.Settings.cobrarvalvulista = "SI" Then

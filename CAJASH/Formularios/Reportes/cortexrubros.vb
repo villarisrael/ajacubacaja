@@ -33,7 +33,7 @@ Public Class cortexrubros
 
     Dim TotaCDesc As Decimal
 
-    Public Sub CorteDiario(ByVal sql As String, ByVal filtro As String, ByVal Caja As String, sqldescuento As String, sqlDescuentosRecargosP As String, sqlformapago As String, sqlmixto As String)
+    Public Sub CorteDiario(ByVal sql As String, ByVal filtro As String, ByVal Caja As String, sqldescuento As String, sqlDescuentosRecargosP As String, sqlformapago As String, sqlmixto As String, sqlabono As String)
 
         fechaActual = DateTime.Now.ToString("dd-MMM-yyyy").ToUpper()
 
@@ -259,7 +259,7 @@ Public Class cortexrubros
                 '    ColRecibo.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
                 TableRecibos.AddCell(ColRecibo)
 
-                ColRecibo = New PdfPCell(New Phrase(total, Font7Black))
+                ColRecibo = New PdfPCell(New Phrase(subtotal, Font7Black))
                 ColRecibo.Border = 0
                 ColRecibo.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
                 '   ColRecibo.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
@@ -281,6 +281,102 @@ Public Class cortexrubros
                 acuiva = acuiva + Montoiva
 
             End While
+
+            Dim b As Odbc.OdbcDataReader = ConsultaSql(sqlabono).ExecuteReader
+            b.Read()
+            Dim cantidadm As Decimal = 0
+            Dim cantidadn As Decimal = 0
+            Try
+                cantidadm = b("Abono")
+            Catch ex As Exception
+
+            End Try
+            Try
+                cantidadn = b("abonoaplicado")
+            Catch ex As Exception
+
+            End Try
+
+
+            ColRecibo = New PdfPCell(New Phrase("", Font7Black))
+            ColRecibo.Border = 0
+            ColRecibo.HorizontalAlignment = PdfPCell.ALIGN_LEFT
+            '  ColRecibo.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
+            TableRecibos.AddCell(ColRecibo)
+
+            ColRecibo = New PdfPCell(New Phrase("Abono", Font7Black))
+            ColRecibo.Border = 0
+            ColRecibo.HorizontalAlignment = PdfPCell.ALIGN_LEFT
+            '    ColRecibo.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
+            TableRecibos.AddCell(ColRecibo)
+
+
+            ColRecibo = New PdfPCell(New Phrase(cantidadm.ToString("C"), Font7Black))
+            ColRecibo.Border = 0
+            ColRecibo.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+            '   ColRecibo.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
+            TableRecibos.AddCell(ColRecibo)
+
+            ColRecibo = New PdfPCell(New Phrase("", Font7Black))
+            ColRecibo.Border = 0
+            ColRecibo.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+            '  ColRecibo.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
+            TableRecibos.AddCell(ColRecibo)
+
+            ColRecibo = New PdfPCell(New Phrase(cantidadm.ToString("C"), Font7Black))
+            ColRecibo.Border = 0
+            ColRecibo.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+            '  ColRecibo.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
+            TableRecibos.AddCell(ColRecibo)
+
+
+
+
+            acusubtotal += cantidadm
+            acutotal += cantidadm
+
+
+
+
+            ColRecibo = New PdfPCell(New Phrase("", Font7Black))
+            ColRecibo.Border = 0
+            ColRecibo.HorizontalAlignment = PdfPCell.ALIGN_LEFT
+            '  ColRecibo.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
+            TableRecibos.AddCell(ColRecibo)
+
+            ColRecibo = New PdfPCell(New Phrase("Abono Aplicado", Font7Black))
+            ColRecibo.Border = 0
+            ColRecibo.HorizontalAlignment = PdfPCell.ALIGN_LEFT
+            '    ColRecibo.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
+            TableRecibos.AddCell(ColRecibo)
+
+            ColRecibo = New PdfPCell(New Phrase(cantidadn.ToString("C"), Font7Black))
+            ColRecibo.Border = 0
+            ColRecibo.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+            '   ColRecibo.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
+            TableRecibos.AddCell(ColRecibo)
+
+            ColRecibo = New PdfPCell(New Phrase("", Font7Black))
+            ColRecibo.Border = 0
+            ColRecibo.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+            '  ColRecibo.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
+            TableRecibos.AddCell(ColRecibo)
+
+            ColRecibo = New PdfPCell(New Phrase(cantidadn.ToString("C"), Font7Black))
+            ColRecibo.Border = 0
+            ColRecibo.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+            '  ColRecibo.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
+            TableRecibos.AddCell(ColRecibo)
+
+
+
+
+
+            acusubtotal += cantidadn
+            acutotal += cantidadn
+
+
+
 
 
 

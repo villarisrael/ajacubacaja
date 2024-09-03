@@ -170,12 +170,12 @@ Public Class Caja
             'CAMBIO DE DATOS Y MODIFICACIÓN
             'SERVICO admnistrativo
 
-            If taritem = "4" Then
-                Ejecucion("Update lecturas Set  monto = consumomedidos(consumo,'1', AN_PER )  where cuenta=" & txtCuentaCliente.Text & " and pagado=0 and valornummes(mes,an_per) < valornummes('" & NOMBREDEMES3CAR(MESANTERIOR) & "'," & ANANTERIOR & ") ")
-                Ejecucion("Update lecturas Set  monto = consumomedidos(consumo,'4', AN_PER)  where cuenta=" & txtCuentaCliente.Text & " and pagado=0 and mes ='" & NOMBREDEMES3CAR(MESANTERIOR) & "' and  an_per=" & ANANTERIOR & "")
+            '        If taritem = "4" Then
+            '       Ejecucion("Update lecturas Set  monto = consumomedidos(consumo,'1', AN_PER )  where cuenta=" & txtCuentaCliente.Text & " and pagado=0 and valornummes(mes,an_per) < valornummes('" & NOMBREDEMES3CAR(MESANTERIOR) & "'," & ANANTERIOR & ") ")
+            '      Ejecucion("Update lecturas Set  monto = consumomedidos(consumo,'4', AN_PER)  where cuenta=" & txtCuentaCliente.Text & " and pagado=0 and mes ='" & NOMBREDEMES3CAR(MESANTERIOR) & "' and  an_per=" & ANANTERIOR & "")
 
 
-            End If
+            '      End If
 
         Catch ex As Exception
             MessageBox.Show(ex.Message())
@@ -779,7 +779,7 @@ Line1:      Dim datosdescuento As IDataReader = ConsultaSql("select * from  desc
                 Case "SANEAMI"
                     control.Listadeconceptos.Remove("Saneamiento")
                 Case "RECARGO"
-                  '  control.Listadeconceptos.Remove("Recargo")
+                    control.Listadeconceptos.Remove("Recargo")
                 Case "PAGO VA"
                     control.Listadeconceptos.Remove("PAGO VALVULISTA")
                 Case Else
@@ -2192,7 +2192,13 @@ Line1:      Dim datosdescuento As IDataReader = ConsultaSql("select * from  desc
 
     Public Sub llenabitacora()
         If txtCuentaCliente.Text = "" Then Exit Sub
-        Dim cons2 As IDataReader = ConsultaSql("Select * from Bitacora where cuenta = " & txtCuentaCliente.Text & " order by fecha desc").ExecuteReader
+        Dim cons2 As IDataReader
+        Try
+            cons2 = ConsultaSql("Select * from Bitacora where cuenta = " & txtCuentaCliente.Text & " order by fecha desc").ExecuteReader
+        Catch ex As Exception
+            Exit Sub
+        End Try
+
         AdvBitacora.Nodes.Clear()
 
         While cons2.Read

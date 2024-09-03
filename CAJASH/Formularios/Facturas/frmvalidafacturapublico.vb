@@ -389,6 +389,9 @@ Public Class Frmvalidafacturapublico
     Private Sub btncargar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btncargar.Click
         Try
             control = New Clscontrolpago
+
+            Dim Sqlabonos As String = String.Empty
+
             basemy.conectar()
             fechaincial = DTPincio.Value.Year & "/" & DTPincio.Value.Month & "/" & DTPincio.Value.Day
             fechafinal = DtPfin.Value.Year & "/" & DtPfin.Value.Month & "/" & DtPfin.Value.Day
@@ -400,6 +403,7 @@ Public Class Frmvalidafacturapublico
             If txtcaja.Text <> "" Then
                 Try
                     basemy.ejecutarSIMPLE("INSERT INTO temfacpub (CONCEPTO,CANTIDAD,PRECIOUNI,IMPORTE, IVA,MONTO,CONCEPTOSAT,UNIDADSAT) SELECT if (pagotros.IVA=0,conceptoscxc.descripcion, CONCAT(conceptoscxc.descripcion,' GRABADO'))  as concepto, 1 , sum(PAGOTROS.IMPORTE) AS IMPORTE ,round( sum(PAGOTROS.IMPORTE),2) , PAGOTROS.IVA, round( sum(PAGOTROS.IMPORTE),2),conceptoscxc.clavesat , conceptoscxc.unidadsat  FROM PAGOS,PAGOTROS,conceptoscxc WHERE PAGOS.SERIE=PAGOTROS.SERIE AND PAGOS.RECIBO=PAGOTROS.RECIBO AND PAGOS.CAJA = " & txtcaja.Text & " AND FECHA_ACT>='" & fechaincial & "' and fecha_act<='" & fechafinal & "' and facturado=0 and Pagos.Cancelado='A' and PAGOTROS.NUMCONCEPTO=conceptoscxc.id_concepto GROUP BY CONCEPTO,IVA")
+                    Sqlabonos = "select sum(vale) as Abono from pagos  where FECHA_ACT>='" & fechaincial & "' and fecha_act<='" & fechafinal & "'  and cancelado='A' and caja=" & txtcaja.Text & " and facturado=0"
                 Catch ex As Exception
 
                 End Try
@@ -408,11 +412,23 @@ Public Class Frmvalidafacturapublico
             Else
                 Try
                     basemy.ejecutarSIMPLE("INSERT INTO temfacpub (CONCEPTO,CANTIDAD,PRECIOUNI,IMPORTE, IVA,MONTO,CONCEPTOSAT,UNIDADSAT) SELECT if (pagotros.IVA=0,conceptoscxc.descripcion, CONCAT(conceptoscxc.descripcion,' GRABADO'))  as concepto, 1 , sum(PAGOTROS.IMPORTE) AS IMPORTE ,round( sum(PAGOTROS.IMPORTE),2) , PAGOTROS.IVA, round( sum(PAGOTROS.IMPORTE),2),conceptoscxc.clavesat , conceptoscxc.unidadsat  FROM PAGOS,PAGOTROS,conceptoscxc WHERE PAGOS.SERIE=PAGOTROS.SERIE AND PAGOS.RECIBO=PAGOTROS.RECIBO AND FECHA_ACT>='" & fechaincial & "' and fecha_act<='" & fechafinal & "' and facturado=0 and Pagos.Cancelado='A' and PAGOTROS.NUMCONCEPTO=conceptoscxc.id_concepto GROUP BY CONCEPTO,IVA")
-
+                    Sqlabonos = "select sum(vale) as Abono from pagos  where FECHA_ACT>='" & fechaincial & "' and fecha_act<='" & fechafinal & "'  and cancelado='A'  and facturado=0"
                 Catch ex As Exception
 
                 End Try
             End If
+
+            Dim dato As Odbc.OdbcDataReader = ConsultaSql(Sqlabonos).ExecuteReader
+            Dim abono As Decimal = 0
+            Try
+                dato.Read()
+                abono = dato("abono")
+            Catch ex As Exception
+
+            End Try
+
+
+            basemy.ejecutar("update TEMFACPUB set monto= monto +" & abono & ",PRECIOUNI=preciouni+" & abono & ",importe=importe+" & abono & " where concepto='SERVICIOS DE AGUA' AND IVA=0")
 
 
             basemy.llenaGrid(DtgConceptos, "SELECT id, CONCEPTO, CANTIDAD, PRECIOUNI, IMPORTE,  IVA,CONCEPTOSAT,unidadsat FROM TEMFACPUB")

@@ -52,17 +52,18 @@ Imports iTextSharp.text
             Dim pdfDoc As New Document(iTextSharp.text.PageSize.LETTER, 15.0F, 15.0F, 5.0F, 3.0F)
 
             'Obtener la ruta donde se va a crear el pdf
-            Dim pdfWrite As PdfWriter = PdfWriter.GetInstance(pdfDoc, New System.IO.FileStream(cadenafolder & "\CorteCaja_" & filtro & ".pdf", FileMode.Create))
+            Dim pdfWrite As PdfWriter = PdfWriter.GetInstance(pdfDoc, New System.IO.FileStream(cadenafolder & "\CorteCajadesglosado_" & filtro & ".pdf", FileMode.Create))
 
             'Formato de letras
             Dim Font8 As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 8, iTextSharp.text.Font.NORMAL))
             Dim Font5 As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 5, iTextSharp.text.Font.NORMAL))
+            Dim Font7A As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 7, iTextSharp.text.Font.NORMAL, BaseColor.BLUE))
             Dim Font7 As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 7, iTextSharp.text.Font.NORMAL))
             Dim Font4 As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 4, iTextSharp.text.Font.NORMAL))
             Dim Font8N As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 8, iTextSharp.text.Font.BOLD))
             Dim Font13N As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 13, iTextSharp.text.Font.BOLD))
             Dim Font10N As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 10, iTextSharp.text.Font.BOLD))
-            Dim Font12N As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 10, iTextSharp.text.Font.BOLD))
+            Dim Font12N As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 12, iTextSharp.text.Font.BOLD))
             Dim Font9 As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 9, iTextSharp.text.Font.NORMAL))
             Dim Font7White As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 7, iTextSharp.text.Font.BOLD, BaseColor.WHITE))
             Dim Font8White As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 8, iTextSharp.text.Font.BOLD, BaseColor.WHITE))
@@ -81,7 +82,7 @@ Imports iTextSharp.text
 
             imagenBMP.Border = 0
 
-            Dim widthsRec As Single() = New Single() {50.0F, 50.0, 55.0F, 110.0F, 70.0F, 70.0F, 50.0F, 80.0F, 40.0F, 70.0F}
+            Dim widthsRec As Single() = New Single() {50.0F, 50.0, 55.0F, 110.0F, 70.0F, 70.0F, 40.0F, 40.0F, 70.0F, 40.0F, 60.0F}
             Dim ColRecibo = New PdfPCell(New Phrase("", Font7White))
 
 
@@ -182,7 +183,7 @@ Imports iTextSharp.text
 #Region "Tabla Recibos"
 
 
-                Dim TableRecibosencabezado As PdfPTable = New PdfPTable(10)
+                Dim TableRecibosencabezado As PdfPTable = New PdfPTable(11)
                 TableRecibosencabezado.DefaultCell.Border = BorderStyle.None
 
                 TableRecibosencabezado.WidthPercentage = 100
@@ -230,6 +231,13 @@ Imports iTextSharp.text
                 ColRecibo.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
                 TableRecibosencabezado.AddCell(ColRecibo)
 
+                ColRecibo = New PdfPCell(New Phrase("ABONO APLICADO", Font5White))
+                ColRecibo.Border = 0
+                ColRecibo.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+                ColRecibo.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
+                TableRecibosencabezado.AddCell(ColRecibo)
+
+
                 ColRecibo = New PdfPCell(New Phrase("TOTAL", Font7White))
                 ColRecibo.Border = 0
                 ColRecibo.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
@@ -268,12 +276,15 @@ Imports iTextSharp.text
 
 
 
+            Dim sumavaleentregado As Decimal = 0
+
+            Dim sumavaleaplicado As Decimal = 0
 
 
 
             While executeSQL.Read()
 
-                Dim TableRecibos As PdfPTable = New PdfPTable(10)
+                Dim TableRecibos As PdfPTable = New PdfPTable(11)
                 TableRecibos.DefaultCell.Border = BorderStyle.None
                 TableRecibos.WidthPercentage = 100
 
@@ -333,11 +344,51 @@ Imports iTextSharp.text
                 'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
                 TableRecibos.AddCell(ColRecibo)
 
-                ColRecibo = New PdfPCell(New Phrase(Abono.ToString("C"), Font7))
-                ColRecibo.Border = 1
-                ColRecibo.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
-                'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
-                TableRecibos.AddCell(ColRecibo)
+                If Abono > 0 Then
+                    ColRecibo = New PdfPCell(New Phrase(Abono.ToString("C"), Font7))
+                    ColRecibo.Border = 1
+                    ColRecibo.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+                    'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
+                    TableRecibos.AddCell(ColRecibo)
+                    If Status = "A" Then
+                        sumavaleentregado += Abono
+                    End If
+                    ColRecibo = New PdfPCell(New Phrase(0.ToString("C"), Font7))
+                    ColRecibo.Border = 1
+                    ColRecibo.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+                    'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
+                    TableRecibos.AddCell(ColRecibo)
+
+                End If
+
+                If Abono < 0 Then
+                    ColRecibo = New PdfPCell(New Phrase(0.ToString("C"), Font7))
+                    ColRecibo.Border = 1
+                    ColRecibo.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+                    'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
+                    TableRecibos.AddCell(ColRecibo)
+
+                    ColRecibo = New PdfPCell(New Phrase(Abono.ToString("C"), Font7))
+                    ColRecibo.Border = 1
+                    ColRecibo.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+                    'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
+                    TableRecibos.AddCell(ColRecibo)
+                    If Status = "A" Then
+                        sumavaleaplicado += Abono
+                    End If
+
+                End If
+
+                If Abono = 0 Then
+                    ColRecibo = New PdfPCell(New Phrase(0.ToString("C"), Font7))
+                    ColRecibo.Border = 1
+                    ColRecibo.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+                    'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
+                    TableRecibos.AddCell(ColRecibo)
+                    TableRecibos.AddCell(ColRecibo)
+
+                End If
+
 
 
                 ColRecibo = New PdfPCell(New Phrase(Total.ToString("C"), Font7))
@@ -410,31 +461,31 @@ Imports iTextSharp.text
                     Dim datosrecibo = ConsultaSql("select * from pagotros where serie='" & executeSQL("serie") & "' and recibo=" & Recibo).ExecuteReader
 
 
-                    Dim colcantidad = New PdfPCell(New Phrase("CANT,", Font7))
+                    Dim colcantidad = New PdfPCell(New Phrase("CANT,", Font7A))
                     colcantidad.Border = 0
                     colcantidad.HorizontalAlignment = PdfPCell.ALIGN_CENTER
                     'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
                     Tabledesgloze.AddCell(colcantidad)
 
-                    Dim colconcepto = New PdfPCell(New Phrase("CONCEPTO", Font7))
+                    Dim colconcepto = New PdfPCell(New Phrase("CONCEPTO", Font7A))
                     colconcepto.Border = 0
                     colconcepto.HorizontalAlignment = PdfPCell.ALIGN_LEFT
                     'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
                     Tabledesgloze.AddCell(colconcepto)
 
-                    Dim colpc = New PdfPCell(New Phrase("P.U.", Font7))
+                    Dim colpc = New PdfPCell(New Phrase("P.U.", Font7A))
                     colpc.Border = 0
                     colpc.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
                     'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
                     Tabledesgloze.AddCell(colpc)
 
-                    Dim colimporte = New PdfPCell(New Phrase("IMPORTE", Font7))
+                    Dim colimporte = New PdfPCell(New Phrase("IMPORTE", Font7A))
                     colimporte.Border = 0
                     colimporte.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
                     'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
                     Tabledesgloze.AddCell(colimporte)
 
-                    Dim coliva = New PdfPCell(New Phrase("IVA", Font7))
+                    Dim coliva = New PdfPCell(New Phrase("IVA", Font7A))
                     coliva.Border = 0
                     coliva.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
                     'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
@@ -442,31 +493,31 @@ Imports iTextSharp.text
 
 
                     While datosrecibo.Read
-                        colcantidad = New PdfPCell(New Phrase(datosrecibo("cantidad"), Font7))
+                        colcantidad = New PdfPCell(New Phrase(datosrecibo("cantidad"), Font7A))
                         colcantidad.Border = 0
                         colcantidad.HorizontalAlignment = PdfPCell.ALIGN_CENTER
                         'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
                         Tabledesgloze.AddCell(colcantidad)
 
-                        colconcepto = New PdfPCell(New Phrase(datosrecibo("concepto"), Font7))
+                        colconcepto = New PdfPCell(New Phrase(datosrecibo("concepto"), Font7A))
                         colconcepto.Border = 0
                         colconcepto.HorizontalAlignment = PdfPCell.ALIGN_LEFT
                         'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
                         Tabledesgloze.AddCell(colconcepto)
 
-                        colpc = New PdfPCell(New Phrase(datosrecibo("Monto"), Font7))
+                        colpc = New PdfPCell(New Phrase(datosrecibo("Monto"), Font7A))
                         colpc.Border = 0
                         colpc.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
                         'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
                         Tabledesgloze.AddCell(colpc)
 
-                        colimporte = New PdfPCell(New Phrase(datosrecibo("Importe"), Font7))
+                        colimporte = New PdfPCell(New Phrase(datosrecibo("Importe"), Font7A))
                         colimporte.Border = 0
                         colimporte.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
                         'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
                         Tabledesgloze.AddCell(colimporte)
 
-                        coliva = New PdfPCell(New Phrase(datosrecibo("MontoIVa"), Font7))
+                        coliva = New PdfPCell(New Phrase(datosrecibo("MontoIVa"), Font7A))
                         coliva.Border = 0
                         coliva.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
                         'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
@@ -487,11 +538,11 @@ Imports iTextSharp.text
 
 
 
-            Dim TableTotales As PdfPTable = New PdfPTable(10)
+            Dim TableTotales As PdfPTable = New PdfPTable(11)
             TableTotales.DefaultCell.Border = BorderStyle.None
             TableTotales.WidthPercentage = 100
-            Dim widthsRecs As Single() = New Single() {70.0F, 65.0, 55.0F, 110.0F, 70.0F, 70.0F, 50.0F, 80.0F, 40.0F, 70.0F}
-            TableTotales.SetWidths(widthsRecs)
+            Dim widthsRecs2 As Single() = New Single() {70.0F, 65.0, 55.0F, 100.0F, 70.0F, 50.0F, 50.0F, 50.0F, 80.0F, 30.0F, 70.0F}
+            TableTotales.SetWidths(widthsRecs2)
 
             Dim ColTotal = New PdfPCell(New Phrase("", Font12N))
             ColTotal.Border = 1
@@ -511,32 +562,38 @@ Imports iTextSharp.text
             'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
             TableTotales.AddCell(ColTotal)
 
-            ColTotal = New PdfPCell(New Phrase("TOTAL GENERAL ", Font12N))
+            ColTotal = New PdfPCell(New Phrase("TOTAL GENERAL ", Font10N))
             ColTotal.Border = 1
             ColTotal.HorizontalAlignment = PdfPCell.ALIGN_LEFT
             'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
             TableTotales.AddCell(ColTotal)
 
-            ColTotal = New PdfPCell(New Phrase(SumaSubTotal.ToString("C"), Font12N))
+            ColTotal = New PdfPCell(New Phrase(SumaSubTotal.ToString("C"), Font10N))
             ColTotal.Border = 1
             ColTotal.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
             'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
             TableTotales.AddCell(ColTotal)
 
-            ColTotal = New PdfPCell(New Phrase(SumaIVA.ToString("C"), Font12N))
+            ColTotal = New PdfPCell(New Phrase(SumaIVA.ToString("C"), Font10N))
             ColTotal.Border = 1
             ColTotal.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
             'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
             TableTotales.AddCell(ColTotal)
 
-            ColTotal = New PdfPCell(New Phrase(SumaVale.ToString("C"), Font12N))
+            ColTotal = New PdfPCell(New Phrase(sumavaleentregado.ToString("C"), Font8N))
+            ColTotal.Border = 1
+            ColTotal.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+            'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
+            TableTotales.AddCell(ColTotal)
+
+            ColTotal = New PdfPCell(New Phrase(sumavaleaplicado.ToString("C"), Font8N))
             ColTotal.Border = 1
             ColTotal.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
             'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
             TableTotales.AddCell(ColTotal)
 
 
-            ColTotal = New PdfPCell(New Phrase(SumaTotal.ToString("C"), Font12N))
+            ColTotal = New PdfPCell(New Phrase(SumaTotal.ToString("C"), Font10N))
             ColTotal.Border = 1
             ColTotal.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
             'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
@@ -548,7 +605,7 @@ Imports iTextSharp.text
             'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
             TableTotales.AddCell(ColTotal)
 
-            ColTotal = New PdfPCell(New Phrase(SumaDescuento.ToString("C"), Font12N))
+            ColTotal = New PdfPCell(New Phrase(SumaDescuento.ToString("C"), Font10N))
             ColTotal.Border = 1
             ColTotal.HorizontalAlignment = PdfPCell.ALIGN_CENTER
             'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
@@ -558,7 +615,7 @@ Imports iTextSharp.text
             totalGeneral = SumaTotal - SumaDescuento
 
 
-            Dim TableRecibos2 As PdfPTable = New PdfPTable(10)
+            Dim TableRecibos2 As PdfPTable = New PdfPTable(11)
             TableRecibos2.DefaultCell.Border = BorderStyle.None
             TableRecibos2.WidthPercentage = 100
 
@@ -890,7 +947,7 @@ Imports iTextSharp.text
             'Ejecucion("update empresa set foliofactura = " & foliofactura & "")
 
             Try
-                Dim psi As New ProcessStartInfo(cadenafolder & "\CorteCaja_" & filtro & ".pdf")
+                Dim psi As New ProcessStartInfo(cadenafolder & "\CorteCajadesglosado_" & filtro & ".pdf")
                 'psi.WorkingDirectory = cadenafolder & "\factura\" + nombresespacios
 
                 psi.WindowStyle = ProcessWindowStyle.Hidden

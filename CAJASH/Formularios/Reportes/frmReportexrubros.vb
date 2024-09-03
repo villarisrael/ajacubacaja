@@ -160,6 +160,7 @@ Public Class FrmReportexrubros
                 filtro = "{encfac1.fecha}>=DateTime(" & dtpfechainicio.SelectionRange.Start.Year & "," & dtpfechainicio.SelectionRange.Start.Month & "," & dtpfechainicio.SelectionRange.Start.Day & ",00,01,00) And {encfac1.fecha}<=DateTime(" & dtpfechafinal.SelectionRange.Start.Year & "," & dtpfechafinal.SelectionRange.Start.Month & "," & dtpfechafinal.SelectionRange.Start.Day & ",23,59,00) "
             Case "CONCEPTOS"
 
+                Dim Sqlabonos As String = "select sum(if(vale>0,vale,0)) as Abono, sum(if(vale<0,vale,0)) as abonoaplicado from pagos  where fecha_Act between '" & dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & "' and '" & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd") & "'  and cancelado='A'"
 
                 SqlITSharp = "select numconcepto, concepto, sum(cantidad*monto) as total,iva,sum(montoiva) as Montoiva from pagotros where fecha between '" & dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & "' and '" & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd") & "' and cancelado='A' group by numconcepto,iva"
 
@@ -172,6 +173,9 @@ Public Class FrmReportexrubros
                 Dim sqlmixto = "select pagos.ccodpago as formaori,pagomixto.id_forma as formareal, pagomixto.monto as monto from pagos inner join pagomixto on pagos.serie=pagomixto.serie and pagos.recibo= pagomixto.folio where fecha_Act between '" & dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & "' and '" & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd") & " 23:59'  and cancelado='A' "
 
                 If txtcaja.Text <> "" And IIfolioinicial.Value = 0 And IIfoliofinal.Value = 0 Then
+
+                    Sqlabonos = "select sum(if(vale>0,vale,0)) as Abono, sum(if(vale<0,vale,0)) as abonoaplicado from pagos  where fecha_Act between '" & dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & "' and '" & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd") & "'  and cancelado='A' and caja=" & txtcaja.Text
+
 
                     sqlmixto = "select pagos.ccodpago as formaori,pagomixto.id_forma as formareal, pagomixto.monto as monto from pagos inner join pagomixto on pagos.serie=pagomixto.serie and pagos.recibo= pagomixto.folio where fecha_Act between '" & dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & "' and '" & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd") & " 23:59'  and cancelado='A' and caja=" & txtcaja.Text
 
@@ -188,6 +192,9 @@ Public Class FrmReportexrubros
 
                 If txtcaja.Text <> "" And IIfolioinicial.Value > 0 And IIfoliofinal.Value > 0 Then
 
+
+                    Sqlabonos = "select sum(if(vale>0,vale,0)) as Abono, sum(if(vale<0,vale,0)) as abonoaplicado from pagos  where fecha_Act between '" & dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & "' and '" & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd") & "'  and cancelado='A' and caja=" & txtcaja.Text & " and recibo>=" & IIfolioinicial.Value & " and recibo<=" & IIfoliofinal.Value
+
                     sqlmixto = "select pagos.ccodpago as formaori,pagomixto.id_forma as formareal, pagomixto.monto as monto from pagos inner join pagomixto on pagos.serie=pagomixto.serie and pagos.recibo= pagomixto.folio where fecha_Act between '" & dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & "' and '" & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd") & " 23:59'  and cancelado='A' and caja='" & txtcaja.Text & "'  and recibo>=" & IIfolioinicial.Value & " and recibo<=" & IIfoliofinal.Value
 
                     SqlITSharp = "select numconcepto,concepto, sum(cantidad*Monto) as total,iva,sum(montoiva) as Montoiva from pagotros where fecha between '" & dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & "' and '" & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd") & "'  and Caja = '" & txtcaja.Text & "'" & " and recibo>=" & IIfolioinicial.Value & " and recibo<=" & IIfoliofinal.Value & " and cancelado='A' group by numconcepto,iva"
@@ -202,7 +209,7 @@ Public Class FrmReportexrubros
                 End If
 
                 Dim ObjCorteCaja As New cortexrubros
-                ObjCorteCaja.CorteDiario(SqlITSharp, dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & " AL " & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd"), txtcaja.Text, SqlITSharpVIRTUALES, sqlDescuentosRecargos, sqlformasdepago, sqlmixto)
+                ObjCorteCaja.CorteDiario(SqlITSharp, dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & " AL " & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd"), txtcaja.Text, SqlITSharpVIRTUALES, sqlDescuentosRecargos, sqlformasdepago, sqlmixto, Sqlabonos)
                 Exit Sub
             Case "RESUMEN"
 
