@@ -1923,7 +1923,7 @@ Public Class Frmvalidafactura
                 Col1d.Border = 0
                 Col1d.HorizontalAlignment = PdfPCell.ALIGN_CENTER
 
-                RFCORGANISMO = "CAA930101000"
+                RFCORGANISMO = "CAS141230736"
 
                 Dim Col1rfe = New PdfPCell(New Phrase(VARRFCEMISOR, Font9))
                 Col1rfe.Border = 0

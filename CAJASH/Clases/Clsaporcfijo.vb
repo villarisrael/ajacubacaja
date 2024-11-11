@@ -65,7 +65,7 @@
 
 
             objeto.total = cuo.cuotas(contadorperiodos)
-
+            objeto.totalcondescuento = objeto.total
             If contadorperiodos > Year(Now) Then
                 Dim noseporquelorepito As IDataReader = ConsultaSql("select * from usuario inner join descuentos on usuario.cuenta=" & cuenta & " and usuario.iddescuento=descuentos. iddescuento ").ExecuteReader()
                 If (noseporquelorepito.Read()) Then
@@ -98,9 +98,9 @@
                 End If
             End If
             'If cobroaporcentaje Then
-            objeto.total = objeto.total * 0.25 'objeto.recargo
+            '  objeto.total = objeto.total * 0.25 'objeto.recargo
             'Else
-            'objeto.total = cuo.cuotas(contadorperiodos)
+            objeto.total = cuo.cuotas(contadorperiodos)
             'End If
 
             acumulador = acumulador + objeto.total

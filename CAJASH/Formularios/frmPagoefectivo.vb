@@ -1204,8 +1204,12 @@ Public Class frmPagoefectivo
                 If FACTURADO = 0 Then
                     '  imprime = New clsimprimeformato()
                     '  imprimerecibo(My.Settings.folio + 1, My.Settings.serie)
-                    Dim TIC As New Ticket
-                    TIC.imprime_ticket58mm(My.Settings.serie, My.Settings.folio + 1, False, cambio, vale) 'false directo a la impresora o true a la ventana
+                    '' Dim TIC As New Ticket
+                    ''TIC.imprime_ticket58mm(My.Settings.serie, My.Settings.folio + 1, False, cambio, vale) 'false directo a la impresora o true a la ventana
+
+                    Dim recizurich As New reciboaimprimir
+                    recizurich.imprime(My.Settings.serie, My.Settings.folio + 1, False, cambio, vale)
+                    ''TIC.imprime_ticket58mm(My.Settings.serie, My.Settings.folio + 1, False, cambio, vale) 'false directo a la impresora o true a la ventana
                 End If
             Catch ex As Exception
                 MessageBox.Show("Fallas en la impresion")

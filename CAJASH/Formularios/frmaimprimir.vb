@@ -69,9 +69,10 @@ Public Class Frmaimprimir
         ask = MsgBox("Realmente desea realizar la acción?", MsgBoxStyle.OkCancel, "Advertencia...!")
         If ask = MsgBoxResult.Ok Then
 
-            Dim tic As New Ticket
-            tic.imprime_ticket58mm(txtserie.Text, txtrecibo.Text, True, 0, 0)
-
+            'Dim tic As New Ticket
+            'tic.imprime_ticket58mm(txtserie.Text, txtrecibo.Text, True, 0, 0)
+            Dim RECVANE As New reciboaimprimir
+            RECVANE.imprime(txtserie.Text, txtrecibo.Text, True, 0, 0)
 
 
         Else

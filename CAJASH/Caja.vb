@@ -597,7 +597,7 @@ Line1:      Dim datosdescuento As IDataReader = ConsultaSql("select * from  desc
         End If
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         '''
-        If usuario = 1 Or usuario = 2 Then
+        If usuario = 1 Then
 
 
             Dim cadena As String
@@ -1138,7 +1138,7 @@ Line1:      Dim datosdescuento As IDataReader = ConsultaSql("select * from  desc
     End Sub
 
     Private Sub bynbuscaruserpadron_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles bynbuscaruserpadron.Click
-        usuario = 1
+        usuario = 2
         Dim x As New fmrBuscaruserxpadron
         x.ShowDialog()
     End Sub

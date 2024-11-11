@@ -60,7 +60,7 @@
             objeto1 = consumo.Item(i)
             mesperiodo = objeto1.Mes
             anoperiodo = CStr(objeto1.Periodo)
-            montomes = objeto1.Totalcondescuento + montoalcan
+            montomes = objeto1.Totalcondescuento '+ montoalcan
             'End If
             Dim trabajo As New clsfechas
             '       Dim cadenafecha As String = "01/" & trabajo.valornummes(mesperiodo) & "/" & anoperiodo
