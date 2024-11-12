@@ -430,6 +430,7 @@ Public Class frmPagoefectivo
         Dim consumoLectura As Integer
         Dim tipoServicio As String
         Dim tipoUso As String
+        Dim formaPago As String = ""
 
         REC = obtenerCampo("select RECIBO FROM pagos WHERE serie='" & My.Settings.serie & " and  RECIBO='" & My.Settings.folio + 1 & "'", "RECIBO").ToString()
 
@@ -437,6 +438,8 @@ Public Class frmPagoefectivo
             MessageBox.Show("EL FOLIO YA EXISTE, CAMBIARLO POR UNO NUEVO", "INFORMACION")
             Close()
         Else
+
+
             Try
 
                 If recibo.ccodpago = "" Then
@@ -451,15 +454,17 @@ Public Class frmPagoefectivo
                     tipotarifa = "MEDIDO"
                 End If
 
-                
-                            tipoUso = obtenerCampo($"select * from usuario where cuenta = {recibo.cuenta}", "ID_TIPO_USUARIO")
 
-                            If tipoUso = "1" Then
-                                tipoUso = "DOMESTICO"
-                            Else
-                                tipoUso = "NO DOMESTICO"
-                            End If
+                tipoUso = obtenerCampo($"select * from usuario where cuenta = {recibo.cuenta}", "ID_TIPO_USUARIO")
+
+                If tipoUso = "1" Then
+                    tipoUso = "DOMESTICO"
+                Else
+                    tipoUso = "NO DOMESTICO"
+                End If
                 recibo.ccodpago = lblFormadepago.Text
+
+                formaPago = recibo.ccodpago
 
 
                 If Not control.Listadeconceptos.Contains("Consumo") Then ' SI NO ELGIERON EL CONSUMO NO TIENE CASO GRABAR EL DESCUETO EN PESOS DEL CONSUMO
@@ -1003,7 +1008,7 @@ Public Class frmPagoefectivo
                         Dim usued8 = EjecutarConsultaRemotaAsync(cadenapagomes)
 
 
-                        
+
                     Else
                         Dim objeto As ClsRegistrolectura
                         objeto = control.desglosesaneamiento.Item(i)
@@ -1033,7 +1038,7 @@ Public Class frmPagoefectivo
 
 
 
-                        
+
                     End If
                 Next
                 For i = 1 To control.desgloserecargo.Count
@@ -1207,8 +1212,9 @@ Public Class frmPagoefectivo
                     '' Dim TIC As New Ticket
                     ''TIC.imprime_ticket58mm(My.Settings.serie, My.Settings.folio + 1, False, cambio, vale) 'false directo a la impresora o true a la ventana
 
-                    Dim recizurich As New reciboaimprimir
-                    recizurich.imprime(My.Settings.serie, My.Settings.folio + 1, False, cambio, vale)
+                    Dim recibo As New reciboaimprimir
+                    recibo.ReciboHojaCarta(My.Settings.serie, My.Settings.folio + 1, False, cambio, formaPago, vale)
+                    'recizurich.imprime(My.Settings.serie, My.Settings.folio + 1, False, cambio, vale)
                     ''TIC.imprime_ticket58mm(My.Settings.serie, My.Settings.folio + 1, False, cambio, vale) 'false directo a la impresora o true a la ventana
                 End If
             Catch ex As Exception

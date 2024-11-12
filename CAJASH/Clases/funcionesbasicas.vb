@@ -482,6 +482,7 @@ Module funcionesbasicas
             paisEMPRESA = emp("pais")
             coloniaEMPRESA = emp("ccolonia")
             LOGOBYTE = emp("LOGO")
+            RFCORGANISMO = emp("CNIF")
 
             'Cargar a LMedNuevo el valor de la situacion de nuevo en la bd
         Catch ex As Odbc.OdbcException

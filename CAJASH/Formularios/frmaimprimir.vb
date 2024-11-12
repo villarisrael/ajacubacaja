@@ -72,7 +72,8 @@ Public Class Frmaimprimir
             'Dim tic As New Ticket
             'tic.imprime_ticket58mm(txtserie.Text, txtrecibo.Text, True, 0, 0)
             Dim RECVANE As New reciboaimprimir
-            RECVANE.imprime(txtserie.Text, txtrecibo.Text, True, 0, 0)
+            'RECVANE.imprime(txtserie.Text, txtrecibo.Text, True, 0, 0)
+            RECVANE.ReciboHojaCarta(txtserie.Text, txtrecibo.Text, True, 0, "01", 0)
 
 
         Else
