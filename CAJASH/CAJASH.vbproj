@@ -145,6 +145,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Administrativo\Administrativo\Nuevo\bin\Debug\DevComponents.TreeGX.dll</HintPath>
     </Reference>
+    <Reference Include="EPPlus, Version=7.4.2.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.7.4.2\lib\net35\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.Interfaces, Version=6.1.1.0, Culture=neutral, PublicKeyToken=a694d7f3b0907a61, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.Interfaces.6.1.1\lib\net35\EPPlus.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.System.Drawing, Version=6.1.1.0, Culture=neutral, PublicKeyToken=2308d35469c9bac0, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.System.Drawing.6.1.1\lib\net35\EPPlus.System.Drawing.dll</HintPath>
+    </Reference>
     <Reference Include="itextsharp, Version=5.5.13.2, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.13.2\lib\itextsharp.dll</HintPath>
       <Private>True</Private>
@@ -156,6 +165,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Librerias\MultiFacturasSDK.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="SmartAssembly.Attributes, Version=8.0.2.4779, Culture=neutral, PublicKeyToken=7f465a1c156d4d57, processorArchitecture=MSIL">
       <HintPath>..\packages\RedGate.SmartAssembly.Attributes.8.0.2.4779\lib\net20\SmartAssembly.Attributes.dll</HintPath>
     </Reference>
@@ -168,6 +179,7 @@
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Services" />
@@ -215,6 +227,7 @@
     <Reference Include="ThoughtWorks.QRCode">
       <HintPath>Libreria\ThoughtWorks.QRCode.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />

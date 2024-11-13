@@ -805,7 +805,7 @@ Public Class reciboaimprimir
         'Dim iFila As Integer
         Table1.WidthPercentage = 100
 
-        Dim widths As Single() = New Single() {150.0F, 400.0F, 250.0F}
+        Dim widths As Single() = New Single() {200.0F, 400.0F, 250.0F}
         Table1.SetWidths(widths)
 
         'Encabezado
@@ -1324,6 +1324,57 @@ Public Class reciboaimprimir
         Tablevalidacion.AddCell(ColTotLetra)
 
 
+
+
+        Dim TableFirmas As PdfPTable = New PdfPTable(3)
+        TableFirmas.WidthPercentage = 100
+        TableFirmas.DefaultCell.Border = BorderStyle.None
+        Dim widthsFirmas As Single() = New Single() {300.0F, 300.0F, 300.0F}
+        TableFirmas.SetWidths(widthsFirmas)
+
+
+
+        Dim ColFirmas = New PdfPCell(New Phrase($" ", Font9))
+        ColFirmas.Border = 0
+        ColFirmas.HorizontalAlignment = PdfPCell.ALIGN_CENTER
+        TableFirmas.AddCell(ColFirmas)
+
+
+        ColFirmas = New PdfPCell(New Phrase($"Firma cajero", Font9))
+        ColFirmas.Border = 1
+        ColFirmas.HorizontalAlignment = PdfPCell.ALIGN_CENTER
+        TableFirmas.AddCell(ColFirmas)
+
+
+        ColFirmas = New PdfPCell(New Phrase($" ", Font9))
+        ColFirmas.Border = 0
+        ColFirmas.HorizontalAlignment = PdfPCell.ALIGN_CENTER
+        TableFirmas.AddCell(ColFirmas)
+
+
+
+
+
+        Dim TableLeyenda As PdfPTable = New PdfPTable(1)
+        TableLeyenda.WidthPercentage = 100
+        TableTotalLetra.DefaultCell.Border = BorderStyle.None
+        Dim widthsLeyenda As Single() = New Single() {900.0F}
+        TableLeyenda.SetWidths(widthsLeyenda)
+
+
+
+        Dim ColLeyenda = New PdfPCell(New Phrase($"¡GRACIAS POR SU PAGO!", Font9))
+        ColLeyenda.Border = 0
+        ColLeyenda.HorizontalAlignment = PdfPCell.ALIGN_CENTER
+        TableLeyenda.AddCell(ColLeyenda)
+
+
+
+
+
+
+
+
         pdfDoc.Add(TableVacio)
         pdfDoc.Add(TableVacio)
         pdfDoc.Add(TableCadena)
@@ -1332,6 +1383,16 @@ Public Class reciboaimprimir
         pdfDoc.Add(TableVacio)
 
         pdfDoc.Add(Tablevalidacion)
+
+        pdfDoc.Add(TableVacio)
+        pdfDoc.Add(TableVacio)
+        pdfDoc.Add(TableVacio)
+        pdfDoc.Add(TableVacio)
+        pdfDoc.Add(TableFirmas)
+        pdfDoc.Add(TableVacio)
+        pdfDoc.Add(TableVacio)
+        pdfDoc.Add(TableVacio)
+        pdfDoc.Add(TableLeyenda)
 
 
         pdfDoc.Close()
@@ -1349,6 +1410,16 @@ Public Class reciboaimprimir
             End Try
         Else
 
+            Dim gsProcessInfo As ProcessStartInfo
+            Dim gsProcess As Process
+            gsProcessInfo = New ProcessStartInfo()
+            gsProcessInfo.Verb = "Print"
+            gsProcessInfo.WindowStyle = ProcessWindowStyle.Hidden
+            gsProcessInfo.FileName = cadenafolder & "\recibo_" & Serie & folio & ".pdf"
+            ' gsProcessInfo.Arguments = """" & nombreImpresora & """"
+            gsProcess = Process.Start(gsProcessInfo)
+            gsProcess.WaitForInputIdle(2200)
+            gsProcess.Close()
 
         End If
 

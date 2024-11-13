@@ -47,7 +47,7 @@ Public Class FrmReportexrubros
     End Sub
 
     Private Sub btnaceptar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnaceptar.Click
-      
+
         Dim filtro As String
         Dim filtromysql As String
 
@@ -104,7 +104,20 @@ Public Class FrmReportexrubros
 
 
                 Dim ObjCorteCaja As New CorteCajaITSharp
-                ObjCorteCaja.CorteDiario(SqlITSharp, dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & " AL " & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd"), txtcaja.Text, SqlITSharpVIRTUALES, sqlDescuentosRecargos, sqlformasdepago, sqlmixto)
+
+                If CheckExcel.Checked = False Then
+
+                    ObjCorteCaja.CorteDiario(SqlITSharp, dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & " AL " & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd"), txtcaja.Text, SqlITSharpVIRTUALES, sqlDescuentosRecargos, sqlformasdepago, sqlmixto)
+
+                Else
+
+                    ObjCorteCaja.CorteCajaExcel(SqlITSharp, dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & " AL " & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd"), txtcaja.Text, SqlITSharpVIRTUALES, sqlDescuentosRecargos, sqlformasdepago, sqlmixto)
+
+                End If
+
+
+
+
                 Exit Sub
 
             Case "CAJADESGLOSADO"

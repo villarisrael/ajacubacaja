@@ -1,6 +1,9 @@
-﻿Imports System.IO
+﻿Imports System.Globalization
+Imports System.IO
 Imports iTextSharp.text
 Imports iTextSharp.text.pdf
+Imports OfficeOpenXml
+Imports OfficeOpenXml.Style
 
 Public Class CorteCajaITSharp
 
@@ -950,6 +953,253 @@ Public Class CorteCajaITSharp
 
 
     End Function
+
+
+    Public Sub CorteCajaExcel(ByVal sql As String, ByVal filtro As String, ByVal Caja As String, sqldescuento As String, sqlDescuentosRecargosP As String, sqlformapago As String, sqlmixto As String)
+
+
+        Dim Fecha = DateTime.Now.ToString("dd-MMMM-yyyy")
+
+        Dim acumuladorSubtotal As Decimal = 0.0
+        Dim acumuladorIVA As Decimal = 0.0
+        Dim acumuladorTotal As Decimal = 0.0
+        Dim acumuladorVirtuales As Decimal = 0.0
+        Dim contador As Integer = 0
+
+
+        If Caja = "" Then
+
+            Caja = "CORTE GENERAL"
+
+        End If
+
+        'Dim directorioReporte As String = (Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) & "\ListadoDeudores\ListadoDeudores__" & Fecha & ".pdf").Trim()
+        If Not My.Computer.FileSystem.DirectoryExists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) & "\ReporteCaja\" & Year(Now) & acompletacero(Month(Now).ToString(), 2).Trim) Then
+
+            My.Computer.FileSystem.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) & "\ReporteCaja\" & Year(Now) & acompletacero(Month(Now).ToString(), 2).Trim)
+        End If
+
+
+        Dim ruta As String = $"\\ReporteCaja\\CorteCaja_{filtro}.xlsx"
+        Dim pathReporte As String = (Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + ruta).Trim()
+
+
+        ExcelPackage.LicenseContext = LicenseContext.NonCommercial
+
+
+        Using Ep As New ExcelPackage()
+
+
+            Dim Sheet = Ep.Workbook.Worksheets.Add("CORTE CAJA RECIBO")
+
+
+            Dim rowCount As Integer = 1
+
+
+            Dim nombreOrganismo As String = obtenerCampo($"select CNOMBRE from EMPRESA where CODEMP = 1", "CNOMBRE")
+            'Sheet.Cells("A3").RichText.Add($"ORGANISMO: {nombreOrganismo}")
+
+            Sheet.Cells("A1:I1").Style.Font.Size = 14
+            Sheet.Cells("A1:I1").Style.Font.Name = "Calibri"
+            Sheet.Cells("A1:I3").Style.Font.Bold = True
+            Sheet.Cells("A1:I1").Style.Font.Color.SetColor(Color.Black)
+            Sheet.Cells("A1:I1").Style.HorizontalAlignment = ExcelHorizontalAlignment.Left
+            Sheet.Cells("A1").RichText.Add($"{nombreOrganismo.ToUpper()}")
+
+
+
+            Sheet.Cells("A2:I3").Style.Font.Size = 12
+            Sheet.Cells("A2:I3").Style.Font.Name = "Calibri"
+            Sheet.Cells("A2:I3").Style.Font.Bold = True
+            Sheet.Cells("A2:I3").Style.Font.Color.SetColor(Color.Black)
+            Sheet.Cells("A2:I3").Style.HorizontalAlignment = ExcelHorizontalAlignment.Left
+            Sheet.Cells("A2").RichText.Add($"CORTE DE CAJA POR RECIBO")
+
+
+
+            Sheet.Cells("A4:I4").Style.Font.Size = 12
+            Sheet.Cells("A4:I4").Style.Font.Name = "Calibri"
+            Sheet.Cells("A4:I4").Style.Font.Bold = True
+            Sheet.Cells("A4:I4").Style.Font.Color.SetColor(Color.Black)
+            Sheet.Cells("A4:I4").Style.HorizontalAlignment = ExcelHorizontalAlignment.Left
+            Sheet.Cells("A4").RichText.Add($"REPORTE DEL PERIODO: {filtro.ToUpper()}, CAJA: {Caja} | FECHA DE EMISIÓN: {DateTime.Now}")
+
+
+            Try
+
+                'ENCABEZADOS DEL DOCUMENTO
+                rowCount = 6
+                Sheet.Cells.Style.Font.Name = "Calibri"
+                Sheet.Cells.Style.Font.Size = 10
+                Sheet.Cells("A5:M5").Style.Font.Bold = True
+                Sheet.Cells("A5:M5").Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid
+                Sheet.Cells("A5:M5").Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray)
+
+
+                Sheet.Cells("A5").RichText.Add("FECHA")
+                Sheet.Cells("B5").RichText.Add("FACTURA")
+                Sheet.Cells("C5").RichText.Add("RECIBO")
+                Sheet.Cells("D5").RichText.Add("CUENTA")
+                Sheet.Cells("E5").RichText.Add("UBICACIÓN")
+                Sheet.Cells("F5").RichText.Add("NOMBRE")
+                Sheet.Cells("G5").RichText.Add("SUBTOTAL")
+                Sheet.Cells("H5").RichText.Add("IVA")
+                Sheet.Cells("I5").RichText.Add("ABONO ENTREGA")
+                Sheet.Cells("J5").RichText.Add("ABONO APLICACIÓN")
+                Sheet.Cells("K5").RichText.Add("TOTAL")
+                Sheet.Cells("L5").RichText.Add("ESTATUS RECIBO")
+                Sheet.Cells("M5").RichText.Add("VIRTUAL")
+
+
+                rowCount = 6
+
+
+                Dim datosRecibos As IDataReader = ConsultaSql(sql).ExecuteReader()
+
+                While datosRecibos.Read()
+
+                    Dim fechaRecibo As String = ""
+                    Dim factura As String = ""
+                    Dim serie As String = ""
+                    Dim recibo As String = ""
+                    Dim cuenta As String = ""
+                    Dim ubicacion As String = ""
+                    Dim nombre As String = ""
+                    Dim subtotal As Decimal = 0.0
+                    Dim iva As Decimal = 0.0
+                    Dim abonoEntrega As Decimal = 0.0
+                    Dim abonoAplicacion As Decimal = 0.0
+                    Dim total As Decimal = 0.0
+                    Dim estatusRecibo As String = ""
+                    Dim virtual As Decimal = 0.0
+
+
+                    fechaRecibo = datosRecibos("fecha_act")
+                    factura = datosRecibos("facturado")
+                    serie = datosRecibos("serie")
+                    recibo = datosRecibos("recibo")
+                    cuenta = datosRecibos("cuenta")
+
+                    nombre = datosRecibos("nombre")
+                    subtotal = Decimal.Parse(datosRecibos("pagos"))
+                    iva = Decimal.Parse(datosRecibos("IVA"))
+                    'abonoEntrega = datosRecibos("Vale")
+                    'abonoAplicacion = datosRecibos("NUMPERIODOS")
+                    total = Decimal.Parse(datosRecibos("total"))
+                    estatusRecibo = datosRecibos("Cancelado")
+                    virtual = Decimal.Parse(datosRecibos("DescuentoPesos"))
+
+                    ubicacion = datosRecibos("Nombre")
+
+
+
+
+
+                    Sheet.Cells(String.Format("A{0}", rowCount)).Value = fechaRecibo
+                    Sheet.Cells(String.Format("B{0}", rowCount)).Value = factura
+                    Sheet.Cells(String.Format("C{0}", rowCount)).Value = $"{serie} {recibo}"
+                    Sheet.Cells(String.Format("D{0}", rowCount)).Value = cuenta
+                    Sheet.Cells(String.Format("E{0}", rowCount)).Value = ubicacion
+                    Sheet.Cells(String.Format("F{0}", rowCount)).Value = nombre
+
+                    Sheet.Cells(String.Format("G{0}", rowCount)).Style.Numberformat.Format = "$#,##0.00"
+                    Sheet.Cells(String.Format("G{0}", rowCount)).Value = subtotal
+
+                    Sheet.Cells(String.Format("H{0}", rowCount)).Style.Numberformat.Format = "$#,##0.00"
+                    Sheet.Cells(String.Format("H{0}", rowCount)).Value = iva
+
+                    Sheet.Cells(String.Format("I{0}", rowCount)).Value = 0.00
+                    Sheet.Cells(String.Format("J{0}", rowCount)).Value = 0.00
+
+                    Sheet.Cells(String.Format("K{0}", rowCount)).Style.Numberformat.Format = "$#,##0.00"
+
+                    Sheet.Cells(String.Format("K{0}", rowCount)).Value = total
+
+
+
+                    Sheet.Cells(String.Format("L{0}", rowCount)).Value = estatusRecibo
+
+
+                    Sheet.Cells(String.Format("M{0}", rowCount)).Style.Numberformat.Format = "$#,##0.00"
+
+                    Sheet.Cells(String.Format("M{0}", rowCount)).Value = virtual
+
+
+                    acumuladorSubtotal = acumuladorSubtotal + subtotal
+                    acumuladorIVA = acumuladorIVA + iva
+                    acumuladorTotal = acumuladorTotal + total
+                    acumuladorVirtuales = acumuladorVirtuales + virtual
+
+
+                    rowCount = rowCount + 1
+
+
+
+                    contador = contador + 1
+
+                    If Status = "C" Then
+                        ContCanc = ContCanc + 1
+                    End If
+
+                End While
+
+            Catch ex As Exception
+                MessageBox.Show(ex.ToString())
+            End Try
+
+            rowCount = rowCount + 1
+
+
+            Sheet.Cells(String.Format("I{0}", rowCount)).Style.Numberformat.Format = "$#,##0.00"
+
+
+            Sheet.Cells(String.Format("G{0}", rowCount)).Value = $"SUBTOTAL GENERAL: {acumuladorSubtotal.ToString("C")}"
+            Sheet.Cells(String.Format("H{0}", rowCount)).Value = $"IVA GENERAL: {acumuladorIVA.ToString("C")}"
+            Sheet.Cells(String.Format("K{0}", rowCount)).Value = $"TOTAL GENERAL: {acumuladorTotal.ToString("C")}"
+            Sheet.Cells(String.Format("M{0}", rowCount)).Value = $"VIRTUAL GENERAL: {acumuladorVirtuales.ToString("C")}"
+
+
+            rowCount = rowCount + 2
+
+            Sheet.Cells(String.Format("K{0}", rowCount)).Value = $"REGISTROS TOTALES: {contador}"
+
+            rowCount = rowCount + 1
+            Sheet.Cells(String.Format("K{0}", rowCount)).Value = $"REGISTROS CANCELADOS: {ContCanc}"
+
+
+            Sheet.Cells("A:M").AutoFitColumns()
+
+            Ep.SaveAs(New FileInfo(pathReporte))
+
+            MessageBox.Show("Datos exportados a Excel correctamente")
+
+
+        End Using
+
+        AbrirReporte(pathReporte)
+
+
+
+
+    End Sub
+
+
+    Public Sub AbrirReporte(ByVal rutaArchivo As String)
+
+        Try
+            Dim psi As New ProcessStartInfo(rutaArchivo)
+            'psi.WorkingDirectory = cadenafolder & "\factura\" + nombresespacios
+
+            psi.WindowStyle = ProcessWindowStyle.Hidden
+            Dim p As Process = Process.Start(psi)
+
+        Catch ex As Exception
+
+            MessageBox.Show("error al visualizar el árchivo" & ex.Message)
+
+        End Try
+
+    End Sub
 
 
 End Class

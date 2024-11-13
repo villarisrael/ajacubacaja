@@ -2,7 +2,6 @@
 Imports System.IO
 Imports iTextSharp.text
 Imports iTextSharp.text.pdf
-Imports System.Linq
 
 Public Class cortexrubros
     Dim Factura As Int64
@@ -32,6 +31,7 @@ Public Class cortexrubros
     Dim fechaActual As String
 
     Dim TotaCDesc As Decimal
+    Public Property ExcelHorizontalAlignment As Object
 
     Public Sub CorteDiario(ByVal sql As String, ByVal filtro As String, ByVal Caja As String, sqldescuento As String, sqlDescuentosRecargosP As String, sqlformapago As String, sqlmixto As String, sqlabono As String)
 
@@ -767,5 +767,6 @@ Public Class cortexrubros
 
 
     End Function
+
 
 End Class

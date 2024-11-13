@@ -31,12 +31,13 @@ Partial Class FrmReportexrubros
         Me.RadLabel2 = New Telerik.WinControls.UI.RadLabel()
         Me.RadLabel1 = New Telerik.WinControls.UI.RadLabel()
         Me.RadGroupBox3 = New Telerik.WinControls.UI.RadGroupBox()
-        Me.txtcaja = New System.Windows.Forms.TextBox()
-        Me.RadLabel3 = New Telerik.WinControls.UI.RadLabel()
-        Me.RadLabel4 = New Telerik.WinControls.UI.RadLabel()
-        Me.IIfolioinicial = New DevComponents.Editors.IntegerInput()
-        Me.IIfoliofinal = New DevComponents.Editors.IntegerInput()
         Me.RadLabel5 = New Telerik.WinControls.UI.RadLabel()
+        Me.IIfoliofinal = New DevComponents.Editors.IntegerInput()
+        Me.IIfolioinicial = New DevComponents.Editors.IntegerInput()
+        Me.RadLabel4 = New Telerik.WinControls.UI.RadLabel()
+        Me.RadLabel3 = New Telerik.WinControls.UI.RadLabel()
+        Me.txtcaja = New System.Windows.Forms.TextBox()
+        Me.CheckExcel = New Telerik.WinControls.UI.RadCheckBox()
         CType(Me.RadGroupBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.RadGroupBox2.SuspendLayout()
         CType(Me.btncancelar, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -47,11 +48,12 @@ Partial Class FrmReportexrubros
         CType(Me.RadLabel1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RadGroupBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.RadGroupBox3.SuspendLayout()
-        CType(Me.RadLabel3, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.RadLabel4, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.IIfolioinicial, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.IIfoliofinal, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RadLabel5, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.IIfoliofinal, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.IIfolioinicial, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RadLabel4, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RadLabel3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.CheckExcel, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -150,6 +152,7 @@ Partial Class FrmReportexrubros
         'RadGroupBox3
         '
         Me.RadGroupBox3.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping
+        Me.RadGroupBox3.Controls.Add(Me.CheckExcel)
         Me.RadGroupBox3.Controls.Add(Me.RadLabel5)
         Me.RadGroupBox3.Controls.Add(Me.IIfoliofinal)
         Me.RadGroupBox3.Controls.Add(Me.IIfolioinicial)
@@ -170,12 +173,51 @@ Partial Class FrmReportexrubros
         Me.RadGroupBox3.TabIndex = 1
         Me.RadGroupBox3.Text = "Filtro"
         '
-        'txtcaja
+        'RadLabel5
         '
-        Me.txtcaja.Location = New System.Drawing.Point(53, 32)
-        Me.txtcaja.Name = "txtcaja"
-        Me.txtcaja.Size = New System.Drawing.Size(64, 20)
-        Me.txtcaja.TabIndex = 0
+        Me.RadLabel5.AutoSize = True
+        Me.RadLabel5.Location = New System.Drawing.Point(284, 32)
+        Me.RadLabel5.Name = "RadLabel5"
+        Me.RadLabel5.Size = New System.Drawing.Size(15, 18)
+        Me.RadLabel5.TabIndex = 24
+        Me.RadLabel5.Text = "al"
+        '
+        'IIfoliofinal
+        '
+        '
+        '
+        '
+        Me.IIfoliofinal.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.IIfoliofinal.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.IIfoliofinal.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.IIfoliofinal.Location = New System.Drawing.Point(309, 32)
+        Me.IIfoliofinal.Name = "IIfoliofinal"
+        Me.IIfoliofinal.ShowUpDown = True
+        Me.IIfoliofinal.Size = New System.Drawing.Size(80, 19)
+        Me.IIfoliofinal.TabIndex = 23
+        '
+        'IIfolioinicial
+        '
+        '
+        '
+        '
+        Me.IIfolioinicial.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.IIfolioinicial.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.IIfolioinicial.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.IIfolioinicial.Location = New System.Drawing.Point(192, 30)
+        Me.IIfolioinicial.Name = "IIfolioinicial"
+        Me.IIfolioinicial.ShowUpDown = True
+        Me.IIfolioinicial.Size = New System.Drawing.Size(80, 19)
+        Me.IIfolioinicial.TabIndex = 22
+        '
+        'RadLabel4
+        '
+        Me.RadLabel4.AutoSize = True
+        Me.RadLabel4.Location = New System.Drawing.Point(121, 33)
+        Me.RadLabel4.Name = "RadLabel4"
+        Me.RadLabel4.Size = New System.Drawing.Size(54, 18)
+        Me.RadLabel4.TabIndex = 21
+        Me.RadLabel4.Text = "Folios del"
         '
         'RadLabel3
         '
@@ -186,51 +228,22 @@ Partial Class FrmReportexrubros
         Me.RadLabel3.TabIndex = 20
         Me.RadLabel3.Text = "Caja"
         '
-        'RadLabel4
+        'txtcaja
         '
-        Me.RadLabel4.AutoSize = True
-        Me.RadLabel4.Location = New System.Drawing.Point(173, 34)
-        Me.RadLabel4.Name = "RadLabel4"
-        Me.RadLabel4.Size = New System.Drawing.Size(54, 18)
-        Me.RadLabel4.TabIndex = 21
-        Me.RadLabel4.Text = "Folios del"
+        Me.txtcaja.Location = New System.Drawing.Point(53, 32)
+        Me.txtcaja.Name = "txtcaja"
+        Me.txtcaja.Size = New System.Drawing.Size(64, 19)
+        Me.txtcaja.TabIndex = 0
         '
-        'IIfolioinicial
+        'CheckExcel
         '
-        '
-        '
-        '
-        Me.IIfolioinicial.BackgroundStyle.Class = "DateTimeInputBackground"
-        Me.IIfolioinicial.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.IIfolioinicial.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
-        Me.IIfolioinicial.Location = New System.Drawing.Point(244, 31)
-        Me.IIfolioinicial.Name = "IIfolioinicial"
-        Me.IIfolioinicial.ShowUpDown = True
-        Me.IIfolioinicial.Size = New System.Drawing.Size(80, 19)
-        Me.IIfolioinicial.TabIndex = 22
-        '
-        'IIfoliofinal
-        '
-        '
-        '
-        '
-        Me.IIfoliofinal.BackgroundStyle.Class = "DateTimeInputBackground"
-        Me.IIfoliofinal.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.IIfoliofinal.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
-        Me.IIfoliofinal.Location = New System.Drawing.Point(399, 33)
-        Me.IIfoliofinal.Name = "IIfoliofinal"
-        Me.IIfoliofinal.ShowUpDown = True
-        Me.IIfoliofinal.Size = New System.Drawing.Size(80, 19)
-        Me.IIfoliofinal.TabIndex = 23
-        '
-        'RadLabel5
-        '
-        Me.RadLabel5.AutoSize = True
-        Me.RadLabel5.Location = New System.Drawing.Point(357, 33)
-        Me.RadLabel5.Name = "RadLabel5"
-        Me.RadLabel5.Size = New System.Drawing.Size(15, 18)
-        Me.RadLabel5.TabIndex = 24
-        Me.RadLabel5.Text = "al"
+        Me.CheckExcel.AutoSize = True
+        Me.CheckExcel.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CheckExcel.Location = New System.Drawing.Point(433, 21)
+        Me.CheckExcel.Name = "CheckExcel"
+        Me.CheckExcel.Size = New System.Drawing.Size(111, 21)
+        Me.CheckExcel.TabIndex = 25
+        Me.CheckExcel.Text = "Exportar Excel"
         '
         'FrmReportexrubros
         '
@@ -262,11 +275,12 @@ Partial Class FrmReportexrubros
         CType(Me.RadGroupBox3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.RadGroupBox3.ResumeLayout(False)
         Me.RadGroupBox3.PerformLayout()
-        CType(Me.RadLabel3, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.RadLabel4, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.IIfolioinicial, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.IIfoliofinal, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RadLabel5, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.IIfoliofinal, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.IIfolioinicial, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RadLabel4, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RadLabel3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.CheckExcel, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
@@ -286,5 +300,6 @@ Partial Class FrmReportexrubros
     Friend WithEvents RadLabel5 As Telerik.WinControls.UI.RadLabel
     Friend WithEvents IIfoliofinal As DevComponents.Editors.IntegerInput
     Friend WithEvents IIfolioinicial As DevComponents.Editors.IntegerInput
+    Friend WithEvents CheckExcel As Telerik.WinControls.UI.RadCheckBox
 End Class
 
