@@ -57,6 +57,7 @@ Public Class reciboaimprimir
         Dim Nombre As String = String.Empty
         Dim direccion As String = String.Empty
         Dim colonia As String = String.Empty
+        Dim comunidad As String = String.Empty
         Dim municipio As String = String.Empty
         Dim entidad As String = String.Empty
         Dim tarifa As String = String.Empty
@@ -75,23 +76,26 @@ Public Class reciboaimprimir
             municipio = DATOSUSUARIO("municipio")
             tarifa = DATOS("tarifa")
             nodemedidor = DATOSUSUARIO("nodemedidor")
+            comunidad = DATOSUSUARIO("comunidad")
 
         End If
         If DATOS("ESUSUARIO") = 3 Then
             DATOSUSUARIO = ConsultaSql("SELECT * FROM vSOLICITUD WHERE NUMERO=" & DATOS("CUENTA")).ExecuteReader
             DATOSUSUARIO.Read()
-            direccion = DATOSUSUARIO("domicilio") + DATOSUSUARIO("numext") + DATOSUSUARIO("numint")
+            direccion = DATOSUSUARIO("domicilio") & " " & DATOSUSUARIO("numext") & " " & DATOSUSUARIO("numint")
             colonia = DATOSUSUARIO("colonia")
-            municipio = DATOSUSUARIO("municipio")
+            comunidad = DATOSUSUARIO("comunidad")
+
 
         End If
 
         If DATOS("ESUSUARIO") = 2 Then
-            DATOSUSUARIO = ConsultaSql("SELECT * FROM NOUSUARIO WHERE CLAVE=" & DATOS("CUENTA")).ExecuteReader
+            DATOSUSUARIO = ConsultaSql("SELECT * FROM NOUSUARIOs WHERE CLAVE=" & DATOS("CUENTA")).ExecuteReader
             DATOSUSUARIO.Read()
             direccion = DATOSUSUARIO("direccion") + DATOSUSUARIO("numext") + DATOSUSUARIO("numint")
             colonia = DATOSUSUARIO("colonia")
-            municipio = DATOSUSUARIO("municipio")
+            comunidad = DATOSUSUARIO("comunidad")
+
         End If
 
         Dim UBICACION As String = String.Empty
@@ -104,6 +108,8 @@ Public Class reciboaimprimir
         Catch ex As Exception
             UBICACION = String.Empty
         End Try
+
+
 
         'Crear el directorio en donde se van a almacenar los PDF
         If Not My.Computer.FileSystem.DirectoryExists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) & "\ReporteCaja\" & Year(Now) & acompletacero(Month(Now).ToString(), 2).Trim) Then
