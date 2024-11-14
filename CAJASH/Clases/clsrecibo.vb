@@ -1410,16 +1410,22 @@ Public Class reciboaimprimir
             End Try
         Else
 
-            Dim gsProcessInfo As ProcessStartInfo
-            Dim gsProcess As Process
-            gsProcessInfo = New ProcessStartInfo()
-            gsProcessInfo.Verb = "Print"
-            gsProcessInfo.WindowStyle = ProcessWindowStyle.Hidden
-            gsProcessInfo.FileName = cadenafolder & "\recibo_" & Serie & folio & ".pdf"
-            ' gsProcessInfo.Arguments = """" & nombreImpresora & """"
-            gsProcess = Process.Start(gsProcessInfo)
-            gsProcess.WaitForInputIdle(2200)
-            gsProcess.Close()
+            For index As Integer = 1 To 2
+
+
+
+                Dim gsProcessInfo As ProcessStartInfo
+                Dim gsProcess As Process
+                gsProcessInfo = New ProcessStartInfo()
+                gsProcessInfo.Verb = "Print"
+                gsProcessInfo.WindowStyle = ProcessWindowStyle.Hidden
+                gsProcessInfo.FileName = cadenafolder & "\recibo_" & Serie & folio & ".pdf"
+                ' gsProcessInfo.Arguments = """" & nombreImpresora & """"
+                gsProcess = Process.Start(gsProcessInfo)
+                gsProcess.WaitForInputIdle(2200)
+                gsProcess.Close()
+
+            Next
 
         End If
 
