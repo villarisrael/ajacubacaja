@@ -573,16 +573,24 @@ Public Class reciboaimprimir
                 TableFIRMAS.DefaultCell.Border = BorderStyle.None
                 Dim widthsTotalFIR As Single() = New Single() {900.0F}
                 TableFIRMAS.SetWidths(widthsTotalFIR)
-
-
                 TableFIRMAS.AddCell(ColVacio)
                 TableFIRMAS.AddCell(ColVacio)
+                Try
+                    Dim descuentos As IDataReader = ConsultaSql("select * from descuentospagos where serie='" & Serie & "' and recibo =" & folio).ExecuteReader
+                    Do While descuentos.Read()
+                        Dim cadenadesc As String = "Usted obtuvo un descuento en " & descuentos("concepto") & " del " & descuentos("porcentaje") & "% con lo que usted ahorro " & Decimal.Parse(descuentos("monto").ToString()).ToString("C") & " Pesos"
+                        Dim coldesc = New PdfPCell(New Phrase(cadenadesc, Font9))
+                        coldesc.Border = 1
+                        coldesc.HorizontalAlignment = PdfPCell.ALIGN_CENTER
+                        TableFIRMAS.AddCell(ColTotLetra)
+                    Loop
+                Catch ex As Exception
+
+                End Try
 
 
-                ColTotLetra = New PdfPCell(New Phrase("FIRMA DEL CAJERO", Font9))
-                ColTotLetra.Border = 1
-                ColTotLetra.HorizontalAlignment = PdfPCell.ALIGN_CENTER
-                TableFIRMAS.AddCell(ColTotLetra)
+
+
 
                 TableFIRMAS.AddCell(ColVacio)
                 TableFIRMAS.AddCell(ColVacio)
@@ -675,7 +683,7 @@ Public Class reciboaimprimir
         Try
 
             DATOS = ConsultaSql("SELECT * FROM PAGOS WHERE SERIE='" & Serie & "' AND recibo=" & folio).ExecuteReader
-            DATOS.Read()
+                DATOS.Read()
             CONTE = ConsultaSql("SELECT * FROM PAGOtros WHERE SERIE='" & Serie & "' AND recibo=" & folio).ExecuteReader
 
         Catch ex As Exception
@@ -1332,27 +1340,32 @@ Public Class reciboaimprimir
 
 
 
-        Dim TableFirmas As PdfPTable = New PdfPTable(3)
+        Dim TableFirmas As PdfPTable = New PdfPTable(1)
         TableFirmas.WidthPercentage = 100
         TableFirmas.DefaultCell.Border = BorderStyle.None
-        Dim widthsFirmas As Single() = New Single() {300.0F, 300.0F, 300.0F}
+        Dim widthsFirmas As Single() = New Single() {900.0F}
         TableFirmas.SetWidths(widthsFirmas)
 
 
 
+
+
+        Try
+            Dim descuentos As IDataReader = ConsultaSql("select * from descuentospagos where serie='" & Serie & "' and recibo =" & folio).ExecuteReader
+            Do While descuentos.Read()
+                Dim cadenadesc As String = "Usted obtuvo un descuento en " & descuentos("concepto") & " del " & descuentos("porcentaje") & "% con lo que usted ahorro " & Decimal.Parse(descuentos("monto").ToString()).ToString("C") & " Pesos"
+                Dim coldesc = New PdfPCell(New Phrase(cadenadesc, Font9))
+                coldesc.Border = 1
+                coldesc.HorizontalAlignment = PdfPCell.ALIGN_CENTER
+                TableFirmas.AddCell(coldesc)
+            Loop
+        Catch ex As Exception
+
+        End Try
+
+
+
         Dim ColFirmas = New PdfPCell(New Phrase($" ", Font9))
-        ColFirmas.Border = 0
-        ColFirmas.HorizontalAlignment = PdfPCell.ALIGN_CENTER
-        TableFirmas.AddCell(ColFirmas)
-
-
-        ColFirmas = New PdfPCell(New Phrase($"Firma cajero", Font9))
-        ColFirmas.Border = 1
-        ColFirmas.HorizontalAlignment = PdfPCell.ALIGN_CENTER
-        TableFirmas.AddCell(ColFirmas)
-
-
-        ColFirmas = New PdfPCell(New Phrase($" ", Font9))
         ColFirmas.Border = 0
         ColFirmas.HorizontalAlignment = PdfPCell.ALIGN_CENTER
         TableFirmas.AddCell(ColFirmas)

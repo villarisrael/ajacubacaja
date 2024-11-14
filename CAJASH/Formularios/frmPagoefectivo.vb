@@ -20,6 +20,7 @@ Public Class frmPagoefectivo
     Public nuevovale As Decimal = 0
     Private dts As OdbcDataReader
 
+
 #Region "varibles pagomixto"
     Dim formadepagodominante As String = "01"
     Dim efectivo As Decimal = totalapagar
@@ -488,19 +489,32 @@ Public Class frmPagoefectivo
                 Ejecucion(cadenainsertapagos)
                 Dim unused2 = EjecutarConsultaRemotaAsync(cadenainsertapagos)
 
-                'If mixto = False Then
 
-                '    'If vale > 0 Then
-                '    '    Dim cadxr As String = "insert into pagomixto (serie,folio, monto,id_forma,observacion) values ('" & My.Settings.serie & "'," & My.Settings.folio + 1 & "," & totalapagar & ",'" & formadepagodominante & "','')"
-                '    '    Ejecucion(cadxr)
-                '    '    Try
-                '    '        Dim unused = EjecutarConsultaRemotaAsync(cadxr)
-                '    '    Catch ex As Exception
+                ''''''''''''''''''''''''''''' grabando lo de los descuentos '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                '''
+                ''' 
+                '''''''''''''''''''''''''''''
 
-                '    '    End Try
-                '    '    mixto = True
-                '    'End If
-                'End If
+                If control.descuentoaconsumo > 0 And control.totaldescuentopesos > 0 Then
+                    Dim CADENAZUrich = "insert into descuentospagos (serie,recibo, concepto, porcentaje, Monto) values ( '" & My.Settings.serie & "'," & My.Settings.folio + 1 & ",'CONSUMO'," & control.descuentoaconsumo & "," & control.totaldescuentopesos & ")"
+                    Ejecucion(CADENAZUrich)
+
+                End If
+                If control.descuentoaalcantarillado > 0 Then
+
+                End If
+                If control.descuentoasaneamiento > 0 Then
+
+                End If
+                If control.descuentoarecargo > 0 And control.totaldescuentorecargo > 0 Then
+                    Dim CADENAZUrich = "insert into descuentospagos (serie,recibo, concepto, porcentaje, Monto) values ( '" & My.Settings.serie & "'," & My.Settings.folio + 1 & ",'RECARGO'," & control.descuentoarecargo & "," & control.totaldescuentorecargo & ")"
+                    Ejecucion(CADENAZUrich)
+
+                End If
+
+
+
+
 
                 If mixto Then
 
@@ -1031,7 +1045,9 @@ Public Class frmPagoefectivo
                             tipoUso = "NO DOMESTICO"
                         End If
 
-                        Dim cadenapagomes As String = "INSERT INTO pago_mes (PERIODO, MES, ANO, CONCEPTO, FECHA, RECIBO, CAJA,SERIE, CUENTA,MONTO, DESCUENTO,MONTOPAGADO, TIPO, CONSUMO, TIPOUSO) VALUES ('" & CadenaNumeroMes(objeto.Mes) & Mid(objeto.Periodo, 3, 2) & "','" & objeto.Mes & "'," & objeto.Periodo & ",'SANEAMIENTO','" & recibo.Fecha_Act & "'," & My.Settings.folio + 1 & ",'" & My.Settings.caja & "', '" & My.Settings.serie & "'," & recibo.cuenta & "," & objeto.Totalcondescuento & ",'" & tipoServicio & "'," & consumoLectura & ",'" & tipoUso & "')"
+                        Dim cadenapagomes As String = "INSERT INTO pago_mes (PERIODO, MES, ANO, CONCEPTO, FECHA, RECIBO, CAJA,SERIE, CUENTA,MONTO, DESCUENTO,MONTOPAGADO, TIPO, CONSUMO, TIPOUSO) VALUES ('" & CadenaNumeroMes(objeto.Mes) & Mid(objeto.Periodo, 3, 2) & "','" & objeto.Mes & "'," & objeto.Periodo & ",'SANEAMIENTO','" & recibo.Fecha_Act & "'," _
+                                                    & My.Settings.folio + 1 & ",'" & My.Settings.caja & "', '" & My.Settings.serie & "'," & recibo.cuenta & "," & objeto.Total & "," & objeto.Totalcondescuento & ",'" & tipoServicio & "'," _
+                                                    & consumoLectura & ",'" & tipoUso & "')"
                         Ejecucion(cadenapagomes)
 
                         Dim usued8 = EjecutarConsultaRemotaAsync(cadenapagomes)
@@ -1213,7 +1229,7 @@ Public Class frmPagoefectivo
                     ''TIC.imprime_ticket58mm(My.Settings.serie, My.Settings.folio + 1, False, cambio, vale) 'false directo a la impresora o true a la ventana
 
                     Dim recibo As New reciboaimprimir
-                    recibo.ReciboHojaCarta(My.Settings.serie, My.Settings.folio + 1, False, cambio, formaPago, vale)
+                    recibo.ReciboHojaCarta(My.Settings.serie, My.Settings.folio + 1, True, cambio, formaPago, vale)
                     'recizurich.imprime(My.Settings.serie, My.Settings.folio + 1, False, cambio, vale)
                     ''TIC.imprime_ticket58mm(My.Settings.serie, My.Settings.folio + 1, False, cambio, vale) 'false directo a la impresora o true a la ventana
                 End If

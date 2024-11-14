@@ -39,6 +39,9 @@ Public Class CorteCajaITSharp
 
     Public Sub CorteDiario(ByVal sql As String, ByVal filtro As String, ByVal Caja As String, sqldescuento As String, sqlDescuentosRecargosP As String, sqlformapago As String, sqlmixto As String)
 
+        Ejecucion("delete from tempcortecaja")
+
+
         fechaActual = DateTime.Now.ToString("dd-MMM-yyyy").ToUpper()
 
         Try
@@ -283,7 +286,7 @@ Public Class CorteCajaITSharp
                 Vale = executeSQL("Vale")
                 Total = executeSQL("total")
                 Status = executeSQL("Cancelado")
-                Virtual = executeSQL("DescuentoPesos")
+                Virtual = 0
                 DescPorcentaje = executeSQL("descuento")
 
 
@@ -394,6 +397,17 @@ Public Class CorteCajaITSharp
                 TableRecibos.AddCell(ColRecibo)
 
                 If Status = "A" Then
+                    Dim descuentosdelrecibovane = ConsultaSql("select * From  descuentospagos where serie='" & executeSQL("Serie") & "' and recibo=" & Recibo).ExecuteReader
+                    Virtual = 0
+
+                    Do While descuentosdelrecibovane.Read
+                        Virtual += Decimal.Parse(descuentosdelrecibovane("monto"))
+                        Ejecucion("insert into tempcortecaja (porcentaje,concepto,monto,recibo) values (" & descuentosdelrecibovane("porcentaje") & ",'" & descuentosdelrecibovane("concepto") & "'," & descuentosdelrecibovane("monto") & "," & descuentosdelrecibovane("recibo") & ")")
+
+                    Loop
+
+
+
                     ColRecibo = New PdfPCell(New Phrase(Virtual.ToString("C"), Font7))
                     ColRecibo.Border = 1
                     ColRecibo.HorizontalAlignment = PdfPCell.ALIGN_CENTER
@@ -401,17 +415,6 @@ Public Class CorteCajaITSharp
                     TableRecibos.AddCell(ColRecibo)
 
 
-
-                    SumaDescuento += Virtual
-
-
-                    If DescPorcentaje = 50 Then
-                        DescPorcentaje50 += Virtual
-                    End If
-
-                    If DescPorcentaje = 100 Then
-                        DescPorcentaje100 += Virtual
-                    End If
 
                 Else
                     ColRecibo = New PdfPCell(New Phrase("$0.00", Font7))
@@ -577,9 +580,9 @@ Public Class CorteCajaITSharp
 
 #Region "Table Totales y firmas"
 
-            Dim nombreDirectorCaja As String = obtenerCampo("select * from empresa where codemp='1'", "Admin_Cajas")
+            Dim nombreDirectorCaja As String = obtenerCampo("Select * from empresa where codemp='1'", "Admin_Cajas")
 
-            Dim TableRecibosTotal As PdfPTable = New PdfPTable(4)
+                        Dim TableRecibosTotal As PdfPTable = New PdfPTable(4)
             TableRecibosTotal.DefaultCell.Border = BorderStyle.None
             TableRecibosTotal.WidthPercentage = 100
             Dim widthsTot As Single() = New Single() {70.0F, 70.0F, 70.0F, 70.0F}
@@ -684,28 +687,30 @@ Public Class CorteCajaITSharp
             Dim widthsDesc As Single() = New Single() {250.0F, 250.0F, 250.0F, 250.0F}
             TableDescuentos.SetWidths(widthsDesc)
 
-            Do While executeSQL.Read
+            Dim agrupadesc As IDataReader = ConsultaSql("select concepto, porcentaje, sum(monto) as monto, count(idtemocortecaja) as cuantos from tempcortecaja group by concepto,porcentaje ").ExecuteReader
 
-                Dim cuantos As Decimal = Decimal.Parse(executeSQL("cuantos"))
-                Dim virtu As Decimal = Decimal.Parse(executeSQL("virtuales"))
-                Dim descu As String = executeSQL("descuento").ToString()
+            Do While agrupadesc.Read
 
-                If descu = "5" Or descu = "10" Or descu = "50" Or descu = "100" Then ' A petición de la directora Yoseline, solo mostrar descuentos del 5, 10, 50 y 100% 14/09/2022
+                Dim cuantos As Decimal = Decimal.Parse(agrupadesc("cuantos"))
+                Dim virtu As Decimal = Decimal.Parse(agrupadesc("monto").ToString())
+                Dim concepto As String = agrupadesc("concepto").ToString()
+                Dim porcentaje As String = agrupadesc("porcentaje").ToString()
 
 
-                    If virtu > 0 Then
 
-                        Dim ColDesc = New PdfPCell(New Phrase(cuantos & " descuentos del: ", Font8))
-                        ColDesc.Border = 0
+                If virtu > 0 Then
+
+                    Dim ColDesc = New PdfPCell(New Phrase(cuantos & " descuentos de:  " + concepto, Font8))
+                    ColDesc.Border = 0
                         ColDesc.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
                         'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
                         TableDescuentos.AddCell(ColDesc)
 
                         TotaCDesc = SumaTotal + SumaDescuento
 
-                        ColDesc = New PdfPCell(New Phrase(descu & "%", Font8))
-                        ColDesc.Border = 0
-                        ColDesc.HorizontalAlignment = PdfPCell.ALIGN_LEFT
+                    ColDesc = New PdfPCell(New Phrase(porcentaje & "%", Font8))
+                    ColDesc.Border = 0
+                    ColDesc.HorizontalAlignment = PdfPCell.ALIGN_LEFT
                         'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
                         TableDescuentos.AddCell(ColDesc)
 
@@ -723,7 +728,7 @@ Public Class CorteCajaITSharp
                         TableDescuentos.AddCell(ColDesc)
                     End If
 
-                End If
+
 
             Loop
 
