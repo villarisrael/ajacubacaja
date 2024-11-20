@@ -84,7 +84,7 @@ Public Class CorteCajaITSharp
 
             Dim imagenBMP As iTextSharp.text.Image
             imagenBMP = iTextSharp.text.Image.GetInstance(LOGOBYTE)
-            imagenBMP.ScaleToFit(60.0F, 40.0F)
+            imagenBMP.ScaleToFit(100.0F, 70.0F)
 
             imagenBMP.Border = 0
 
@@ -680,7 +680,7 @@ Public Class CorteCajaITSharp
 
 
 
-            executeSQL = ConsultaSql(sqldescuento).ExecuteReader
+            ' executeSQL = ConsultaSql(sqldescuento).ExecuteReader
             Dim TableDescuentos As PdfPTable = New PdfPTable(4)
             TableDescuentos.DefaultCell.Border = BorderStyle.None
             TableDescuentos.WidthPercentage = 100

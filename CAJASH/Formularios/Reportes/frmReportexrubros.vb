@@ -177,9 +177,8 @@ Public Class FrmReportexrubros
 
                 SqlITSharp = "select numconcepto, concepto, sum(cantidad*monto) as total,iva,sum(montoiva) as Montoiva from pagotros where fecha between '" & dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & "' and '" & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd") & "' and cancelado='A' group by numconcepto,iva"
 
-                SqlITSharpVIRTUALES = "SELECT count(clave) as cuantos ,descuento, sum(descuentopesos) as virtuales from pagos  where fecha_Act between '" & dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & "' and '" & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd") & "'  and cancelado='A' and descuentopesos> 0 group by descuento"
+                SqlITSharpVIRTUALES = "SELECT count(d.iddescuentopago) as cuantos ,d.concepto, d.porcentaje, sum(d.monto) as monto from pagos p inner join descuentospagos d on p.serie=d.serie and p.recibo=d.recibo  where p.fecha_Act between '" & dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & "' and '" & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd") & "'  and p.cancelado='A'  group by d.concepto, d.porcentaje"
 
-                sqlDescuentosRecargos = $"SELECT sum(Descuento) as SumaDescuentos, Concepto, Porcentaje_Descuento from grabardescuentos_recargos WHERE FECHA_ACTUAL BETWEEN '{ dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") }' AND '{dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd")}' and cancelado='A'  group by Porcentaje_Descuento "
 
                 sqlformasdepago = "select count(concat(serie,recibo)) as cuantos,  ccodpago, sum(total) as total  from pagos where fecha_Act between '" & dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & "' and '" & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd") & "' and cancelado='A' group by ccodpago"
 
@@ -194,9 +193,7 @@ Public Class FrmReportexrubros
 
                     SqlITSharp = "select numconcepto,concepto, sum(pagos) as total,iva,sum(montoiva) as Montoiva from pagotros where fecha between '" & dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & "' and '" & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd") & "' and  cancelado='A' and caja=" & txtcaja.Text & " group by numconcepto,iva"
 
-                    SqlITSharpVIRTUALES = "SELECT count(concat(Serie, recibo)) as cuantos,descuento, sum(descuentopesos) as virtuales from pagos where fecha_Act between '" & dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & "' and '" & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd") & "' and Caja = '" & txtcaja.Text & "'" & " and cancelado='A'  group by descuento"
-
-                    sqlDescuentosRecargos = $"SELECT sum(Descuento) as SumaDescuentos, Concepto, Porcentaje_Descuento from grabardescuentos_recargos WHERE FECHA_ACTUAL BETWEEN '{ dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") }' AND '{ dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd") }' AND CAJA = { txtcaja.Text } and cancelado='A'  group by Porcentaje_Descuento"
+                    SqlITSharpVIRTUALES = "SELECT count(d.iddescuentopago) as cuantos ,d.concepto, d.porcentaje, sum(d.monto) as monto from pagos p inner join descuentospagos d on p.serie=d.serie and p.recibo=d.recibo  where p.fecha_Act between '" & dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & "' and '" & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd") & "' and p.Caja = '" & txtcaja.Text & "'" & " and p.cancelado='A' group by d.concepto, d.porcentaje "
 
                     'sqlDescuentosRecargos = $" "
                     sqlformasdepago = "select count(concat(serie,recibo)) as cuantos,  ccodpago, sum(total)  as total from pagos where fecha_Act between '" & dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & "' and '" & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd") & "' and Caja = '" & txtcaja.Text & "' and cancelado='A'  group by ccodpago"
@@ -212,9 +209,8 @@ Public Class FrmReportexrubros
 
                     SqlITSharp = "select numconcepto,concepto, sum(cantidad*Monto) as total,iva,sum(montoiva) as Montoiva from pagotros where fecha between '" & dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & "' and '" & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd") & "'  and Caja = '" & txtcaja.Text & "'" & " and recibo>=" & IIfolioinicial.Value & " and recibo<=" & IIfoliofinal.Value & " and cancelado='A' group by numconcepto,iva"
 
-                    SqlITSharpVIRTUALES = "SELECT count(concat(Serie, recibo)) as cuantos,descuento, sum(descuentopesos) as virtuales from pagos where fecha_Act between '" & dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & "' and '" & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd") & "' and Caja = '" & txtcaja.Text & "'" & "  and recibo>=" & IIfolioinicial.Value & " and recibo<=" & IIfoliofinal.Value & " And cancelado ='A'  group by descuento"
+                    SqlITSharpVIRTUALES = "SELECT count(d.iddescuentopago) as cuantos ,d.concepto, d.porcentaje, sum(d.monto) as monto from pagos p inner join descuentospagos d on p.serie=d.serie and p.recibo=d.recibo  where p.fecha_Act between between '" & dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & "' and '" & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd") & "' and p.Caja = '" & txtcaja.Text & "'" & "  and p.recibo>=" & IIfolioinicial.Value & " and p.recibo<=" & IIfoliofinal.Value & " And p.cancelado ='A'  group by d.concepto, d.porcentaje"
 
-                    sqlDescuentosRecargos = $"SELECT sum(Descuento) as SumaDescuentos, Concepto, Porcentaje_Descuento from grabardescuentos_recargos WHERE FECHA_ACTUAL BETWEEN '{ dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") }' AND '{ dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd") }' AND CAJA = { txtcaja.Text } and cancelado='A' and recibo>=" & IIfolioinicial.Value & " and recibo<=" & IIfoliofinal.Value & " group by Porcentaje_Descuento"
 
                     ' 'sqlDescuentosRecargos = $" "
                     sqlformasdepago = "Select count(concat(serie,recibo)) As cuantos,  ccodpago, sum(total)  As total from pagos where fecha_Act between '" & dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & "' and '" & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd") & "' and Caja = '" & txtcaja.Text & "' and cancelado='A' and recibo>=" & IIfolioinicial.Value & " and recibo<=" & IIfoliofinal.Value & "  group by ccodpago"
@@ -222,7 +218,7 @@ Public Class FrmReportexrubros
                 End If
 
                 Dim ObjCorteCaja As New cortexrubros
-                ObjCorteCaja.CorteDiario(SqlITSharp, dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & " AL " & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd"), txtcaja.Text, SqlITSharpVIRTUALES, sqlDescuentosRecargos, sqlformasdepago, sqlmixto, Sqlabonos)
+                ObjCorteCaja.CorteDiario(SqlITSharp, dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & " AL " & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd"), txtcaja.Text, SqlITSharpVIRTUALES, sqlformasdepago, sqlmixto, Sqlabonos)
                 Exit Sub
             Case "RESUMEN"
 
