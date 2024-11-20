@@ -33,7 +33,11 @@ Public Class cortexrubros
     Dim TotaCDesc As Decimal
     Public Property ExcelHorizontalAlignment As Object
 
-    Public Sub CorteDiario(ByVal sql As String, ByVal filtro As String, ByVal Caja As String, sqldescuento As String, sqlDescuentosRecargosP As String, sqlformapago As String, sqlmixto As String, sqlabono As String)
+    Public Sub CorteDiario(ByVal sql As String, ByVal filtro As String, ByVal Caja As String, sqldescuento As String, sqlformapago As String, sqlmixto As String, sqlabono As String)
+
+
+
+        Ejecucion("delete from tempcortecaja")
 
         fechaActual = DateTime.Now.ToString("dd-MMM-yyyy").ToUpper()
 
@@ -78,7 +82,7 @@ Public Class cortexrubros
 
             Dim imagenBMP As iTextSharp.text.Image
             imagenBMP = iTextSharp.text.Image.GetInstance(LOGOBYTE)
-            imagenBMP.ScaleToFit(60.0F, 40.0F)
+            imagenBMP.ScaleToFit(100.0F, 70.0F)
 
             imagenBMP.Border = 0
 
@@ -440,6 +444,7 @@ Public Class cortexrubros
             Tabletitdescuentos.SetWidths(widthsEncGen2)
 
 
+
             Dim ColPiePag1d = New PdfPCell(New Phrase("AGRUPAMIENTO POR DESCUENTO", Font10N))
             ColPiePag1d.Border = 0
             ColPiePag1d.HorizontalAlignment = PdfPCell.ALIGN_CENTER
@@ -453,54 +458,54 @@ Public Class cortexrubros
 
 
 
-
-            executeSQL = ConsultaSql(sqldescuento).ExecuteReader
             Dim TableDescuentos As PdfPTable = New PdfPTable(4)
             TableDescuentos.DefaultCell.Border = BorderStyle.None
             TableDescuentos.WidthPercentage = 100
             Dim widthsDesc As Single() = New Single() {250.0F, 250.0F, 250.0F, 250.0F}
             TableDescuentos.SetWidths(widthsDesc)
 
-            Do While executeSQL.Read
+            Dim agrupadesc As IDataReader = ConsultaSql(sqldescuento).ExecuteReader
 
-                Dim cuantos As Decimal = Decimal.Parse(executeSQL("cuantos"))
-                Dim virtu As Decimal = Decimal.Parse(executeSQL("virtuales"))
-                Dim descu As String = executeSQL("descuento").ToString()
+            Do While agrupadesc.Read
 
-                If descu = "5" Or descu = "10" Or descu = "50" Or descu = "100" Then ' A petición de la directora Yoseline, solo mostrar descuentos del 5, 10, 50 y 100% 14/09/2022
+                Dim cuantos As Decimal = Decimal.Parse(agrupadesc("cuantos"))
+                Dim virtu As Decimal = Decimal.Parse(agrupadesc("monto").ToString())
+                Dim concepto As String = agrupadesc("concepto").ToString()
+                Dim porcentaje As String = agrupadesc("porcentaje").ToString()
 
 
-                    If virtu > 0 Then
 
-                        Dim ColDesc = New PdfPCell(New Phrase(cuantos & " descuentos del: ", Font8))
-                        ColDesc.Border = 0
-                        ColDesc.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
-                        'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
-                        TableDescuentos.AddCell(ColDesc)
+                If virtu > 0 Then
 
-                        TotaCDesc = SumaTotal + SumaDescuento
+                    Dim ColDesc = New PdfPCell(New Phrase(cuantos & " descuentos de:  " + concepto, Font8))
+                    ColDesc.Border = 0
+                    ColDesc.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+                    'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
+                    TableDescuentos.AddCell(ColDesc)
 
-                        ColDesc = New PdfPCell(New Phrase(descu & "%", Font8))
-                        ColDesc.Border = 0
-                        ColDesc.HorizontalAlignment = PdfPCell.ALIGN_LEFT
-                        'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
-                        TableDescuentos.AddCell(ColDesc)
+                    TotaCDesc = SumaTotal + SumaDescuento
 
-                        ColDesc = New PdfPCell(New Phrase("Total : ", Font8))
-                        ColDesc.Border = 0
-                        ColDesc.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
-                        'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
-                        TableDescuentos.AddCell(ColDesc)
+                    ColDesc = New PdfPCell(New Phrase(porcentaje & "%", Font8))
+                    ColDesc.Border = 0
+                    ColDesc.HorizontalAlignment = PdfPCell.ALIGN_LEFT
+                    'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
+                    TableDescuentos.AddCell(ColDesc)
 
-                        TotaCDesc = TotaCDesc - SumaDescuento
-                        ColDesc = New PdfPCell(New Phrase(virtu.ToString("C"), Font8))
-                        ColDesc.Border = 0
-                        ColDesc.HorizontalAlignment = PdfPCell.ALIGN_LEFT
-                        'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
-                        TableDescuentos.AddCell(ColDesc)
-                    End If
+                    ColDesc = New PdfPCell(New Phrase("Total : ", Font8))
+                    ColDesc.Border = 0
+                    ColDesc.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+                    'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
+                    TableDescuentos.AddCell(ColDesc)
 
+                    TotaCDesc = TotaCDesc - SumaDescuento
+                    ColDesc = New PdfPCell(New Phrase(virtu.ToString("C"), Font8))
+                    ColDesc.Border = 0
+                    ColDesc.HorizontalAlignment = PdfPCell.ALIGN_LEFT
+                    'ColPiePag1.BackgroundColor = New iTextSharp.text.BaseColor(21, 76, 121)
+                    TableDescuentos.AddCell(ColDesc)
                 End If
+
+
 
             Loop
 

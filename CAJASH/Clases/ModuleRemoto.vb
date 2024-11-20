@@ -18,21 +18,6 @@ Module ModuleRemoto
     End Sub
 
     Public Async Function EjecutarConsultaRemotaAsync(ByVal sqlQuery As String) As Task
-        If conn2 Is Nothing OrElse conn2.State <> ConnectionState.Open Then
-            Try
-                conn2.Open()
-            Catch ex As Exception
 
-            End Try
-
-        End If
-
-        Try
-            Dim cmd As New OdbcCommand(sqlQuery, conn2)
-            Await cmd.ExecuteNonQueryAsync()
-        Catch ex As Exception
-            Dim arch As New clsDocumentoTXT
-            arch.guardartxt(sqlQuery, "c:\cajamovil\Remoto" & My.Settings.caja & My.Settings.serie & Now.ToString("yyyyMMdd") & ".SQL")
-        End Try
     End Function
 End Module

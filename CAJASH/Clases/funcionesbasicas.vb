@@ -36,6 +36,7 @@ Module funcionesbasicas
     Public RFCORGANISMO As String
     Public LMedNuevo As String = "O"
     Public PORC_RECA_OTRO As Integer
+    Public TELEMPRESA As String
     'Public VARIABLE_IVA As Double = My.Settings.
 
     Public TIPODESCUENTO = "SOBRE MINIMO" ' "SOBRE TOTAL"
@@ -483,7 +484,7 @@ Module funcionesbasicas
             coloniaEMPRESA = emp("ccolonia")
             LOGOBYTE = emp("LOGO")
             RFCORGANISMO = emp("CNIF")
-
+            TELEMPRESA = emp("CTLF")
             'Cargar a LMedNuevo el valor de la situacion de nuevo en la bd
         Catch ex As Odbc.OdbcException
             MsgBox(ex.Message.ToString)

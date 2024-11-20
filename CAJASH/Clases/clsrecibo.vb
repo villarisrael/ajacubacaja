@@ -55,7 +55,7 @@ Public Class reciboaimprimir
         End Try
 
         Dim Nombre As String = String.Empty
-        Dim direccion As String = String.Empty
+        Dim direccionusuario As String = String.Empty
         Dim colonia As String = String.Empty
         Dim comunidad As String = String.Empty
         Dim municipio As String = String.Empty
@@ -71,7 +71,7 @@ Public Class reciboaimprimir
         If DATOS("ESUSUARIO") = 1 Then
             DATOSUSUARIO = ConsultaSql("SELECT * FROM VUSUARIO WHERE CUENTA=" & DATOS("CUENTA")).ExecuteReader
             DATOSUSUARIO.Read()
-            direccion = DATOSUSUARIO("Direccion")
+            direccionusuario = DATOSUSUARIO("Direccion")
             colonia = DATOSUSUARIO("colonia")
             municipio = DATOSUSUARIO("municipio")
             tarifa = DATOS("tarifa")
@@ -82,7 +82,7 @@ Public Class reciboaimprimir
         If DATOS("ESUSUARIO") = 3 Then
             DATOSUSUARIO = ConsultaSql("SELECT * FROM vSOLICITUD WHERE NUMERO=" & DATOS("CUENTA")).ExecuteReader
             DATOSUSUARIO.Read()
-            direccion = DATOSUSUARIO("domicilio") & " " & DATOSUSUARIO("numext") & " " & DATOSUSUARIO("numint")
+            direccionusuario = DATOSUSUARIO("domicilio") & " " & DATOSUSUARIO("numext") & " " & DATOSUSUARIO("numint")
             colonia = DATOSUSUARIO("colonia")
             comunidad = DATOSUSUARIO("comunidad")
 
@@ -92,7 +92,7 @@ Public Class reciboaimprimir
         If DATOS("ESUSUARIO") = 2 Then
             DATOSUSUARIO = ConsultaSql("SELECT * FROM NOUSUARIOs WHERE CLAVE=" & DATOS("CUENTA")).ExecuteReader
             DATOSUSUARIO.Read()
-            direccion = DATOSUSUARIO("direccion") + DATOSUSUARIO("numext") + DATOSUSUARIO("numint")
+            direccionusuario = DATOSUSUARIO("direccion") + DATOSUSUARIO("numext") + DATOSUSUARIO("numint")
             colonia = DATOSUSUARIO("colonia")
             comunidad = DATOSUSUARIO("comunidad")
 
@@ -157,7 +157,7 @@ Public Class reciboaimprimir
 
                 Dim imagenBMP As iTextSharp.text.Image
                 imagenBMP = iTextSharp.text.Image.GetInstance(LOGOBYTE)
-                imagenBMP.ScaleToFit(60.0F, 40.0F)
+                imagenBMP.ScaleToFit(100.0F, 70.0F)
 
                 imagenBMP.Border = 0
                 'Abrimos el pdf para comenzar a escribir en el
@@ -196,7 +196,7 @@ Public Class reciboaimprimir
                 Col1.Border = 0
                 Col1.HorizontalAlignment = PdfPCell.ALIGN_CENTER
 
-                Dim DIRECCIONE As String = direccion & " " & coloniaEMPRESA & " " & poblacionEMPRESA & " " & Estadoempresa
+                Dim DIRECCIONE As String = Direccion & " " & coloniaEMPRESA & " " & poblacionEMPRESA & " " & Estadoempresa
                 Dim Col1d = New PdfPCell(New Phrase(DIRECCIONE, Font8))
                 Col1d.Border = 0
                 Col1d.HorizontalAlignment = PdfPCell.ALIGN_CENTER
@@ -208,9 +208,15 @@ Public Class reciboaimprimir
                 Col1rfe.HorizontalAlignment = PdfPCell.ALIGN_CENTER
 
 
+                Dim Col1tel = New PdfPCell(New Phrase("TEL. " & TELEMPRESA, Font9))
+                Col1tel.Border = 0
+                Col1tel.HorizontalAlignment = PdfPCell.ALIGN_CENTER
+
                 Tabledireccion.AddCell(Col1)
                 Tabledireccion.AddCell(Col1d)
                 Tabledireccion.AddCell(Col1rfe)
+
+
                 Table1.AddCell(Tabledireccion)
 
                 Dim Table2 As PdfPTable = New PdfPTable(2)
@@ -321,7 +327,7 @@ Public Class reciboaimprimir
                 ColdatosEncUsuario1.BackgroundColor = New iTextSharp.text.BaseColor(23, 162, 184)
                 tabladatosEncUusario.AddCell(ColdatosEncUsuario1)
 
-                ColdatosEncUsuario2 = New PdfPCell(New Phrase(direccion + " " + colonia + " " + municipio, Font8))
+                ColdatosEncUsuario2 = New PdfPCell(New Phrase(direccionusuario + " " + colonia + " " + municipio, Font8))
                 ColdatosEncUsuario2.Border = 0
                 ColdatosEncUsuario2.HorizontalAlignment = PdfPCell.ALIGN_LEFT
                 tabladatosEncUusario.AddCell(ColdatosEncUsuario2)
@@ -573,16 +579,24 @@ Public Class reciboaimprimir
                 TableFIRMAS.DefaultCell.Border = BorderStyle.None
                 Dim widthsTotalFIR As Single() = New Single() {900.0F}
                 TableFIRMAS.SetWidths(widthsTotalFIR)
-
-
                 TableFIRMAS.AddCell(ColVacio)
                 TableFIRMAS.AddCell(ColVacio)
+                Try
+                    Dim descuentos As IDataReader = ConsultaSql("select * from descuentospagos where serie='" & Serie & "' and recibo =" & folio).ExecuteReader
+                    Do While descuentos.Read()
+                        Dim cadenadesc As String = "Usted obtuvo un descuento en " & descuentos("concepto") & " del " & descuentos("porcentaje") & "% con lo que usted ahorro " & Decimal.Parse(descuentos("monto").ToString()).ToString("C") & " Pesos"
+                        Dim coldesc = New PdfPCell(New Phrase(cadenadesc, Font9))
+                        coldesc.Border = 1
+                        coldesc.HorizontalAlignment = PdfPCell.ALIGN_CENTER
+                        TableFIRMAS.AddCell(ColTotLetra)
+                    Loop
+                Catch ex As Exception
+
+                End Try
 
 
-                ColTotLetra = New PdfPCell(New Phrase("FIRMA DEL CAJERO", Font9))
-                ColTotLetra.Border = 1
-                ColTotLetra.HorizontalAlignment = PdfPCell.ALIGN_CENTER
-                TableFIRMAS.AddCell(ColTotLetra)
+
+
 
                 TableFIRMAS.AddCell(ColVacio)
                 TableFIRMAS.AddCell(ColVacio)
@@ -675,7 +689,7 @@ Public Class reciboaimprimir
         Try
 
             DATOS = ConsultaSql("SELECT * FROM PAGOS WHERE SERIE='" & Serie & "' AND recibo=" & folio).ExecuteReader
-            DATOS.Read()
+                DATOS.Read()
             CONTE = ConsultaSql("SELECT * FROM PAGOtros WHERE SERIE='" & Serie & "' AND recibo=" & folio).ExecuteReader
 
         Catch ex As Exception
@@ -686,7 +700,7 @@ Public Class reciboaimprimir
 
 
         Dim Nombre As String = String.Empty
-        Dim direccion As String = String.Empty
+        Dim direccionusuario As String = String.Empty
         Dim colonia As String = String.Empty
         Dim municipio As String = String.Empty
         Dim entidad As String = String.Empty
@@ -702,7 +716,7 @@ Public Class reciboaimprimir
 
             DATOSUSUARIO = ConsultaSql("SELECT * FROM VUSUARIO WHERE CUENTA=" & DATOS("CUENTA")).ExecuteReader
             DATOSUSUARIO.Read()
-            direccion = DATOSUSUARIO("Direccion")
+            direccionusuario = DATOSUSUARIO("Direccion")
             colonia = DATOSUSUARIO("colonia")
             municipio = DATOSUSUARIO("municipio")
             tarifa = DATOS("tarifa")
@@ -714,7 +728,7 @@ Public Class reciboaimprimir
 
             DATOSUSUARIO = ConsultaSql("SELECT * FROM vSOLICITUD WHERE NUMERO=" & DATOS("CUENTA")).ExecuteReader
             DATOSUSUARIO.Read()
-            direccion = DATOSUSUARIO("domicilio") + DATOSUSUARIO("numext") + DATOSUSUARIO("numint")
+            direccionusuario = DATOSUSUARIO("domicilio") + DATOSUSUARIO("numext") + DATOSUSUARIO("numint")
             colonia = DATOSUSUARIO("colonia")
             municipio = DATOSUSUARIO("municipio")
 
@@ -724,7 +738,7 @@ Public Class reciboaimprimir
 
             DATOSUSUARIO = ConsultaSql("SELECT * FROM NOUSUARIO WHERE CLAVE=" & DATOS("CUENTA")).ExecuteReader
             DATOSUSUARIO.Read()
-            direccion = DATOSUSUARIO("direccion") + DATOSUSUARIO("numext") + DATOSUSUARIO("numint")
+            direccionusuario = DATOSUSUARIO("direccion") + DATOSUSUARIO("numext") + DATOSUSUARIO("numint")
             colonia = DATOSUSUARIO("colonia")
             municipio = DATOSUSUARIO("municipio")
 
@@ -818,7 +832,7 @@ Public Class reciboaimprimir
 
         Dim imagenBMP As iTextSharp.text.Image
         imagenBMP = iTextSharp.text.Image.GetInstance(LOGOBYTE)
-        imagenBMP.ScaleToFit(80.0F, 70.0F)
+        imagenBMP.ScaleToFit(100, 70.0F)
 
         imagenBMP.Border = 0
 
@@ -843,9 +857,15 @@ Public Class reciboaimprimir
         Col1rfe.HorizontalAlignment = PdfPCell.ALIGN_CENTER
 
 
+        Dim Col1TEL = New PdfPCell(New Phrase("TEL." & TELEMPRESA, Font9))
+        Col1TEL.Border = 0
+        Col1TEL.HorizontalAlignment = PdfPCell.ALIGN_CENTER
+
+
         Tabledireccion.AddCell(Col1)
         Tabledireccion.AddCell(Col1d)
         Tabledireccion.AddCell(Col1rfe)
+        Tabledireccion.AddCell(Col1TEL)
         Table1.AddCell(Tabledireccion)
 
 
@@ -1009,7 +1029,7 @@ Public Class reciboaimprimir
         ColdatosEncUsuario1.BackgroundColor = New iTextSharp.text.BaseColor(23, 162, 184)
         tabladatosEncUusario.AddCell(ColdatosEncUsuario1)
 
-        ColdatosEncUsuario2 = New PdfPCell(New Phrase(direccion + " " + colonia + " " + municipio, Font8))
+        ColdatosEncUsuario2 = New PdfPCell(New Phrase(direccionusuario + " " + colonia + " " + municipio, Font8))
         ColdatosEncUsuario2.Border = 0
         ColdatosEncUsuario2.HorizontalAlignment = PdfPCell.ALIGN_LEFT
         tabladatosEncUusario.AddCell(ColdatosEncUsuario2)
@@ -1332,27 +1352,32 @@ Public Class reciboaimprimir
 
 
 
-        Dim TableFirmas As PdfPTable = New PdfPTable(3)
+        Dim TableFirmas As PdfPTable = New PdfPTable(1)
         TableFirmas.WidthPercentage = 100
         TableFirmas.DefaultCell.Border = BorderStyle.None
-        Dim widthsFirmas As Single() = New Single() {300.0F, 300.0F, 300.0F}
+        Dim widthsFirmas As Single() = New Single() {900.0F}
         TableFirmas.SetWidths(widthsFirmas)
 
 
 
+
+
+        Try
+            Dim descuentos As IDataReader = ConsultaSql("select * from descuentospagos where serie='" & Serie & "' and recibo =" & folio).ExecuteReader
+            Do While descuentos.Read()
+                Dim cadenadesc As String = "Usted obtuvo un descuento en " & descuentos("concepto") & " del " & descuentos("porcentaje") & "% con lo que usted ahorro " & Decimal.Parse(descuentos("monto").ToString()).ToString("C") & " Pesos"
+                Dim coldesc = New PdfPCell(New Phrase(cadenadesc, Font9))
+                coldesc.Border = 1
+                coldesc.HorizontalAlignment = PdfPCell.ALIGN_CENTER
+                TableFirmas.AddCell(coldesc)
+            Loop
+        Catch ex As Exception
+
+        End Try
+
+
+
         Dim ColFirmas = New PdfPCell(New Phrase($" ", Font9))
-        ColFirmas.Border = 0
-        ColFirmas.HorizontalAlignment = PdfPCell.ALIGN_CENTER
-        TableFirmas.AddCell(ColFirmas)
-
-
-        ColFirmas = New PdfPCell(New Phrase($"Firma cajero", Font9))
-        ColFirmas.Border = 1
-        ColFirmas.HorizontalAlignment = PdfPCell.ALIGN_CENTER
-        TableFirmas.AddCell(ColFirmas)
-
-
-        ColFirmas = New PdfPCell(New Phrase($" ", Font9))
         ColFirmas.Border = 0
         ColFirmas.HorizontalAlignment = PdfPCell.ALIGN_CENTER
         TableFirmas.AddCell(ColFirmas)
