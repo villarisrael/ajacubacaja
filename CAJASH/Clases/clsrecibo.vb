@@ -362,6 +362,9 @@ Public Class reciboaimprimir
                 ColdatosEncUsuario3.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
                 ColdatosEncUsuario3.BackgroundColor = New iTextSharp.text.BaseColor(23, 162, 184)
                 tabladatosEncUusario.AddCell(ColdatosEncUsuario3)
+
+
+
                 Try
                     ColdatosEncUsuario4 = New PdfPCell(New Phrase(nodemedidor, Font12))
                     ColdatosEncUsuario4.Border = 0
@@ -376,10 +379,29 @@ Public Class reciboaimprimir
 
 
 
+                Dim ColCuentaAnterior = New PdfPCell(New Phrase("CUENTA ANTERIOR:", Font8White))
+                ColCuentaAnterior.Border = 0
+                ColCuentaAnterior.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+                ColCuentaAnterior.BackgroundColor = New iTextSharp.text.BaseColor(23, 162, 184)
+                tabladatosEncUusario.AddCell(ColCuentaAnterior)
+
+
+
+                ColCuentaAnterior = New PdfPCell(New Phrase(DATOSUSUARIO("cuentaAnterior"), Font8))
+                ColCuentaAnterior.Border = 0
+                ColCuentaAnterior.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+                tabladatosEncUusario.AddCell(ColCuentaAnterior)
+
+
+
                 pdfDoc.Add(tabladatosEncUusario)
 
                 pdfDoc.Add(TableVacio)
                 pdfDoc.Add(TableVacio)
+
+
+
+
 
                 Dim TableGeneralConceptos As PdfPTable = New PdfPTable(5)
                 TableGeneralConceptos.WidthPercentage = 100
@@ -706,6 +728,7 @@ Public Class reciboaimprimir
         Dim entidad As String = String.Empty
         Dim tarifa As String = String.Empty
         Dim nodemedidor As String = String.Empty
+        Dim numExterior As String = String.Empty
 
 
         Nombre = DATOS("Nombre")
@@ -721,6 +744,7 @@ Public Class reciboaimprimir
             municipio = DATOSUSUARIO("municipio")
             tarifa = DATOS("tarifa")
             nodemedidor = DATOSUSUARIO("nodemedidor")
+            numExterior = DATOSUSUARIO("numext")
 
         End If
 
@@ -1029,16 +1053,19 @@ Public Class reciboaimprimir
         ColdatosEncUsuario1.BackgroundColor = New iTextSharp.text.BaseColor(23, 162, 184)
         tabladatosEncUusario.AddCell(ColdatosEncUsuario1)
 
-        ColdatosEncUsuario2 = New PdfPCell(New Phrase(direccionusuario + " " + colonia + " " + municipio, Font8))
+
+        ColdatosEncUsuario2 = New PdfPCell(New Phrase($"{direccionusuario} No. {numExterior}, {colonia}, {municipio}", Font8))
         ColdatosEncUsuario2.Border = 0
         ColdatosEncUsuario2.HorizontalAlignment = PdfPCell.ALIGN_LEFT
         tabladatosEncUusario.AddCell(ColdatosEncUsuario2)
+
 
         ColdatosEncUsuario3 = New PdfPCell(New Phrase("TARIFA:", Font8White))
         ColdatosEncUsuario3.Border = 0
         ColdatosEncUsuario3.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
         ColdatosEncUsuario3.BackgroundColor = New iTextSharp.text.BaseColor(23, 162, 184)
         tabladatosEncUusario.AddCell(ColdatosEncUsuario3)
+
 
         ColdatosEncUsuario4 = New PdfPCell(New Phrase(tarifa.ToString().ToUpper(), Font8))
         ColdatosEncUsuario4.Border = 0
@@ -1070,6 +1097,21 @@ Public Class reciboaimprimir
             tabladatosEncUusario.AddCell(ColdatosEncUsuario4)
 
         End Try
+
+
+
+        Dim ColCuentaAnterior = New PdfPCell(New Phrase("CUENTA ANTERIOR:", Font8White))
+        ColCuentaAnterior.Border = 0
+        ColCuentaAnterior.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+        ColCuentaAnterior.BackgroundColor = New iTextSharp.text.BaseColor(23, 162, 184)
+        tabladatosEncUusario.AddCell(ColCuentaAnterior)
+
+
+
+        ColCuentaAnterior = New PdfPCell(New Phrase(DATOSUSUARIO("cuentaAnterior").ToString(), Font8))
+        ColCuentaAnterior.Border = 0
+        ColCuentaAnterior.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+        tabladatosEncUusario.AddCell(ColCuentaAnterior)
 
 
         pdfDoc.Add(Table1)

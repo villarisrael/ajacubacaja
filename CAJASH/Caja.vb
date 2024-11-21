@@ -1699,7 +1699,11 @@ Line1:      Dim datosdescuento As IDataReader = ConsultaSql("select * from  desc
         Dim UsuarioCot As String = txtnombre.Text
         'Dim IDCValvu As String = dts("idcuotavalvulista")
 
-        Dim ColInfoUsu1 = New PdfPCell(New Phrase("Contrato: " & Contrato & ", " & UsuarioCot, Font)) With {
+        Dim cuentaAnterior As String = ""
+
+        cuentaAnterior = obtenerCampo($"SELECT CUENTAANTERIOR FROM VUSUARIO WHERE CUENTA = '{Contrato}'", "CUENTAANTERIOR")
+
+        Dim ColInfoUsu1 = New PdfPCell(New Phrase($"Contrato: {Contrato}, | {UsuarioCot} | Cuenta Anterior: {cuentaAnterior}", Font)) With {
             .Border = 0,
             .HorizontalAlignment = PdfPCell.ALIGN_LEFT
         }

@@ -15,7 +15,7 @@
     Private Sub txtcuenta_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtcuenta.TextChanged
         Try
             Dim x As base = New base()
-            x.llenaGrid(DTGbusqueda, "   SELECT CUENTA , NOMBRE, DIRECCION, COLONIA,DESCRIPCION_CUOTA FROM vusuario WHERE CUENTA =" & txtcuenta.Text)
+            x.llenaGrid(DTGbusqueda, "   SELECT CUENTA, cuentaAnterior, NOMBRE, DIRECCION, COLONIA,DESCRIPCION_CUOTA FROM vusuario WHERE CUENTA =" & txtcuenta.Text)
         Catch ex As Exception
         End Try
     End Sub
@@ -23,7 +23,7 @@
     Private Sub RadTextBox1_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtnombre.TextChanged
         If txtnombre.Text.Length > 3 Then
             Dim x As base = New base()
-            x.llenaGrid(DTGbusqueda, "   SELECT CUENTA , NOMBRE, DIRECCION, COLONIA,DESCRIPCION_CUOTA, manzana, lote FROM vusuario WHERE NOMBRE LIKE '%" & txtnombre.Text & "%'")
+            x.llenaGrid(DTGbusqueda, "   SELECT CUENTA, cuentaAnterior, NOMBRE, DIRECCION, COLONIA,DESCRIPCION_CUOTA, manzana, lote FROM vusuario WHERE NOMBRE LIKE '%" & txtnombre.Text & "%'")
             ajustacolumnas()
         End If
     End Sub
@@ -31,7 +31,7 @@
     Private Sub txtdireccion_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtdireccion.TextChanged
         If txtdireccion.Text.Length > 3 Then
             Dim x As base = New base()
-            x.llenaGrid(DTGbusqueda, "   SELECT CUENTA , NOMBRE, DIRECCION, COLONIA,DESCRIPCION_CUOTA FROM vusuario WHERE DIRECCION LIKE '%" & txtdireccion.Text & "%'")
+            x.llenaGrid(DTGbusqueda, "   SELECT CUENTA, cuentaAnterior, NOMBRE, DIRECCION, COLONIA,DESCRIPCION_CUOTA FROM vusuario WHERE DIRECCION LIKE '%" & txtdireccion.Text & "%'")
             ajustacolumnas()
         End If
     End Sub
@@ -39,7 +39,7 @@
     Private Sub txtcolonia_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtcolonia.TextChanged
         If txtcolonia.Text.Length > 3 Then
             Dim x As base = New base()
-            x.llenaGrid(DTGbusqueda, "SELECT CUENTA , NOMBRE, DIRECCION, COLONIA,DESCRIPCION_CUOTA FROM vusuario WHERE COLONIA LIKE '%" & txtcolonia.Text & "%'")
+            x.llenaGrid(DTGbusqueda, "SELECT CUENTA, cuentaAnterior, NOMBRE, DIRECCION, COLONIA,DESCRIPCION_CUOTA FROM vusuario WHERE COLONIA LIKE '%" & txtcolonia.Text & "%'")
             ajustacolumnas()
 
         End If
@@ -86,13 +86,19 @@
 
     Private Sub txtcuentaAnterior_TextChanged(sender As Object, e As EventArgs) Handles txtcuentaAnterior.TextChanged
 
+        Try
+            Dim x As base = New base()
+            x.llenaGrid(DTGbusqueda, "SELECT CUENTA, cuentaAnterior, NOMBRE, DIRECCION, COLONIA,DESCRIPCION_CUOTA FROM vusuario WHERE cuentaAnterior ='" & txtcuentaAnterior.Text & "'")
+        Catch ex As Exception
+        End Try
+
     End Sub
 
     Private Sub txtcuentaAnterior_KeyDown(sender As Object, e As KeyEventArgs) Handles txtcuentaAnterior.KeyDown
         If e.KeyCode = 13 Then
             Try
                 Dim x As base = New base()
-                x.llenaGrid(DTGbusqueda, "   SELECT CUENTA , NOMBRE, DIRECCION, COLONIA,DESCRIPCION_CUOTA FROM vusuario WHERE cto_agua ='" & txtcuentaAnterior.Text & "'")
+                x.llenaGrid(DTGbusqueda, "   SELECT CUENTA, cuentaAnterior, NOMBRE, DIRECCION, COLONIA,DESCRIPCION_CUOTA FROM vusuario WHERE cuentaAnterior ='" & txtcuentaAnterior.Text & "'")
             Catch ex As Exception
             End Try
         End If
@@ -103,7 +109,7 @@
         If e.KeyCode = 13 Then
             Try
                 Dim x As base = New base()
-                x.llenaGrid(DTGbusqueda, "   SELECT CUENTA , NOMBRE, DIRECCION, COLONIA,DESCRIPCION_CUOTA FROM vusuario WHERE ubicacion ='" & txtUbicacion.Text & "'")
+                x.llenaGrid(DTGbusqueda, "   SELECT CUENTA, cuentaAnterior, NOMBRE, DIRECCION, COLONIA,DESCRIPCION_CUOTA FROM vusuario WHERE ubicacion ='" & txtUbicacion.Text & "'")
             Catch ex As Exception
             End Try
         End If
@@ -113,7 +119,7 @@
 
         Try
                 Dim x As base = New base()
-            x.llenaGrid(DTGbusqueda, "   SELECT CUENTA , NOMBRE, DIRECCION, COLONIA,DESCRIPCION_CUOTA FROM vusuario WHERE ubicacion ='" & txtUbicacion.Text & "'")
+            x.llenaGrid(DTGbusqueda, "   SELECT CUENTA, cuentaAnterior, NOMBRE, DIRECCION, COLONIA,DESCRIPCION_CUOTA FROM vusuario WHERE ubicacion ='" & txtUbicacion.Text & "'")
         Catch ex As Exception
             End Try
     End Sub
