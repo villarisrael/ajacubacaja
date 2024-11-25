@@ -711,7 +711,7 @@ Public Class reciboaimprimir
         Try
 
             DATOS = ConsultaSql("SELECT * FROM PAGOS WHERE SERIE='" & Serie & "' AND recibo=" & folio).ExecuteReader
-                DATOS.Read()
+            DATOS.Read()
             CONTE = ConsultaSql("SELECT * FROM PAGOtros WHERE SERIE='" & Serie & "' AND recibo=" & folio).ExecuteReader
 
         Catch ex As Exception
@@ -870,7 +870,7 @@ Public Class reciboaimprimir
         Col1.Border = 0
         Col1.HorizontalAlignment = PdfPCell.ALIGN_CENTER
 
-        Dim DIRECCIONE As String = direccion & " " & coloniaEMPRESA & " " & poblacionEMPRESA & " " & Estadoempresa
+        Dim DIRECCIONE As String = Direccion & " " & coloniaEMPRESA & " " & poblacionEMPRESA & " " & Estadoempresa
         Dim Col1d = New PdfPCell(New Phrase(DIRECCIONE, Font8))
         Col1d.Border = 0
         Col1d.HorizontalAlignment = PdfPCell.ALIGN_CENTER
