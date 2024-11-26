@@ -90,16 +90,16 @@ Public Class frmListadoRecibos
                     Catch ex As Exception
 
                     End Try
-                    ConectarRemoto()
+                    '                   ConectarRemoto()
                     Ejecucion("update pagos set Cancelado='C' where recibo=" & recibo & " and serie='" & serie & "'")
                     Ejecucion("update pagotros set Cancelado='C' where recibo=" & recibo & " and serie='" & serie & "'")
                     Ejecucion("update otrosconceptos, pagotros set pagado=0,estado='Pendiente', otrosconceptos.Resta=otrosconceptos.Resta + (pagotros.monto+ (pagotros.monto*pagotros.iva*" & variable_iva / 100 & ")), otrosconceptos.subtotresta=otrosconceptos.subtotresta + pagotros.monto where otrosconceptos.clave=pagotros.clavemov and pagotros.recibo=" & recibo & " and pagotros.serie='" & serie & "'")
 
 
 
-                    Dim sinusar = EjecutarConsultaRemotaAsync("update pagos set Cancelado='C' where recibo=" & recibo & " and serie='" & serie & "'")
-                    Dim sinusar2 = EjecutarConsultaRemotaAsync("update pagotros set Cancelado='C' where recibo=" & recibo & " and serie='" & serie & "'")
-                    Dim sinusar3 = EjecutarConsultaRemotaAsync("update otrosconceptos, pagotros set pagado=0,estado='Pendiente', otrosconceptos.Resta=otrosconceptos.Resta + (pagotros.monto+ (pagotros.monto*pagotros.iva*" & variable_iva / 100 & ")), otrosconceptos.subtotresta=otrosconceptos.subtotresta + pagotros.monto where otrosconceptos.clave=pagotros.clavemov and pagotros.recibo=" & recibo & " and pagotros.serie='" & serie & "'")
+                    '      Dim sinusar = EjecutarConsultaRemotaAsync("update pagos set Cancelado='C' where recibo=" & recibo & " and serie='" & serie & "'")
+                    '      Dim sinusar2 = EjecutarConsultaRemotaAsync("update pagotros set Cancelado='C' where recibo=" & recibo & " and serie='" & serie & "'")
+                    '      Dim sinusar3 = EjecutarConsultaRemotaAsync("update otrosconceptos, pagotros set pagado=0,estado='Pendiente', otrosconceptos.Resta=otrosconceptos.Resta + (pagotros.monto+ (pagotros.monto*pagotros.iva*" & variable_iva / 100 & ")), otrosconceptos.subtotresta=otrosconceptos.subtotresta + pagotros.monto where otrosconceptos.clave=pagotros.clavemov and pagotros.recibo=" & recibo & " and pagotros.serie='" & serie & "'")
 
                     Try
 
