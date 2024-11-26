@@ -644,7 +644,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("CAP030509QX9")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("CAS141230736")>  _
         Public Property RFC() As String
             Get
                 Return CType(Me("RFC"),String)
@@ -668,7 +668,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("CAA930101333")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("CAS141230736")>  _
         Public Property UsuarioMultifacturas() As String
             Get
                 Return CType(Me("UsuarioMultifacturas"),String)
@@ -680,7 +680,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("CAA930101333")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("CAS141230736")>  _
         Public Property PassFacturaMultifacturas() As String
             Get
                 Return CType(Me("PassFacturaMultifacturas"),String)
@@ -704,7 +704,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("C:\\sdk2\\certificados\\ACTOPAN.cer")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("C:\\sdk24\\certificados\\caysa.cer")>  _
         Public Property CER() As String
             Get
                 Return CType(Me("CER"),String)
@@ -716,7 +716,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("C:\\sdk2\\certificados\\ACTOPAN.key")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("C:\\sdk24\\certificados\\caysa.key")>  _
         Public Property KEY() As String
             Get
                 Return CType(Me("KEY"),String)
@@ -728,7 +728,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("CAASA2021")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("caysa123")>  _
         Public Property KeyContrasena() As String
             Get
                 Return CType(Me("KeyContrasena"),String)
@@ -836,7 +836,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Caja01")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("root")>  _
         Public Property usuarioreporte() As String
             Get
                 Return CType(Me("usuarioreporte"),String)
@@ -848,7 +848,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Caja01")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Gabriela@2018")>  _
         Public Property passreporte() As String
             Get
                 Return CType(Me("passreporte"),String)
@@ -860,7 +860,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("agua_actopan")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("agua_ajacuba")>  _
         Public Property basereporte() As String
             Get
                 Return CType(Me("basereporte"),String)
@@ -945,16 +945,6 @@ Namespace My
         Public ReadOnly Property baseaguaConnectionString() As String
             Get
                 Return CType(Me("baseaguaConnectionString"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("server=192.168.1.5; Database=aguaprogreso; user id=root; password=root;")>  _
-        Public ReadOnly Property ConexionCobroexpress() As String
-            Get
-                Return CType(Me("ConexionCobroexpress"),String)
             End Get
         End Property
     End Class

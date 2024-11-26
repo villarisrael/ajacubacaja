@@ -1584,6 +1584,14 @@ Public Class Frmvalidafactura
 
             Dim ultimoUUIDTimbrado As String = obtenerCampo("select UUID from ENCFAC where caja = " & My.Settings.caja & " order by fecha desc limit 1", "UUID")
 
+            If sdkresp.Codigo_MF_Texto = "NO SE PUDO LEER CERTIFICADO" Then
+                MessageBox.Show("NO SE PUDO LEER CERTIFICADO")
+                Return
+            End If
+            If sdkresp.UUID = "" Then
+                MessageBox.Show("No timbro, vuelve a intentar")
+                Return
+            End If
 
             ''Validar que el UUID sea de un nuevo timbrado exitosamente
 

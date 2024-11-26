@@ -155,29 +155,29 @@ DEPARTAMENTO COMERCIAL</Value>
       <Value Profile="(Default)">http://www.factupronto.mx/prometheus/txt_timbrado_factupronto.php</Value>
     </Setting>
     <Setting Name="RFC" Type="System.String" Scope="User">
-      <Value Profile="(Default)">CAP030509QX9</Value>
+      <Value Profile="(Default)">CAS141230736</Value>
     </Setting>
     <Setting Name="Regimen" Type="System.String" Scope="User">
       <Value Profile="(Default)">603</Value>
     </Setting>
     <Setting Name="UsuarioMultifacturas" Type="System.String" Scope="User">
-      <Value Profile="(Default)">CAA930101333</Value>
+      <Value Profile="(Default)">CAS141230736</Value>
     </Setting>
     <Setting Name="PassFacturaMultifacturas" Type="System.String" Scope="User">
-      <Value Profile="(Default)">CAA930101333</Value>
+      <Value Profile="(Default)">CAS141230736</Value>
     </Setting>
     <Setting Name="ProduccionMultifacturas" Type="System.String" Scope="User">
       <Value Profile="(Default)">SI
 </Value>
     </Setting>
     <Setting Name="CER" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\\sdk2\\certificados\\ACTOPAN.cer</Value>
+      <Value Profile="(Default)">C:\\sdk24\\certificados\\caysa.cer</Value>
     </Setting>
     <Setting Name="KEY" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\\sdk2\\certificados\\ACTOPAN.key</Value>
+      <Value Profile="(Default)">C:\\sdk24\\certificados\\caysa.key</Value>
     </Setting>
     <Setting Name="KeyContrasena" Type="System.String" Scope="User">
-      <Value Profile="(Default)">CAASA2021</Value>
+      <Value Profile="(Default)">caysa123</Value>
     </Setting>
     <Setting Name="ProvedorFacturacion" Type="System.String" Scope="User">
       <Value Profile="(Default)">MULTIFACTURAS</Value>
@@ -204,13 +204,13 @@ DEPARTAMENTO COMERCIAL</Value>
       <Value Profile="(Default)">Agua</Value>
     </Setting>
     <Setting Name="usuarioreporte" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Caja01</Value>
+      <Value Profile="(Default)">root</Value>
     </Setting>
     <Setting Name="passreporte" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Caja01</Value>
+      <Value Profile="(Default)">Gabriela@2018</Value>
     </Setting>
     <Setting Name="basereporte" Type="System.String" Scope="User">
-      <Value Profile="(Default)">agua_actopan</Value>
+      <Value Profile="(Default)">agua_ajacuba</Value>
     </Setting>
     <Setting Name="manejacatalogocalles" Type="System.String" Scope="User">
       <Value Profile="(Default)">NO</Value>
@@ -237,13 +237,6 @@ DEPARTAMENTO COMERCIAL</Value>
   &lt;ProviderName&gt;System.Data.Odbc&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Dsn=Agua</Value>
-    </Setting>
-    <Setting Name="ConexionCobroexpress" Type="(Connection string)" Scope="Application">
-      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;server=192.168.1.5; Database=aguaprogreso; user id=root; password=root;&lt;/ConnectionString&gt;
-&lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">server=192.168.1.5; Database=aguaprogreso; user id=root; password=root;</Value>
     </Setting>
   </Settings>
 </SettingsFile>
