@@ -1377,18 +1377,15 @@ Public Class frmPagoefectivo
 
                 End Try
             End If
+
             Caja.limpiar()
-            'save.conexion.Dispose()
-            control.descuentoaconsumo = 0
+            ReiniciarDescuentos()
+
 
             Close()
-            DesconectarRemoto()
-        End If
-        Try
-            DesconectarRemoto()
-        Catch ex As Exception
 
-        End Try
+        End If
+
 
     End Sub
 
@@ -1497,6 +1494,38 @@ Public Class frmPagoefectivo
         lblcambio.Text = cambio.ToString("C")
         lbltotalvale.Text = nuevovale.ToString("C")
     End Sub
+
+    ' Método para reiniciar descuentos
+    Public Sub ReiniciarDescuentos()
+
+
+        ' Reiniciar valores numero de periodos
+
+        control.descuentoaconsumo = 0
+        control.descontartodoslosperiodosderecargo = 0
+        control.descontartodoslosperiodosdeconsumo = 0
+        control.descontartodoslosperiodosdealcantarillado = 0
+        control.descontartodoslosperiodosdesaneamiento = 0
+        control.descontartodoslosperiodosderezago = 0
+        control.periodoscondescuentodeconsumo = 0
+        control.periodoscondescuentodealcantarillado = 0
+        control.periodoscondescuentodesaneamiento = 0
+        control.periodoscondescuentoderecargo = 0
+        control.periodoscondescuentoderezago = 0
+
+
+
+        ' Reiniciar valores de porcentaje
+
+        control.descuentoaconsumo = 0
+        control.descuentoaalcantarillado = 0
+        control.descuentoasaneamiento = 0
+        control.descuentoasaneamiento = 0
+        control.descuentoarecargo = 0
+        control.descuentoarezago = 0
+
+    End Sub
+
 End Class
 
 

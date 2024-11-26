@@ -1,7 +1,7 @@
 ﻿Imports System.Net.NetworkInformation
 
 Public Class FrmDescuentos
-    Public controldescu As Clscontrolpago
+    Public controldescu As New Clscontrolpago
     Public maximopermitido As Double
     Private Sub btncancelar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btncancelar.Click
         Close()
