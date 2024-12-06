@@ -420,11 +420,11 @@ Public Class frmPagoefectivo
         ' Dim save As New base
         'Dim GuardaCobroexpress As New BaseCobroexpress
         'esto es para saber si existe el folio
-        Try
-            ConectarRemoto()
-        Catch ex As Exception
+        'Try
+        '    ConectarRemoto()
+        'Catch ex As Exception
 
-        End Try
+        'End Try
 
         Dim REC As String
 
