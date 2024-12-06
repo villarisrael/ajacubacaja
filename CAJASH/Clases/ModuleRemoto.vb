@@ -4,12 +4,12 @@ Imports System.Threading.Tasks
 Module ModuleRemoto
     Private conn2 As OdbcConnection
 
-    Public Sub ConectarRemoto()
-        conn2 = New OdbcConnection("dsn=AguaRemoto")
-        If conn2.State = ConnectionState.Closed Then
-            conn2.Open()
-        End If
-    End Sub
+    'Public Sub ConectarRemoto()
+    '    conn2 = New OdbcConnection("dsn=AguaRemoto")
+    '    If conn2.State = ConnectionState.Closed Then
+    '        conn2.Open()
+    '    End If
+    'End Sub
 
     Public Sub DesconectarRemoto()
         If conn2 IsNot Nothing AndAlso conn2.State = ConnectionState.Open Then

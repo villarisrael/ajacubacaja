@@ -859,11 +859,11 @@ Module funcionesbasicas
 
         Ejecucion($"UPDATE USUARIO SET CREDITO = {creditoActualizado} WHERE CUENTA = {cuentaP}")
 
-        Try
-            Dim unsed6 = EjecutarConsultaRemotaAsync($"UPDATE USUARIO SET CREDITO = {creditoActualizado} WHERE CUENTA = {cuentaP}")
-        Catch ex As Exception
+        'Try
+        '    Dim unsed6 = EjecutarConsultaRemotaAsync($"UPDATE USUARIO SET CREDITO = {creditoActualizado} WHERE CUENTA = {cuentaP}")
+        'Catch ex As Exception
 
-        End Try
+        'End Try
 
 
     End Sub

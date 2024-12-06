@@ -487,7 +487,7 @@ Public Class frmPagoefectivo
 
 
                 Ejecucion(cadenainsertapagos)
-                Dim unused2 = EjecutarConsultaRemotaAsync(cadenainsertapagos)
+                'Dim unused2 = EjecutarConsultaRemotaAsync(cadenainsertapagos)
 
 
                 ''''''''''''''''''''''''''''' grabando lo de los descuentos '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -521,63 +521,74 @@ Public Class frmPagoefectivo
                     If efectivo > 0 Then
                         Dim cadxr As String = "insert into pagomixto (serie,folio, monto,id_forma,observacion) values ('" & My.Settings.serie & "'," & My.Settings.folio + 1 & "," & efectivo & ",'01','" & obsefectivo & "')"
                         Ejecucion(cadxr)
-                        Try
-                            Dim unused = EjecutarConsultaRemotaAsync(cadxr)
-                        Catch ex As Exception
 
-                        End Try
+
+                        'Try
+                        '    ''Dim unused = EjecutarConsultaRemotaAsync(cadxr)
+                        'Catch ex As Exception
+
+                        'End Try
 
                     End If
 
                     If cheque > 0 Then
                         Dim cadxr As String = "insert into pagomixto (serie,folio, monto,id_forma,observacion) values ('" & My.Settings.serie & "'," & My.Settings.folio + 1 & "," & cheque & ",'02','" & obscheque & "')"
                         Ejecucion(cadxr)
-                        Try
-                            Dim unused = EjecutarConsultaRemotaAsync(cadxr)
-                        Catch ex As Exception
 
-                        End Try
+
+                        'Try
+                        '    'Dim unused = EjecutarConsultaRemotaAsync(cadxr)
+                        'Catch ex As Exception
+
+                        'End Try
 
                     End If
                     If transferencia > 0 Then
                         Dim cadxr As String = "insert into pagomixto (serie,folio, monto,id_forma,observacion) values ('" & My.Settings.serie & "'," & My.Settings.folio + 1 & "," & transferencia & ",'03','" & obstransferencia & "')"
                         Ejecucion(cadxr)
-                        Try
-                            Dim unused = EjecutarConsultaRemotaAsync(cadxr)
-                        Catch ex As Exception
 
-                        End Try
+
+                        'Try
+                        '    Dim unused = EjecutarConsultaRemotaAsync(cadxr)
+                        'Catch ex As Exception
+
+                        'End Try
 
                     End If
                     If tcredito > 0 Then
                         Dim cadxr As String = "insert into pagomixto (serie,folio, monto,id_forma,observacion) values ('" & My.Settings.serie & "'," & My.Settings.folio + 1 & "," & tcredito & ",'04','" & obstcredito & "')"
                         Ejecucion(cadxr)
-                        Try
-                            Dim unused = EjecutarConsultaRemotaAsync(cadxr)
-                        Catch ex As Exception
 
-                        End Try
+                        'Try
+                        '    Dim unused = EjecutarConsultaRemotaAsync(cadxr)
+                        'Catch ex As Exception
+
+                        'End Try
 
                     End If
                     If tdebito > 0 Then
                         Dim cadxr As String = "insert into pagomixto (serie,folio, monto,id_forma,observacion) values ('" & My.Settings.serie & "'," & My.Settings.folio + 1 & "," & tdebito & ",'28','" & obstdebito & "')"
                         Ejecucion(cadxr)
-                        Try
-                            Dim unused = EjecutarConsultaRemotaAsync(cadxr)
-                        Catch ex As Exception
 
-                        End Try
+
+                        'Try
+                        '    Dim unused = EjecutarConsultaRemotaAsync(cadxr)
+                        'Catch ex As Exception
+
+                        'End Try
 
                     End If
 
                     If vale > 0 Then
                         Dim cadxr As String = "insert into pagomixto (serie,folio, monto,id_forma,observacion) values ('" & My.Settings.serie & "'," & My.Settings.folio + 1 & "," & vale & ",'05','Viene de abono')"
                         Ejecucion(cadxr)
-                        Try
-                            Dim unused = EjecutarConsultaRemotaAsync(cadxr)
-                        Catch ex As Exception
 
-                        End Try
+                        'Try
+                        '    Dim unused = EjecutarConsultaRemotaAsync(cadxr)
+                        'Catch ex As Exception
+
+                        'End Try
+
                     End If
                 End If
 
@@ -607,7 +618,7 @@ Public Class frmPagoefectivo
                     Dim cadenafactura As String = "insert into encfac SET FECHA=CONCAT(CURDATE(), ' ' ,curtime()), SERIE=' ', numero =" & FACTURADO & ",NOMBRE='" & recibo.nombre & "',  SUBTOTAL=" & recibo.subtotal & ",IVA=" & recibo.iva & ",TOTAL=" & recibo.total & ",TIPO='" & recibo.esusuario & "', ESTADO='A', CAJA='" & My.Settings.caja & "', USUARIO='" & usuariodelsistema & "', motivocancelacion=''"
                     Ejecucion(cadenafactura)
 
-                    Dim usused4 = EjecutarConsultaRemotaAsync(cadenafactura)
+                    'Dim usused4 = EjecutarConsultaRemotaAsync(cadenafactura)
 
 
 
@@ -618,7 +629,8 @@ Public Class frmPagoefectivo
                 Try
                     Dim cadenadescuentorec As String = "update descuentorecargo set descuentorecargo=" & control.totaldescuentorecargo & ",ESTADO='Aplicado' where cuenta=" & control.cuenta & " and estado='Pendiente'"
                     Ejecucion(cadenadescuentorec)
-                    Dim unsed5 = EjecutarConsultaRemotaAsync(cadenadescuentorec)
+
+                    'Dim unsed5 = EjecutarConsultaRemotaAsync(cadenadescuentorec)
 
                 Catch ex As Exception
 
@@ -664,23 +676,26 @@ Public Class frmPagoefectivo
 
                     Ejecucion(cadenapagotros)
 
-                    Try
+                    'Try
 
-                        Dim unused1 = EjecutarConsultaRemotaAsync(cadenapagotros)
+                    '    Dim unused1 = EjecutarConsultaRemotaAsync(cadenapagotros)
 
 
-                    Catch ex As Exception
+                    'Catch ex As Exception
 
-                    End Try
+                    'End Try
 
 
 
 
 
                     If FACTURADO > 0 Then
+
                         Dim detafac As String = "INSERT INTO detfac SET SERIE=' ', NUMERO=" & FACTURADO & ",CANTIDAD=" & concepto.Cantidad & ", DESCRIPCION='" & concepto.Concepto & "' , PRECIOUNITARIO=" & concepto.Preciounitario & ", IMPORTE=" & concepto.importe & ", CONIVA=" & coniva & ", IVA=" & concepto.IVA & ""
                         Ejecucion(detafac)
-                        Dim unsed6 = EjecutarConsultaRemotaAsync(detafac)
+
+                        'Dim unsed6 = EjecutarConsultaRemotaAsync(detafac)
+
                     End If
                     'If My.Settings.GuardaCobroexpress = "SI" Then
                     '    GuardaCobroexpress.ejecutar("INSERT INTO reciboesclavo(clave,Concepto,Importe,IVA,Cantidad,recibo,serie,caja) VALUES(" & My.Settings.ClaveAgua & ",'" & concepto.Concepto & "'," & concepto.importe & "," & concepto.IVA & "," & concepto.Cantidad & "," & My.Settings.folio & ",'" & My.Settings.serie & "','" & My.Settings.caja & "')")
@@ -725,7 +740,7 @@ Public Class frmPagoefectivo
 
 
 
-                        Dim unsed7 = EjecutarConsultaRemotaAsync(cadenafechafin)
+                        'Dim unsed7 = EjecutarConsultaRemotaAsync(cadenafechafin)
 
                     End If
 
@@ -754,7 +769,7 @@ Public Class frmPagoefectivo
 
 
 
-                        Dim unsed7 = EjecutarConsultaRemotaAsync(cadenafechafin)
+                        'Dim unsed7 = EjecutarConsultaRemotaAsync(cadenafechafin)
 
                     End If
                 End If
@@ -799,7 +814,7 @@ Public Class frmPagoefectivo
                             Dim cadenapagomes As String = "INSERT INTO pago_mes (PERIODO, MES, ANO, CONCEPTO, FECHA, recibo, Caja, SERIE, CUENTA, monto, DESCUENTO, MONTOPAGADO, TIPO, CONSUMO, TIPOUSO) VALUES ('" & CadenaNumeroMes(objeto.mes) & Mid(objeto.periodo, 3, 2) & "','" & objeto.mes & "'," & objeto.periodo & ",'CONSUMO ','" & recibo.Fecha_Act & "'," & My.Settings.folio + 1 & ",'" & My.Settings.caja & "', '" & My.Settings.serie & "'," & recibo.cuenta & "," & objeto.totalcondescuento & "," & objeto.total - objeto.totalcondescuento & "," & objeto.totalcondescuento & ",'" & tipoServicio & "'," & consumoLectura & ",'" & tipoUso & "')"
                             Ejecucion(cadenapagomes)
 
-                            Dim usued8 = EjecutarConsultaRemotaAsync(cadenapagomes)
+                            'Dim usued8 = EjecutarConsultaRemotaAsync(cadenapagomes)
 
                         Catch ex As Exception
                             MessageBox.Show($"Ocurrio un error al insertar a tabla Pago_mes {ex.ToString()}")
@@ -834,7 +849,7 @@ Public Class frmPagoefectivo
                             Dim cadenapagomes As String = "INSERT INTO pago_mes (PERIODO, MES, ANO, CONCEPTO, FECHA, RECIBO, CAJA,SERIE, CUENTA,MONTO, DESCUENTO,MONTOPAGADO, TIPO, CONSUMO, TIPOUSO) VALUES ('" & CadenaNumeroMes(objeto.Mes) & Mid(objeto.Periodo, 3, 2) & "','" & objeto.Mes & "'," & objeto.Periodo & ",'CONSUMO','" & recibo.Fecha_Act & "'," & My.Settings.folio + 1 & ",'" & My.Settings.caja & "', '" & My.Settings.serie & "'," & recibo.cuenta & "," & objeto.Totalcondescuento & "," & objeto.Total - objeto.Totalcondescuento & "," & objeto.Totalcondescuento & ",'" & tipoServicio & "'," & consumoLectura & ",'" & tipoUso & "')"
                             Ejecucion(cadenapagomes)
 
-                            Dim usued8 = EjecutarConsultaRemotaAsync(cadenapagomes)
+                            'Dim usued8 = EjecutarConsultaRemotaAsync(cadenapagomes)
 
 
 
@@ -876,7 +891,7 @@ Public Class frmPagoefectivo
                             Dim cadenapagomes As String = "INSERT INTO pago_mes (PERIODO, MES, ANO, CONCEPTO, FECHA, RECIBO, CAJA,SERIE, CUENTA,MONTO,DESCUENTO,MONTOPAGADO, TIPO, CONSUMO, TIPOUSO) VALUES ('" & CadenaNumeroMes(objeto.mes) & Mid(objeto.periodo, 3, 2) & "','" & objeto.mes & "'," & objeto.periodo & ",'CONSUMO ','" & recibo.Fecha_Act & "'," & My.Settings.folio + 1 & ",'" & My.Settings.caja & "', '" & My.Settings.serie & "'," & recibo.cuenta & "," & objeto.totalcondescuento & "," & objeto.total - objeto.totalcondescuento & "," & objeto.totalcondescuento & ",'" & tipoServicio & "'," & consumoLectura & ",'" & tipoUso & "')"
                             Ejecucion(cadenapagomes)
 
-                            Dim usued8 = EjecutarConsultaRemotaAsync(cadenapagomes)
+                            'Dim usued8 = EjecutarConsultaRemotaAsync(cadenapagomes)
 
                         Catch ex As Exception
                             MessageBox.Show($"Ocurrio un error al insertar a tabla Pago_mes {ex.ToString()}")
@@ -913,7 +928,7 @@ Public Class frmPagoefectivo
                             Dim cadenapagomes As String = "INSERT INTO pago_mes (PERIODO, MES, ANO, CONCEPTO, FECHA, RECIBO, CAJA,SERIE, CUENTA,MONTO, DESCUENTO,MONTOPAGADO, TIPO, CONSUMO, TIPOUSO) VALUES ('" & CadenaNumeroMes(objeto.Mes) & Mid(objeto.Periodo, 3, 2) & "','" & objeto.Mes & "'," & objeto.Periodo & ",'CONSUMO','" & recibo.Fecha_Act & "'," & My.Settings.folio + 1 & ",'" & My.Settings.caja & "', '" & My.Settings.serie & "'," & recibo.cuenta & "," & objeto.Totalcondescuento & "," & objeto.Total - objeto.Totalcondescuento & "," & objeto.Totalcondescuento & ",'" & tipoServicio & "'," & consumoLectura & ",'" & tipoUso & "')"
                             Ejecucion(cadenapagomes)
 
-                            Dim usued8 = EjecutarConsultaRemotaAsync(cadenapagomes)
+                            'Dim usued8 = EjecutarConsultaRemotaAsync(cadenapagomes)
 
 
 
@@ -952,7 +967,7 @@ Public Class frmPagoefectivo
                         Dim cadenapagomes As String = "INSERT INTO pago_mes (PERIODO, MES, ANO, CONCEPTO, FECHA, RECIBO, CAJA,SERIE, CUENTA,MONTO,DESCUENTO,MONTOPAGADO, TIPO, CONSUMO, TIPOUSO) VALUES ('" & CadenaNumeroMes(objeto.mes) & Mid(objeto.periodo, 3, 2) & "','" & objeto.mes & "'," & objeto.periodo & ",'ALCANTARILLADO ','" & recibo.Fecha_Act & "'," & My.Settings.folio + 1 & ",'" & My.Settings.caja & "', '" & My.Settings.serie & "'," & recibo.cuenta & "," & objeto.totalcondescuento & "," & objeto.total - objeto.totalcondescuento & "," & objeto.totalcondescuento & ",'" & tipoServicio & "'," & consumoLectura & ",'" & tipoUso & "')"
                         Ejecucion(cadenapagomes)
 
-                        Dim usued8 = EjecutarConsultaRemotaAsync(cadenapagomes)
+                        'Dim usued8 = EjecutarConsultaRemotaAsync(cadenapagomes)
 
 
 
@@ -982,7 +997,7 @@ Public Class frmPagoefectivo
                         Dim cadenapagomes As String = "INSERT INTO pago_mes (PERIODO, MES, ANO, CONCEPTO, FECHA, RECIBO, CAJA,SERIE, CUENTA,MONTO, DESCUENTO,MONTOPAGADO, TIPO, CONSUMO, TIPOUSO) VALUES ('" & CadenaNumeroMes(objeto.Mes) & Mid(objeto.Periodo, 3, 2) & "','" & objeto.Mes & "'," & objeto.Periodo & ",'ALCANTARILLADO','" & recibo.Fecha_Act & "'," & My.Settings.folio + 1 & ",'" & My.Settings.caja & "', '" & My.Settings.serie & "'," & recibo.cuenta & "," & objeto.Totalcondescuento & "," & objeto.Total - objeto.Totalcondescuento & "," & objeto.Totalcondescuento & ",'" & tipoServicio & "'," & consumoLectura & ",'" & tipoUso & "')"
                         Ejecucion(cadenapagomes)
 
-                        Dim usued8 = EjecutarConsultaRemotaAsync(cadenapagomes)
+                        'Dim usued8 = EjecutarConsultaRemotaAsync(cadenapagomes)
 
 
 
@@ -1019,7 +1034,7 @@ Public Class frmPagoefectivo
                         Dim cadenapagomes As String = "INSERT INTO pago_mes (PERIODO, MES, ANO, CONCEPTO, FECHA, RECIBO, CAJA,SERIE, CUENTA,MONTO,DESCUENTO,MONTOPAGADO, TIPO, CONSUMO, TIPOUSO) VALUES ('" & CadenaNumeroMes(objeto.mes) & Mid(objeto.periodo, 3, 2) & "','" & objeto.mes & "'," & objeto.periodo & ",'SANEAMIENTO ','" & recibo.Fecha_Act & "'," & My.Settings.folio + 1 & ",'" & My.Settings.caja & "', '" & My.Settings.serie & "'," & recibo.cuenta & "," & objeto.totalcondescuento & "," & objeto.total - objeto.totalcondescuento & "," & objeto.totalcondescuento & ",'" & tipoServicio & "'," & consumoLectura & ",'" & tipoUso & "')"
                         Ejecucion(cadenapagomes)
 
-                        Dim usued8 = EjecutarConsultaRemotaAsync(cadenapagomes)
+                        'Dim usued8 = EjecutarConsultaRemotaAsync(cadenapagomes)
 
 
 
@@ -1050,7 +1065,7 @@ Public Class frmPagoefectivo
                                                     & consumoLectura & ",'" & tipoUso & "')"
                         Ejecucion(cadenapagomes)
 
-                        Dim usued8 = EjecutarConsultaRemotaAsync(cadenapagomes)
+                        'Dim usued8 = EjecutarConsultaRemotaAsync(cadenapagomes)
 
 
 
@@ -1084,7 +1099,7 @@ Public Class frmPagoefectivo
                     Dim cadenapagomes As String = "INSERT INTO pago_mes (PERIODO, MES, ANO, CONCEPTO, FECHA, RECIBO, CAJA,SERIE, CUENTA,MONTO,DESCUENTO,MONTOPAGADO, TIPO, CONSUMO, TIPOUSO) VALUES ('" & CadenaNumeroMes(objeto.mes) & Mid(objeto.periodo, 3, 2) & "','" & objeto.mes & "'," & objeto.periodo & ",'RECARGO ','" & recibo.Fecha_Act & "'," & My.Settings.folio + 1 & ",'" & My.Settings.caja & "', '" & My.Settings.serie & "'," & recibo.cuenta & "," & objeto.totalcondescuento & "," & objeto.total - objeto.totalcondescuento & "," & objeto.totalcondescuento & ",'" & tipoServicio & "'," & consumoLectura & ",'" & tipoUso & "')"
                     Ejecucion(cadenapagomes)
 
-                    Dim usued8 = EjecutarConsultaRemotaAsync(cadenapagomes)
+                    'Dim usued8 = EjecutarConsultaRemotaAsync(cadenapagomes)
 
 
                     'Else
@@ -1117,7 +1132,7 @@ Public Class frmPagoefectivo
                         Try
                             Dim cadenalect As String = "UPDATE lecturas SET PAGADO=1 WHERE MES= '" & mes & "' AND an_per=" & periodo & " AND CUENTA= " & recibo.cuenta
                             Ejecucion(cadenalect)
-                            Dim unsued9 = EjecutarConsultaRemotaAsync(cadenalect)
+                            'Dim unsued9 = EjecutarConsultaRemotaAsync(cadenalect)
                         Catch ex As Exception
                             guardatxt("c:\errrpagos", "errorpagos.txt", ex.Message)
                         End Try
@@ -1133,7 +1148,7 @@ Public Class frmPagoefectivo
                         Try
                             Dim cadenalect As String = "UPDATE lecturas SET PAGADO=1 WHERE MES= '" & mes & "' AND an_per=" & periodo & " AND CUENTA= " & recibo.cuenta
                             Ejecucion(cadenalect)
-                            Dim unsued9 = EjecutarConsultaRemotaAsync(cadenalect)
+                            'Dim unsued9 = EjecutarConsultaRemotaAsync(cadenalect)
 
                         Catch ex As Exception
                             guardatxt("c:\errrpagos", "errorpagos.txt", ex.Message)
@@ -1176,7 +1191,7 @@ Public Class frmPagoefectivo
                     Dim cadenaotrosconceptos = "UPDATE otrosconceptos SET resta=" & RESTA & ",subtotresta=" & SUBTOTRESTA & ",ivaresta=" & IVA & " , pagado=" & PAGADO & ", estado='" & estado & "'  WHERE Clave=" & conceptootro.CLAVEMOV & ";"
 
                     Ejecucion(cadenaotrosconceptos)
-                    Dim unsed10 = EjecutarConsultaRemotaAsync(cadenaotrosconceptos)
+                    'Dim unsed10 = EjecutarConsultaRemotaAsync(cadenaotrosconceptos)
 
                     Dim datopag As Decimal
 
@@ -1203,8 +1218,8 @@ Public Class frmPagoefectivo
                             Dim cadenaconv2 As String = "update usuario set convenio = 0 where cuenta =" & recibo.cuenta
                             Ejecucion(cadenaconv1)
                             Ejecucion(cadenaconv2)
-                            Dim unused11 = EjecutarConsultaRemotaAsync(cadenaconv1)
-                            Dim unused12 = EjecutarConsultaRemotaAsync(cadenaconv2)
+                            'Dim unused11 = EjecutarConsultaRemotaAsync(cadenaconv1)
+                            'Dim unused12 = EjecutarConsultaRemotaAsync(cadenaconv2)
                         End If
 
 
@@ -1370,7 +1385,7 @@ Public Class frmPagoefectivo
                     Dim cadenasaldo As String = "update usuario set consumo=" & consumo & ", deuda=" & rezagoagua & " ,alcaconsumo=" & alcaactual & ", deualcant=" & rezagoalca & ", deudasanea=" & pago.totaldeudasaneamiento & ", iva=" & acumiva & ", recargos =" & pago.totaldeudarecargos & ", deudaotros=" & pago.totaldeudaotros & ", total=" & total & ", LecturaAct=UltimaLectura(" & recibo.cuenta & "), LecturaAnt=PenUltimaLectura(" & recibo.cuenta & "), PeriodosAdeudo=" & pago.desgloseconsumo.Count + pago.desgloserezago.Count & ",periodo='" & pago.periodo & "' where cuenta=" & recibo.cuenta & ""
                     Ejecucion(cadenasaldo)
 
-                    Dim UNSED14 = EjecutarConsultaRemotaAsync(cadenasaldo)
+                    'Dim UNSED14 = EjecutarConsultaRemotaAsync(cadenasaldo)
                     ' Ejecucion("update usuario set deuda=" & pago.totaldeudaconsumo & " , deualcant=" & pago.totaldeudaalcantarillado & ", deudasanea=" & pago.totaldeudasaneamiento & ", iva=" & acumiva & ", recargos =" & pago.totaldeudarecargos & ", deudaotros=" & pago.totaldeudaotros & ", total=" & total & ", LecturaAnt=UltimaLecturaActualizar('" & recibo.cuenta & "'), PeriodosAdeudo=" & pago.desgloseconsumo.Count + pago.desgloserezago.Count & ",periodo='" & pago.periodo & "'  where cuenta=" & recibo.cuenta)
                     datos.Close()
                 Catch ex As Exception

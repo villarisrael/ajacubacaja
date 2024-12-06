@@ -90,16 +90,16 @@ Public Class frmListadoRecibos
                     Catch ex As Exception
 
                     End Try
-                    ConectarRemoto()
+
                     Ejecucion("update pagos set Cancelado='C' where recibo=" & recibo & " and serie='" & serie & "'")
                     Ejecucion("update pagotros set Cancelado='C' where recibo=" & recibo & " and serie='" & serie & "'")
                     Ejecucion("update otrosconceptos, pagotros set pagado=0,estado='Pendiente', otrosconceptos.Resta=otrosconceptos.Resta + (pagotros.monto+ (pagotros.monto*pagotros.iva*" & variable_iva / 100 & ")), otrosconceptos.subtotresta=otrosconceptos.subtotresta + pagotros.monto where otrosconceptos.clave=pagotros.clavemov and pagotros.recibo=" & recibo & " and pagotros.serie='" & serie & "'")
 
 
 
-                    Dim sinusar = EjecutarConsultaRemotaAsync("update pagos set Cancelado='C' where recibo=" & recibo & " and serie='" & serie & "'")
-                    Dim sinusar2 = EjecutarConsultaRemotaAsync("update pagotros set Cancelado='C' where recibo=" & recibo & " and serie='" & serie & "'")
-                    Dim sinusar3 = EjecutarConsultaRemotaAsync("update otrosconceptos, pagotros set pagado=0,estado='Pendiente', otrosconceptos.Resta=otrosconceptos.Resta + (pagotros.monto+ (pagotros.monto*pagotros.iva*" & variable_iva / 100 & ")), otrosconceptos.subtotresta=otrosconceptos.subtotresta + pagotros.monto where otrosconceptos.clave=pagotros.clavemov and pagotros.recibo=" & recibo & " and pagotros.serie='" & serie & "'")
+                    'Dim sinusar = EjecutarConsultaRemotaAsync("update pagos set Cancelado='C' where recibo=" & recibo & " and serie='" & serie & "'")
+                    'Dim sinusar2 = EjecutarConsultaRemotaAsync("update pagotros set Cancelado='C' where recibo=" & recibo & " and serie='" & serie & "'")
+                    'Dim sinusar3 = EjecutarConsultaRemotaAsync("update otrosconceptos, pagotros set pagado=0,estado='Pendiente', otrosconceptos.Resta=otrosconceptos.Resta + (pagotros.monto+ (pagotros.monto*pagotros.iva*" & variable_iva / 100 & ")), otrosconceptos.subtotresta=otrosconceptos.subtotresta + pagotros.monto where otrosconceptos.clave=pagotros.clavemov and pagotros.recibo=" & recibo & " and pagotros.serie='" & serie & "'")
 
                     Try
 
@@ -121,7 +121,7 @@ Public Class frmListadoRecibos
                                 consulta2.Read()
                                 If consulta2("ADELANT") = 1 Then
                                     Ejecucion("DELETE FROM lecturas WHERE CUENTA=" & cuenta & " AND MES='" & mesquecancelo & "' AND AN_PER='" & periodo & "'")
-                                    Dim sinusar4 = EjecutarConsultaRemotaAsync("DELETE FROM lecturas WHERE CUENTA=" & cuenta & " AND MES='" & mesquecancelo & "' AND AN_PER='" & periodo & "'")
+                                    'Dim sinusar4 = EjecutarConsultaRemotaAsync("DELETE FROM lecturas WHERE CUENTA=" & cuenta & " AND MES='" & mesquecancelo & "' AND AN_PER='" & periodo & "'")
                                 End If
                                 dato2.conexion.Dispose()
                             Catch ex As Exception
@@ -129,13 +129,13 @@ Public Class frmListadoRecibos
                             End Try
                             '  Dim cuenta_ As String = consulta!cuenta
                             Ejecucion("UPDATE lecturas SET PAGADO=0 WHERE CUENTA=" & cuenta & " AND MES='" & mesquecancelo & "' AND AN_PER='" & periodo & "'")
-                            Dim sinusar5 = EjecutarConsultaRemotaAsync("UPDATE lecturas SET PAGADO=0 WHERE CUENTA=" & cuenta & " AND MES='" & mesquecancelo & "' AND AN_PER='" & periodo & "'")
+                            'Dim sinusar5 = EjecutarConsultaRemotaAsync("UPDATE lecturas SET PAGADO=0 WHERE CUENTA=" & cuenta & " AND MES='" & mesquecancelo & "' AND AN_PER='" & periodo & "'")
                         End While
 
 
 
                         dato.conexion.Dispose()
-                        DesconectarRemoto()
+                        'DesconectarRemoto()
                     Catch ex As Exception
 
                     End Try
@@ -349,7 +349,7 @@ Public Class frmListadoRecibos
 
                 ejecucion("update pagos set facturado =" & myValue & "  where recibo=" & recibo & " and serie ='" & serie & "'")
 
-                Dim sinusar = EjecutarConsultaRemotaAsync("update recibomaestro set factura=" & myValue & "  where recibo=" & recibo & " and serie ='" & serie & "'")
+                'Dim sinusar = EjecutarConsultaRemotaAsync("update recibomaestro set factura=" & myValue & "  where recibo=" & recibo & " and serie ='" & serie & "'")
 
                 x.conexion.Dispose()
             Catch ex As Exception
@@ -390,7 +390,7 @@ Public Class frmListadoRecibos
                 ejecucion("update pagos set facturado =0  where recibo=" & recibo & " and serie ='" & serie & "'")
 
 
-                Dim sinusar = EjecutarConsultaRemotaAsync("update recibomaestro set factura=0  where recibo=" & recibo & " and serie ='" & serie & "'")
+                'Dim sinusar = EjecutarConsultaRemotaAsync("update recibomaestro set factura=0  where recibo=" & recibo & " and serie ='" & serie & "'")
 
                 x.conexion.Dispose()
             Catch ex As Exception
@@ -609,7 +609,7 @@ Public Class frmListadoRecibos
         If que <> "00" Then
 
             Ejecucion("update pagos set ccodpago ='" & que & "' where serie='" & serie & "' and recibo=" & recibo)
-            Dim unused = EjecutarConsultaRemotaAsync("update recibomaestro set id_forma_pago =" & que & " where serie='" & serie & "' and recibo=" & recibo)
+            'Dim unused = EjecutarConsultaRemotaAsync("update recibomaestro set id_forma_pago =" & que & " where serie='" & serie & "' and recibo=" & recibo)
         End If
         dataGridView1.Item("forma", dataGridView1.CurrentRow.Index).Value = que
     End Sub
