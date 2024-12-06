@@ -615,6 +615,7 @@ Public Class frmPagoefectivo
 
 
                 If FACTURADO > 0 Then
+
                     Dim cadenafactura As String = "insert into encfac SET FECHA=CONCAT(CURDATE(), ' ' ,curtime()), SERIE=' ', numero =" & FACTURADO & ",NOMBRE='" & recibo.nombre & "',  SUBTOTAL=" & recibo.subtotal & ",IVA=" & recibo.iva & ",TOTAL=" & recibo.total & ",TIPO='" & recibo.esusuario & "', ESTADO='A', CAJA='" & My.Settings.caja & "', USUARIO='" & usuariodelsistema & "', motivocancelacion=''"
                     Ejecucion(cadenafactura)
 
@@ -643,47 +644,38 @@ Public Class frmPagoefectivo
                     If concepto.IVA > 0 Then
                         coniva = True
                     End If
-                    Dim cadena As String
-                    Dim idconvenio As Integer
-                    cadena = "select idEncConvenio from EncConvenio where idcuenta =" & recibo.cuenta
-                    Dim dr As IDataReader = ConsultaSql(cadena).ExecuteReader()
-                    If dr.Read() Then
-                        idconvenio = dr("idEncConvenio")
-                    End If
 
 
-                    Try
-                        If concepto.Clave = My.Settings.claveConvenio Then
-
-                            Dim folioencconvenio As Integer = idconvenio
-
-
-
-                            Ejecucion("update encconvenio set estado='Con pagos' where idencconvenio=" & folioencconvenio)
-
-                        End If
-
-                    Catch ex As Exception
-
-                    End Try
+                    'Dim cadena As String
+                    'Dim idconvenio As Integer
+                    'cadena = "select idEncConvenio from EncConvenio where idcuenta =" & recibo.cuenta
+                    'Dim dr As IDataReader = ConsultaSql(cadena).ExecuteReader()
+                    'If dr.Read() Then
+                    '    idconvenio = dr("idEncConvenio")
+                    'End If
 
 
-                    'asd
+                    'Try
+                    '    If concepto.Clave = My.Settings.claveConvenio Then
+
+                    '        Dim folioencconvenio As Integer = idconvenio
+
+
+
+                    '        Ejecucion("update encconvenio set estado='Con pagos' where idencconvenio=" & folioencconvenio)
+
+                    '    End If
+
+                    'Catch ex As Exception
+
+                    'End Try
+
 
                     Dim cadenapagotros As String = "INSERT INTO pagotros (RECIBO, CUENTA, SERIE, USUARIO, FECHA, concepto, Caja, CANCELADO, CCODPAGO, IMPORTE, CANTIDAD, MONTO, NUMCONCEPTO, CLAVEMOV, IVA, montoiva) 
                     VALUES ('" & My.Settings.folio + 1 & "', '" & recibo.cuenta & "', '" & My.Settings.serie & "', '" & recibo.usuarios & "', '" & recibo.Fecha_Act & "', '" & concepto.Concepto & "', '" & My.Settings.caja & "', '" & recibo.cancelado & "', 
                     '" & recibo.ccodpago & "', " & concepto.importe & ", " & concepto.Cantidad & "," & concepto.Preciounitario & ",'" & concepto.Clave & "'," & concepto.CLAVEMOV & "," & coniva & "," & concepto.IVA & ")"
 
                     Ejecucion(cadenapagotros)
-
-                    'Try
-
-                    '    Dim unused1 = EjecutarConsultaRemotaAsync(cadenapagotros)
-
-
-                    'Catch ex As Exception
-
-                    'End Try
 
 
 
@@ -697,14 +689,19 @@ Public Class frmPagoefectivo
                         'Dim unsed6 = EjecutarConsultaRemotaAsync(detafac)
 
                     End If
-                    'If My.Settings.GuardaCobroexpress = "SI" Then
-                    '    GuardaCobroexpress.ejecutar("INSERT INTO reciboesclavo(clave,Concepto,Importe,IVA,Cantidad,recibo,serie,caja) VALUES(" & My.Settings.ClaveAgua & ",'" & concepto.Concepto & "'," & concepto.importe & "," & concepto.IVA & "," & concepto.Cantidad & "," & My.Settings.folio & ",'" & My.Settings.serie & "','" & My.Settings.caja & "')")
-                    'End If
+
 
                 Next i
+
+
             Catch ex As Exception
+
                 MessageBox.Show(ex.Message)
+
             End Try
+
+
+
             Try
 
                 If actualizarfecha = True Then
@@ -782,6 +779,8 @@ Public Class frmPagoefectivo
             '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
             Try
+
+
                 For i = 1 To control.desgloseconsumo.Count
                     If control.EsFijo = True Then
 
@@ -859,6 +858,19 @@ Public Class frmPagoefectivo
 
                     End If
                 Next
+
+
+            Catch ex As Exception
+
+                MessageBox.Show("Ocurrio un erro al grabar el desglose de consumo")
+
+            End Try
+
+
+            Try
+
+
+
                 For i = 1 To control.desgloserezago.Count
                     If control.EsFijo = True Then
 
@@ -940,7 +952,20 @@ Public Class frmPagoefectivo
 
                 Next
 
+
+            Catch ex As Exception
+
+                MessageBox.Show("Ocurrio un error al grabar el desloze de rezago")
+
+            End Try
+
+
+            Try
+
+
+
                 For i = 1 To control.desglosealcantarillado.Count
+
                     If control.EsFijo = True Then
                         Dim objeto As clsunidadmes
                         objeto = control.desglosealcantarillado.Item(i)
@@ -972,6 +997,8 @@ Public Class frmPagoefectivo
 
 
                     Else
+
+
                         Dim objeto As ClsRegistrolectura
                         objeto = control.desglosealcantarillado.Item(i)
 
@@ -1005,11 +1032,23 @@ Public Class frmPagoefectivo
                 Next
 
 
+            Catch ex As Exception
+
+                MessageBox.Show("Ocurrio un error al grabar el desglose de alcantarillado")
+
+            End Try
+
+
+            Try
+
+
+
                 For i = 1 To control.desglosesaneamiento.Count
 
 
 
                     If control.EsFijo = True Then
+
                         Dim objeto As clsunidadmes
                         objeto = control.desglosesaneamiento.Item(i)
 
@@ -1039,6 +1078,8 @@ Public Class frmPagoefectivo
 
 
                     Else
+
+
                         Dim objeto As ClsRegistrolectura
                         objeto = control.desglosesaneamiento.Item(i)
 
@@ -1060,9 +1101,9 @@ Public Class frmPagoefectivo
                             tipoUso = "NO DOMESTICO"
                         End If
 
-                        Dim cadenapagomes As String = "INSERT INTO pago_mes (PERIODO, MES, ANO, CONCEPTO, FECHA, RECIBO, CAJA,SERIE, CUENTA,MONTO, DESCUENTO,MONTOPAGADO, TIPO, CONSUMO, TIPOUSO) VALUES ('" & CadenaNumeroMes(objeto.Mes) & Mid(objeto.Periodo, 3, 2) & "','" & objeto.Mes & "'," & objeto.Periodo & ",'SANEAMIENTO','" & recibo.Fecha_Act & "'," _
-                                                    & My.Settings.folio + 1 & ",'" & My.Settings.caja & "', '" & My.Settings.serie & "'," & recibo.cuenta & "," & objeto.Total & "," & objeto.Totalcondescuento & ",'" & tipoServicio & "'," _
-                                                    & consumoLectura & ",'" & tipoUso & "')"
+
+                        Dim cadenapagomes As String = "INSERT INTO pago_mes (PERIODO, MES, ANO, CONCEPTO, FECHA, RECIBO, CAJA,SERIE, CUENTA,MONTO,DESCUENTO,MONTOPAGADO, TIPO, CONSUMO, TIPOUSO) VALUES ('" & CadenaNumeroMes(objeto.Mes) & Mid(objeto.Periodo, 3, 2) & "','" & objeto.Mes & "'," & objeto.Periodo & ",'SANEAMIENTO ','" & recibo.Fecha_Act & "'," & My.Settings.folio + 1 & ",'" & My.Settings.caja & "', '" & My.Settings.serie & "'," & recibo.cuenta & "," & objeto.Totalcondescuento & "," & objeto.Total - objeto.Totalcondescuento & "," & objeto.Totalcondescuento & ",'" & tipoServicio & "'," & consumoLectura & ",'" & tipoUso & "')"
+
                         Ejecucion(cadenapagomes)
 
                         'Dim usued8 = EjecutarConsultaRemotaAsync(cadenapagomes)
@@ -1071,7 +1112,20 @@ Public Class frmPagoefectivo
 
 
                     End If
+
                 Next
+
+
+            Catch ex As Exception
+
+                MessageBox.Show("Ocurrio un errro al grabar el desglose de saneamiento")
+
+            End Try
+
+
+
+            Try
+
                 For i = 1 To control.desgloserecargo.Count
                     'If control.EsFijo = True Then
                     Dim objeto As clsunidadmes
@@ -1099,18 +1153,19 @@ Public Class frmPagoefectivo
                     Dim cadenapagomes As String = "INSERT INTO pago_mes (PERIODO, MES, ANO, CONCEPTO, FECHA, RECIBO, CAJA,SERIE, CUENTA,MONTO,DESCUENTO,MONTOPAGADO, TIPO, CONSUMO, TIPOUSO) VALUES ('" & CadenaNumeroMes(objeto.mes) & Mid(objeto.periodo, 3, 2) & "','" & objeto.mes & "'," & objeto.periodo & ",'RECARGO ','" & recibo.Fecha_Act & "'," & My.Settings.folio + 1 & ",'" & My.Settings.caja & "', '" & My.Settings.serie & "'," & recibo.cuenta & "," & objeto.totalcondescuento & "," & objeto.total - objeto.totalcondescuento & "," & objeto.totalcondescuento & ",'" & tipoServicio & "'," & consumoLectura & ",'" & tipoUso & "')"
                     Ejecucion(cadenapagomes)
 
-                    'Dim usued8 = EjecutarConsultaRemotaAsync(cadenapagomes)
 
-
-                    'Else
-                    'Dim objeto As ClsRegistrolectura
-                    'objeto = control.desgloserecargo.Item(i)
-                    'ejecucion("INSERT INTO pago_mes (PERIODO, MES, ANO, CONCEPTO, FECHA, RECIBO, CAJA,SERIE, CUENTA,MONTO, DESCUENTO,MONTOPAGADO) VALUES ('" & CadenaNumeroMes(objeto.Mes) & Mid(objeto.Periodo, 3, 2) & "','" & objeto.Mes & "'," & objeto.Periodo & ",'RECARGO','" & recibo.Fecha_Act & "'," & My.Settings.folio + 1 & ",'" & My.Settings.caja & "', '" & My.Settings.serie & "'," & recibo.cuenta & "," & objeto.Totalcondescuento & "," & objeto.Total - objeto.Totalcondescuento & "," & objeto.Totalcondescuento & ")")
-                    'End If
                 Next
+
+
             Catch ex As Exception
-                MessageBox.Show(ex.Message)
+
+                MessageBox.Show("Ocurrio un error al grabar el desglose de recargos")
+
             End Try
+
+
+
+
             Try
                 If actualizarfecha Then
                     Ejecucion("update usuario set requeri=0 where cuenta=" & recibo.cuenta)
@@ -1120,6 +1175,9 @@ Public Class frmPagoefectivo
             Catch ex As Exception
 
             End Try
+
+
+
             Try
                 If recibo.esusuario = 1 And control.EsMEdido Then
                     For i = 1 To control.desgloseconsumo.Count
