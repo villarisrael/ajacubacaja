@@ -1900,47 +1900,17 @@ Public Class Frmvalidafactura
 
                 ' comenzamos con un cuadro
 
-                'Dim _cb As PdfContentByte
+
 
                 Dim colordefinido = New Clscolorreporte()
                 colordefinido.ClsColoresReporte(My.Settings.colorfactura)
 
-                '_cb = pdfWrite.DirectContentUnder
-                '_cb.SetColorStroke(colordefinido.color) '/Color de la linea
-                '_cb.SetColorFill(colordefinido.color) '/ Color del relleno
-                '_cb.SetLineWidth(3.5) ''Tamano de la linea
-                '_cb.Rectangle(350, 720, 20, 100)
-                '_cb.FillStroke()
-
-
-
-                '_cb = pdfWrite2.DirectContentUnder
-                '_cb.SetColorStroke(colordefinido.color) '/Color de la linea
-                '_cb.SetColorFill(colordefinido.color) '/ Color del relleno
-                '_cb.SetLineWidth(3.5) ''Tamano de la linea
-                '_cb.Rectangle(350, 720, 20, 100)
-                '_cb.FillStroke()
-
-                '_cb = pdfWrite3.DirectContentUnder
-                '_cb.SetColorStroke(colordefinido.color) '/Color de la linea
-                '_cb.SetColorFill(colordefinido.color) '/ Color del relleno
-                '_cb.SetLineWidth(3.5) ''Tamano de la linea
-                '_cb.Rectangle(350, 720, 20, 100)
-                '_cb.FillStroke()
-
-                '_cb = pdfWrite4.DirectContentUnder
-                '_cb.SetColorStroke(colordefinido.color) '/Color de la linea
-                '_cb.SetColorFill(colordefinido.color) '/ Color del relleno
-                '_cb.SetLineWidth(3.5) ''Tamano de la linea
-                '_cb.Rectangle(350, 720, 20, 100)
-                '_cb.FillStroke()
 
                 Dim Table1 As PdfPTable = New PdfPTable(3)
                 Table1.DefaultCell.Border = BorderStyle.None
                 Dim Col1 As PdfPCell
-                'Dim ILine As Integer
-                'Dim iFila As Integer
                 Table1.WidthPercentage = 100
+
 
                 Dim widths As Single() = New Single() {100.0F, 300, 280.0F}
                 Table1.SetWidths(widths)
@@ -1977,6 +1947,7 @@ Public Class Frmvalidafactura
                 Tabledireccion.AddCell(Col1rfe)
                 Table1.AddCell(Tabledireccion)
 
+
                 Dim Table2 As PdfPTable = New PdfPTable(2)
                 Dim Col10 As PdfPCell
                 Dim Col11 As PdfPCell
@@ -1986,6 +1957,8 @@ Public Class Frmvalidafactura
                 Table2.WidthPercentage = 100
                 Dim widthsT2 As Single() = New Single() {100, 180.0F}
                 Table2.SetWidths(widthsT2)
+
+
 
                 Col10 = New PdfPCell(New Phrase("Serie", Font88))
                 Col10.Border = 0
