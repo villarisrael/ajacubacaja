@@ -15,18 +15,31 @@ Module FuncFacturas_v4
         sdk.Iniciales.Add("version_cfdi", "4.0")
         sdk.Iniciales.Add("MODOINI", "DIVISOR")
 
-        sdk.Iniciales.Add("cfdi", "c:\sdk24\timbrados\cfdi_ejemplo_factura4_2.xml")
-        sdk.Iniciales.Add("xml_debug", "c:\sdk24\timbrados\sin_timbrar_ejemplo_factura4_2.xml")
+        sdk.Iniciales.Add("cfdi", "c:\sdk2\timbrados\cfdi_ejemplo_factura4_2.xml")
+        sdk.Iniciales.Add("xml_debug", "c:\sdk2\timbrados\sin_timbrar_ejemplo_factura4_2.xml")
         'sdk.Iniciales.Add("produccion", "NO")
         sdk.Iniciales.Add("RESPUESTA_UTF8", "SI")
 
 
 
         Dim emi As MFObject = New MFObject("emisor")
+        If My.Settings.TimbrarPrueba.ToLower() = "si" Then
+            'emi("rfc") = "KIJ0906199R1".ToUpper()
+            'emi("nombre") = "KERNEL_INDUSTRIA_JUGUETERA_KIJ0906199R1"
+            'emi("RegimenFiscal") = "603"
 
-        emi("rfc") = obtenerCampo("select * from empresa ", "cnif")
+            'emi("rfc") = "KIJ0906199R1".ToUpper()
+            'emi("nombre") = "KERNEL INDUSTIA JUGUETERA SA DE CV"
+            'emi("RegimenFiscal") = "603"
+
+            emi("rfc") = "EKU9003173C9".ToUpper()
+            emi("nombre") = "ESCUELA KEMPER URGATE"
+            emi("RegimenFiscal") = "601"
+        Else
+            emi("rfc") = obtenerCampo("select * from empresa ", "cnif")
             emi("nombre") = _EMPRESA
             emi("RegimenFiscal") = My.Settings.Regimen
+        End If
 
         Dim receptor As MFObject = New MFObject("receptor")
         receptor("rfc") = _rfcreceptor
@@ -227,7 +240,7 @@ Module FuncFacturas_v4
 
         Dim fact As MFObject = New MFObject("factura")
         'fact("condicionesDePago") = "condiciones"
-        fact("fecha_expedicion") = DateTime.Now.AddMinutes(-70).ToString("s")
+        fact("fecha_expedicion") = DateTime.Now.ToString("s")
         fact("folio") = _folio
         fact("forma_pago") = _FORMAFACTURADO
         fact("LugarExpedicion") = obtenerCampo("select * from empresa ", "ccodpos")
@@ -272,8 +285,8 @@ Module FuncFacturas_v4
         Dim p As MFObject = New MFObject("PAC")
         If My.Settings.TimbrarPrueba.ToLower = "si" Then
 
-            p("usuario") = My.Settings.UsuarioMultifacturas
-            p("pass") = My.Settings.PassFacturaMultifacturas
+            p("usuario") = "DEMO700101XXX"
+            p("pass") = "DEMO700101XXX"
             p("produccion") = "NO"
         Else
 
@@ -288,14 +301,14 @@ Module FuncFacturas_v4
         Dim p As MFObject = New MFObject("PAC")
         If My.Settings.TimbrarPrueba.ToLower = "si" Then
 
-            p("usuario") = My.Settings.UsuarioMultifacturas
-            p("pass") = My.Settings.PassFacturaMultifacturas
-            p("produccion") = "NO"
+            p("usuario") = "DEMO700101XXX"
+            p("pass") = "DEMO700101XXX"
+
         Else
 
             p("usuario") = My.Settings.UsuarioMultifacturas
             p("pass") = My.Settings.PassFacturaMultifacturas
-            p("produccion") = "SI"
+
         End If
         Return p
     End Function
@@ -303,11 +316,28 @@ Module FuncFacturas_v4
     Public Function Conf() As MFObject
         Dim con As MFObject = New MFObject("conf")
 
+        If My.Settings.TimbrarPrueba.ToLower = "si" Then
 
+            'con("cer") = "C:\\SDK2\\certificados\\lan7008173r5.cer.pem"
+            'con("key") = "C:\\SDK2\\certificados\\lan7008173r5.key.pem"
+            'con("pass") = "12345678a"
 
-        con("cer") = My.Settings.CER
+            con("cer") = "C:\\SDK2\\certificados\\EKU9003173C9.cer.pem"
+            con("key") = "C:\\SDK2\\certificados\\EKU9003173C9.key.pem"
+            con("pass") = "12345678a"
+
+            'con("cer") = "C:\\SDK2\\certificados\\CSD_KERNEL_INDUSTRIA_JUGUETERA_KIJ0906199R1_20190617_134908s.cer.pem"
+            'con("key") = "C:\\SDK2\\certificados\\CSD_KERNEL_INDUSTRIA_JUGUETERA_KIJ0906199R1_20190617_134908s.key.pem"
+            'con("pass") = "12345678a"
+
+            'lan7008173r5
+        Else
+
+            con("cer") = My.Settings.CER
             con("key") = My.Settings.KEY
             con("pass") = My.Settings.KeyContrasena
+        End If
+        ' Se indica la ruta y contraseña de los archivos CSD (Archivos CSD de pruebas)
 
 
         Return con
@@ -334,11 +364,19 @@ Module FuncFacturas_v4
         sdk.Iniciales.Add("modulo", "cancelacion2018")
         sdk.Iniciales.Add("accion", "cancelar")
 
+        If (My.Settings.TimbrarPrueba.ToUpper = "SI") Then
 
+            sdk.Iniciales.Add("b64Cer", "C:\SDK2\certificados\demo.cer.pem")
+            sdk.Iniciales.Add("b64Key", "C:\SDK2\certificados\demo.key.pem")
+            sdk.Iniciales.Add("password", "12345678a")
 
-        sdk.Iniciales.Add("b64Cer", My.Settings.CER & ".pem")
+        Else
+
+            sdk.Iniciales.Add("b64Cer", My.Settings.CER & ".pem")
             sdk.Iniciales.Add("b64Key", My.Settings.KEY & ".pem")
             sdk.Iniciales.Add("password", My.Settings.KeyContrasena)
+
+        End If
 
 
 

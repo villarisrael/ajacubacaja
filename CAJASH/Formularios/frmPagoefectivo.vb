@@ -1302,7 +1302,7 @@ Public Class frmPagoefectivo
                     ''TIC.imprime_ticket58mm(My.Settings.serie, My.Settings.folio + 1, False, cambio, vale) 'false directo a la impresora o true a la ventana
 
                     Dim recibo As New reciboaimprimir
-                    recibo.ReciboHojaCarta(My.Settings.serie, My.Settings.folio + 1, True, cambio, formaPago, vale)
+                    recibo.ReciboHojaCarta(My.Settings.serie, My.Settings.folio + 1, False, cambio, formaPago, vale)
                     'recizurich.imprime(My.Settings.serie, My.Settings.folio + 1, False, cambio, vale)
                     ''TIC.imprime_ticket58mm(My.Settings.serie, My.Settings.folio + 1, False, cambio, vale) 'false directo a la impresora o true a la ventana
                 End If

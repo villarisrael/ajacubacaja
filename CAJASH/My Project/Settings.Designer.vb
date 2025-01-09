@@ -236,7 +236,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Cobro")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("CONSULTA")>  _
         Public Property tipocaja() As String
             Get
                 Return CType(Me("tipocaja"),String)
@@ -296,7 +296,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("DIRECTOR")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("SI")>  _
         Public Property esAdministrativa() As String
             Get
                 Return CType(Me("esAdministrativa"),String)

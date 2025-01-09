@@ -25,10 +25,10 @@ Public Class Clscolorreporte
             color = New CMYKColor(100, 100, 0, 0)
         End If
 
-        If (_color = "AzulLogoCuau") Then
+        If (_color = "AzulMarino") Then
 
 
-            color = New CMYKColor(115, 115, 0, 70)
+            color = New CMYKColor(100, 60, 0, 45)
         End If
 
         If (_color = "Morado") Then
