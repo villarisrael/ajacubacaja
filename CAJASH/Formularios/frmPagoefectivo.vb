@@ -308,7 +308,7 @@ Public Class frmPagoefectivo
                             Ejecucion("insert into lecturas set cuenta='" & control.cuenta & "'," &
                                        "mes= '" & concepto.Mes & "', an_per= " & concepto.Periodo & ", consumo=" & concepto.Consumo & "," &
                                        "montocobrado=" & montolectura & " , adelant= 0 , AConsumo=" & consumo & ", AAlcantarillado= " & alcantarillado &
-                                       ", pagado=1, ASaneamiento= " & saneamiento & ",lectant=ultimalectura(" & recibo.cuenta & "),lectura=ultimalectura(" & recibo.cuenta & ");")
+                                       ", pagado=1, ASaneamiento= " & saneamiento & ",lectant=ultimalectura(" & recibo.cuenta & "),lectura=ultimalectura(" & recibo.cuenta & ")")
 
                         Catch ex As Exception
                             MessageBox.Show(ex.Message)
@@ -1302,7 +1302,7 @@ Public Class frmPagoefectivo
                     ''TIC.imprime_ticket58mm(My.Settings.serie, My.Settings.folio + 1, False, cambio, vale) 'false directo a la impresora o true a la ventana
 
                     Dim recibo As New reciboaimprimir
-                    recibo.ReciboHojaCarta(My.Settings.serie, My.Settings.folio + 1, False, cambio, formaPago, vale)
+                    recibo.ReciboHojaCarta(My.Settings.serie, My.Settings.folio + 1, True, cambio, formaPago, vale)
                     'recizurich.imprime(My.Settings.serie, My.Settings.folio + 1, False, cambio, vale)
                     ''TIC.imprime_ticket58mm(My.Settings.serie, My.Settings.folio + 1, False, cambio, vale) 'false directo a la impresora o true a la ventana
                 End If
