@@ -706,6 +706,7 @@ Public Class reciboaimprimir
 
         Dim DATOS As IDataReader
         Dim CONTE As IDataReader
+        Dim rutaPDF As String
 
 
         Try
@@ -797,7 +798,10 @@ Public Class reciboaimprimir
         Dim pdfDoc As New Document(PageSize.LETTER, 15.0F, 15.0F, 30.0F, 30.0F)
 
         'Obtener la ruta donde se va a crear el pdf
-        Dim pdfWrite As PdfWriter = PdfWriter.GetInstance(pdfDoc, New System.IO.FileStream(cadenafolder & "\recibo_" & Serie & folio & ".pdf", FileMode.Create))
+        Dim pdfWrite As PdfWriter = PdfWriter.GetInstance(pdfDoc, New System.IO.FileStream(cadenafolder & "\Recibo_" & Serie & folio & ".pdf", FileMode.Create))
+
+
+        rutaPDF = $"{cadenafolder}\Recibo_{Serie}{folio}.pdf"
 
         'Formato de letras
         Dim Font8 As New Font(FontFactory.GetFont(FontFactory.TIMES_ROMAN, 8, iTextSharp.text.Font.NORMAL))
@@ -1471,37 +1475,69 @@ Public Class reciboaimprimir
         pdfDoc.Close()
 
 
-        If preview = True Then
-            Try
-                Dim psi As New ProcessStartInfo(cadenafolder & "\recibo_" & Serie & folio & ".pdf")
-                'psi.WorkingDirectory = cadenafolder & "\factura\" + nombresespacios
 
-                psi.WindowStyle = ProcessWindowStyle.Hidden
-                Dim p As Process = Process.Start(psi)
-            Catch ex As Exception
-                MessageBox.Show("Error al visualizar el pdf, posiblemente el archivo este en uso, cierrelo antes de generarlo nuevamente" & ex.Message)
-            End Try
-        Else
 
-            For index As Integer = 1 To 2
+        ImprimirFormato(rutaPDF)
 
 
 
-                Dim gsProcessInfo As ProcessStartInfo
-                Dim gsProcess As Process
-                gsProcessInfo = New ProcessStartInfo()
-                gsProcessInfo.Verb = "Print"
-                gsProcessInfo.WindowStyle = ProcessWindowStyle.Hidden
-                gsProcessInfo.FileName = cadenafolder & "\recibo_" & Serie & folio & ".pdf"
-                ' gsProcessInfo.Arguments = """" & nombreImpresora & """"
-                gsProcess = Process.Start(gsProcessInfo)
-                gsProcess.WaitForInputIdle(2200)
-                gsProcess.Close()
+    End Sub
 
+    Public Sub ImprimirFormato(rutaArchivo As String)
+
+        Try
+            For index As Integer = 1 To 2 Step 1
+                imprimirpdf(rutaArchivo)
             Next
+        Catch ex As Exception
+            MessageBox.Show("Error al imprimir la factura, puedes buscarla en la reimpresión de facturas. " & ex.ToString())
+        End Try
 
-        End If
+    End Sub
 
+    Public Sub VisualizarPDF(rutaPDFP As String)
+
+        Try
+            Dim psi As New ProcessStartInfo(rutaPDFP)
+            'psi.WorkingDirectory = cadenafolder & "\factura\" + nombresespacios
+
+            psi.WindowStyle = ProcessWindowStyle.Hidden
+            Dim p As Process = Process.Start(psi)
+
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ocurrio un error al visualizar el pdf" & ex.Message)
+
+        End Try
+
+    End Sub
+
+    Public Sub imprimirpdf(ByVal _pdf As String)
+
+        Try
+
+
+            Dim psi As New ProcessStartInfo
+
+            psi.UseShellExecute = True
+
+            psi.Verb = "print"
+
+            psi.WindowStyle = ProcessWindowStyle.Hidden
+
+
+            'psi.Arguments = PrintDialog1.PrinterSettings.PrinterName.ToString()
+
+            psi.FileName = _pdf
+
+            Process.Start(psi)
+
+        Catch ex As Exception
+
+            MessageBox.Show($"OCURRIO UN ERROR: {ex.ToString()}")
+
+        End Try
     End Sub
 
 End Class

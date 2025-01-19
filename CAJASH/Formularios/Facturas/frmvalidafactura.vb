@@ -942,15 +942,6 @@ Public Class Frmvalidafactura
                 End Try
             End If
 
-            Try
-                If datos("id_Tarifa") = "4" Then
-                    Ejecucion("Update lecturas Set  monto = consumomedidos(consumo,'1', " & Year(Now) & ")  where cuenta=" & datos("cuenta") & " and pagado=0 and an_per=" & Year(Now) & " and not ( mes= '" & NOMBREDEMES3CAR(Now.Month) & "' and an_per=" & Year(Now) & ");")
-
-                End If
-
-            Catch ex As Exception
-
-            End Try
 
             pago.calcula(False, False, Now)
 

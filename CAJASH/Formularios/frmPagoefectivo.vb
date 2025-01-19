@@ -327,7 +327,7 @@ Public Class frmPagoefectivo
             For i = 0 To control.desgloseAnticipo.Count - 1
                 concepto = control.desgloseAnticipo.Item(i + 1)
                 Try
-                    Ejecucion("UPDATE lecturas SET adelant=1 WHERE CUENTA='" & control.cuenta & "'AND MES= '" & concepto.Mes & "' AND an_per=" & concepto.Periodo & ";")
+                    Ejecucion("UPDATE lecturas SET adelant=1 WHERE CUENTA='" & control.cuenta & "'AND MES= '" & concepto.Mes & "' AND an_per=" & concepto.Periodo & "")
                 Catch ex As Exception
                     guardatxt("c:\errrpagos", "errorpagos.txt", ex.Message)
                 End Try
@@ -353,7 +353,7 @@ Public Class frmPagoefectivo
             cadenainanti.Append("meses= " & control.desgloseAnticipo.Count & ",")
             cadenainanti.Append("Consumo=" & totalConsu & ",")
             cadenainanti.Append("Alcantarillado=" & totalAlcan & ",")
-            cadenainanti.Append("Saneamiento=" & totalSanea & ";")
+            cadenainanti.Append("Saneamiento=" & totalSanea & "")
 
 
             Ejecucion(cadenainanti.ToString())
@@ -1296,15 +1296,11 @@ Public Class frmPagoefectivo
 
             Try
                 If FACTURADO = 0 Then
-                    '  imprime = New clsimprimeformato()
-                    '  imprimerecibo(My.Settings.folio + 1, My.Settings.serie)
-                    '' Dim TIC As New Ticket
-                    ''TIC.imprime_ticket58mm(My.Settings.serie, My.Settings.folio + 1, False, cambio, vale) 'false directo a la impresora o true a la ventana
+
 
                     Dim recibo As New reciboaimprimir
                     recibo.ReciboHojaCarta(My.Settings.serie, My.Settings.folio + 1, True, cambio, formaPago, vale)
-                    'recizurich.imprime(My.Settings.serie, My.Settings.folio + 1, False, cambio, vale)
-                    ''TIC.imprime_ticket58mm(My.Settings.serie, My.Settings.folio + 1, False, cambio, vale) 'false directo a la impresora o true a la ventana
+
                 End If
             Catch ex As Exception
                 MessageBox.Show("Fallas en la impresion")
