@@ -48,7 +48,7 @@
       <Value Profile="(Default)">PorcAlca</Value>
     </Setting>
     <Setting Name="tipocaja" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Cobro</Value>
+      <Value Profile="(Default)">CONSULTA</Value>
     </Setting>
     <Setting Name="folio" Type="System.String" Scope="User">
       <Value Profile="(Default)">1</Value>
@@ -63,7 +63,7 @@
       <Value Profile="(Default)">NO</Value>
     </Setting>
     <Setting Name="esAdministrativa" Type="System.String" Scope="User">
-      <Value Profile="(Default)">DIRECTOR</Value>
+      <Value Profile="(Default)">SI</Value>
     </Setting>
     <Setting Name="Porcentajederecargo" Type="System.Double" Scope="User">
       <Value Profile="(Default)">3</Value>

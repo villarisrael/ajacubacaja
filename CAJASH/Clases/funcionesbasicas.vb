@@ -7,6 +7,7 @@ Imports System.Reflection
 
 
 Imports System.Net.NetworkInformation
+Imports System.Xml
 
 Module funcionesbasicas
 
@@ -867,5 +868,56 @@ Module funcionesbasicas
 
 
     End Sub
+
+
+    Public Function ObtenerDatosXML(SerieP As String, FolioP As Integer) As XmlDocument
+
+        Try
+
+
+            ' Cargar XML en un objeto XmlDocument
+            Dim xmlDoc As New XmlDocument()
+
+            Dim CFDI As String = obtenerCampo($"SELECT CFDI FROM ENCFAC WHERE SERIE = '{SerieP}' AND NUMERO = {FolioP}", "CFDI")
+
+            xmlDoc.LoadXml(CFDI.TrimStart().TrimEnd())
+
+            Return xmlDoc
+
+        Catch ex As Exception
+
+            MessageBox.Show($"Ocurrio un error al obetener los datos del XML: {ex.ToString()}")
+
+        End Try
+
+    End Function
+
+
+    Public Function ObtenerDatosFiscales(nombreReceptor As String, cuentaUsuarioP As String) As DatosFiscalesUsuario
+        Dim datosFiscalesUsuario As New DatosFiscalesUsuario()
+
+        Using datosFiscales As IDataReader = ConsultaSql($"SELECT * FROM datosfiscales WHERE datosfiscales.nombre='{nombreReceptor}' AND CUENTA = '{cuentaUsuarioP}'").ExecuteReader()
+            If datosFiscales.Read() Then
+
+                datosFiscalesUsuario.RazonSocial = datosFiscales("NOMBRE").ToString()
+                datosFiscalesUsuario.cuenta = Convert.ToInt32(datosFiscales("CUENTA"))
+                datosFiscalesUsuario.calleUsuario = datosFiscales("CALLE").ToString()
+                datosFiscalesUsuario.numInteriorUsuario = datosFiscales("NUMINT").ToString()
+                datosFiscalesUsuario.numExteriorUsuario = datosFiscales("NUMEXT").ToString()
+                datosFiscalesUsuario.coloniaUsuario = datosFiscales("COLONIA").ToString()
+                datosFiscalesUsuario.tipoUsuario = datosFiscales("TIPO").ToString()
+                datosFiscalesUsuario.poblacionUsuario = datosFiscales("POBLACION").ToString()
+                datosFiscalesUsuario.delegacionUsuario = datosFiscales("DELEGACION").ToString()
+                datosFiscalesUsuario.estadoUsuario = datosFiscales("ESTADO").ToString()
+                datosFiscalesUsuario.CPUsuario = datosFiscales("CP").ToString()
+                datosFiscalesUsuario.RegimenFiscal = datosFiscales("RegimenFiscal").ToString()
+
+            End If
+        End Using
+
+        Return datosFiscalesUsuario
+
+    End Function
+
 
 End Module

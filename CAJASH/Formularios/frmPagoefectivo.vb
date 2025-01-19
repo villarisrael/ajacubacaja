@@ -308,7 +308,7 @@ Public Class frmPagoefectivo
                             Ejecucion("insert into lecturas set cuenta='" & control.cuenta & "'," &
                                        "mes= '" & concepto.Mes & "', an_per= " & concepto.Periodo & ", consumo=" & concepto.Consumo & "," &
                                        "montocobrado=" & montolectura & " , adelant= 0 , AConsumo=" & consumo & ", AAlcantarillado= " & alcantarillado &
-                                       ", pagado=1, ASaneamiento= " & saneamiento & ",lectant=ultimalectura(" & recibo.cuenta & "),lectura=ultimalectura(" & recibo.cuenta & ");")
+                                       ", pagado=1, ASaneamiento= " & saneamiento & ",lectant=ultimalectura(" & recibo.cuenta & "),lectura=ultimalectura(" & recibo.cuenta & ")")
 
                         Catch ex As Exception
                             MessageBox.Show(ex.Message)

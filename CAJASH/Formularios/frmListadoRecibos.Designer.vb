@@ -22,7 +22,9 @@ Partial Class frmListadoRecibos
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmListadoRecibos))
         Me.label2 = New System.Windows.Forms.Label()
         Me.label1 = New System.Windows.Forms.Label()
@@ -168,7 +170,7 @@ Partial Class frmListadoRecibos
         Me.toolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btncancelarrecibo, Me.toolStripSeparator1, Me.toolStripLabel1, Me.toolStripButton1, Me.toolStripLabel2, Me.toolStripButton2, Me.toolStripButton3, Me.ToolStripButton4, Me.ToolStripLabel3, Me.cmbforma})
         Me.toolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.toolStrip1.Name = "toolStrip1"
-        Me.toolStrip1.Size = New System.Drawing.Size(1067, 31)
+        Me.toolStrip1.Size = New System.Drawing.Size(1067, 28)
         Me.toolStrip1.TabIndex = 1
         Me.toolStrip1.Text = "toolStrip1"
         '
@@ -291,6 +293,14 @@ Partial Class frmListadoRecibos
         '
         Me.dataGridViewRectifica.AllowUserToAddRows = False
         Me.dataGridViewRectifica.AllowUserToDeleteRows = False
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dataGridViewRectifica.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dataGridViewRectifica.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
@@ -305,6 +315,14 @@ Partial Class frmListadoRecibos
         Me.dataGridViewRectifica.Margin = New System.Windows.Forms.Padding(4)
         Me.dataGridViewRectifica.Name = "dataGridViewRectifica"
         Me.dataGridViewRectifica.ReadOnly = True
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dataGridViewRectifica.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dataGridViewRectifica.RowHeadersWidth = 51
         Me.dataGridViewRectifica.Size = New System.Drawing.Size(796, 402)
         Me.dataGridViewRectifica.TabIndex = 0
