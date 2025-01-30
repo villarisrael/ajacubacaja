@@ -681,6 +681,8 @@ Public Class Frmlistadofacturas
 
 
     Private Sub btnreimprimir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnreimprimir.Click
+
+
         Dim factura As Int32 = dataGridView1.Item("numero", dataGridView1.CurrentRow.Index).Value
         Dim serie As String = dataGridView1.Item("serie", dataGridView1.CurrentRow.Index).Value.ToString()
         Dim tipo As String = dataGridView1.Item("ES", dataGridView1.CurrentRow.Index).Value.ToString()
@@ -1069,7 +1071,7 @@ Public Class Frmlistadofacturas
                     Col1.Border = 0
                     Col1.HorizontalAlignment = PdfPCell.ALIGN_CENTER
 
-                    Dim DIRECCIONE As String = Direccion & ", " & coloniaEMPRESA & ", " & poblacionEMPRESA & ", " & Estadoempresa
+                    Dim DIRECCIONE As String = Direccion & ", " & coloniaEmpresa & ", " & poblacionEMPRESA & ", " & estadoEmpresa
                     Dim Col1d = New PdfPCell(New Phrase(DIRECCIONE, Font8N))
                     Col1d.Border = 0
                     Col1d.HorizontalAlignment = PdfPCell.ALIGN_CENTER

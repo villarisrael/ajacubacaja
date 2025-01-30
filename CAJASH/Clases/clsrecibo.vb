@@ -61,6 +61,7 @@ Public Class reciboaimprimir
         Dim municipio As String = String.Empty
         Dim entidad As String = String.Empty
         Dim tarifa As String = String.Empty
+        Dim descripcionTarifa As String = String.Empty
         Dim nodemedidor As String = String.Empty
 
 
@@ -75,6 +76,7 @@ Public Class reciboaimprimir
             colonia = DATOSUSUARIO("colonia")
             municipio = DATOSUSUARIO("municipio")
             tarifa = DATOS("tarifa")
+            descripcionTarifa = DATOS("descripcion_cuota")
             nodemedidor = DATOSUSUARIO("nodemedidor")
             comunidad = DATOSUSUARIO("comunidad")
 
@@ -338,7 +340,7 @@ Public Class reciboaimprimir
                 ColdatosEncUsuario3.BackgroundColor = New iTextSharp.text.BaseColor(23, 162, 184)
                 tabladatosEncUusario.AddCell(ColdatosEncUsuario3)
 
-                ColdatosEncUsuario4 = New PdfPCell(New Phrase(tarifa.ToString().ToUpper(), Font8))
+                ColdatosEncUsuario4 = New PdfPCell(New Phrase(descripcionTarifa.ToString().ToUpper(), Font8))
                 ColdatosEncUsuario4.Border = 0
                 ColdatosEncUsuario4.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
                 tabladatosEncUusario.AddCell(ColdatosEncUsuario4)
@@ -412,7 +414,7 @@ Public Class reciboaimprimir
                 TableGeneralConceptos.SetWidths(widthsInfConc)
 
 
-                Dim ColInfoConceptos = New PdfPCell(New Phrase("Cantidad", Font8White)) With {
+                Dim ColInfoConceptos = New PdfPCell(New Phrase("CANTIDAD", Font8White)) With {
                 .Border = 0,
                 .HorizontalAlignment = PdfPCell.ALIGN_LEFT,
                 .BackgroundColor = New iTextSharp.text.BaseColor(23, 162, 184)
@@ -420,21 +422,21 @@ Public Class reciboaimprimir
 
                 TableGeneralConceptos.AddCell(ColInfoConceptos)
 
-                ColInfoConceptos = New PdfPCell(New Phrase("Concepto", Font8White)) With {
+                ColInfoConceptos = New PdfPCell(New Phrase("CONCEPTO", Font8White)) With {
                 .Border = 0,
                 .HorizontalAlignment = PdfPCell.ALIGN_LEFT,
                 .BackgroundColor = New iTextSharp.text.BaseColor(23, 162, 184)
             }
                 TableGeneralConceptos.AddCell(ColInfoConceptos)
 
-                ColInfoConceptos = New PdfPCell(New Phrase("Precio Unitario", Font8White)) With {
+                ColInfoConceptos = New PdfPCell(New Phrase("PRECIO UNITARIO", Font8White)) With {
                 .Border = 0,
                 .HorizontalAlignment = PdfPCell.ALIGN_LEFT,
                 .BackgroundColor = New iTextSharp.text.BaseColor(23, 162, 184)
             }
                 TableGeneralConceptos.AddCell(ColInfoConceptos)
 
-                ColInfoConceptos = New PdfPCell(New Phrase("Importe", Font8White)) With {
+                ColInfoConceptos = New PdfPCell(New Phrase("IMPORTE", Font8White)) With {
                 .Border = 0,
                 .HorizontalAlignment = PdfPCell.ALIGN_LEFT,
                 .BackgroundColor = New iTextSharp.text.BaseColor(23, 162, 184)
@@ -454,6 +456,16 @@ Public Class reciboaimprimir
                 CONTE = ConsultaSql("SELECT * FROM PAGOtros WHERE SERIE='" & Serie & "' AND recibo=" & folio).ExecuteReader
                 While CONTE.Read()
 
+                    Dim precioUnitario As Decimal = 0.0
+                    Dim importe As Decimal = 0.0
+                    Dim ivaConcepto As Decimal = 0.0
+
+                    precioUnitario = CONTE("monto")
+                    importe = CONTE("IMPORTE")
+                    ivaConcepto = CONTE("MontoIVa")
+
+
+
                     contenido = contenido & CONTE("Cantidad") & "|"
 
                     ColInfoConceptos = New PdfPCell(New Phrase(CONTE("Cantidad"), Font12)) With {
@@ -471,19 +483,19 @@ Public Class reciboaimprimir
                     contenido = contenido & CONTE("importe") & "|"
                     TableGeneralConceptos.AddCell(ColInfoConceptos)
 
-                    ColInfoConceptos = New PdfPCell(New Phrase(CONTE("monto"), Font12)) With {
+                    ColInfoConceptos = New PdfPCell(New Phrase(precioUnitario.ToString("C"), Font12)) With {
                     .Border = 0,
                     .HorizontalAlignment = PdfPCell.ALIGN_LEFT
                 }
                     TableGeneralConceptos.AddCell(ColInfoConceptos)
 
-                    ColInfoConceptos = New PdfPCell(New Phrase(CONTE("IMPORTE"), Font12)) With {
+                    ColInfoConceptos = New PdfPCell(New Phrase(importe.ToString("C"), Font12)) With {
                     .Border = 0,
                     .HorizontalAlignment = PdfPCell.ALIGN_LEFT
                 }
                     TableGeneralConceptos.AddCell(ColInfoConceptos)
 
-                    ColInfoConceptos = New PdfPCell(New Phrase(CONTE("MontoIVa"), Font12)) With {
+                    ColInfoConceptos = New PdfPCell(New Phrase(ivaConcepto.ToString("C"), Font12)) With {
                     .Border = 0,
                     .HorizontalAlignment = PdfPCell.ALIGN_LEFT
                 }
@@ -725,9 +737,11 @@ Public Class reciboaimprimir
         Dim Nombre As String = String.Empty
         Dim direccionusuario As String = String.Empty
         Dim colonia As String = String.Empty
+        Dim comunidad As String = String.Empty
         Dim municipio As String = String.Empty
         Dim entidad As String = String.Empty
         Dim tarifa As String = String.Empty
+        Dim descripcionTarifa As String = String.Empty
         Dim nodemedidor As String = String.Empty
         Dim numExterior As String = String.Empty
 
@@ -742,8 +756,10 @@ Public Class reciboaimprimir
             DATOSUSUARIO.Read()
             direccionusuario = DATOSUSUARIO("Direccion")
             colonia = DATOSUSUARIO("colonia")
+            comunidad = DATOSUSUARIO("Comunidad")
             municipio = DATOSUSUARIO("municipio")
             tarifa = DATOS("tarifa")
+            descripcionTarifa = DATOSUSUARIO("Descripcion_cuota")
             nodemedidor = DATOSUSUARIO("nodemedidor")
             numExterior = DATOSUSUARIO("numext")
 
@@ -766,6 +782,7 @@ Public Class reciboaimprimir
             direccionusuario = DATOSUSUARIO("direccion") + DATOSUSUARIO("numext") + DATOSUSUARIO("numint")
             colonia = DATOSUSUARIO("colonia")
             municipio = DATOSUSUARIO("municipio")
+            comunidad = DATOSUSUARIO("Comunidad")
 
         End If
 
@@ -943,37 +960,7 @@ Public Class reciboaimprimir
         Table2.AddCell(Col14)
 
 
-        'Dim ColDC1 = New PdfPCell(New Phrase("UUID", Font))
-        'ColDC1.Border = 0
-        'ColDC1.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
-        'Table2.AddCell(ColDC1)
 
-
-        'Dim ColDC2 = New PdfPCell(New Phrase(sdkresp.UUID, Font))
-        'ColDC2.Border = 0
-        'ColDC2.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
-        'Table2.AddCell(ColDC2)
-
-        'Dim ColDC3 = New PdfPCell(New Phrase("Certificado Emisor", Font))
-        'ColDC3.Border = 0
-        'ColDC3.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
-        'Table2.AddCell(ColDC3)
-
-        'Dim ColDC4 = New PdfPCell(New Phrase(sdkresp.NoCertificado, Font))
-        'ColDC4.Border = 0
-        'ColDC4.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
-        'Table2.AddCell(ColDC4)
-
-
-        'Dim ColDC7 = New PdfPCell(New Phrase("Certificado Sat ", Font))
-        'ColDC7.Border = 0
-        'ColDC7.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
-        'Table2.AddCell(ColDC7)
-
-        'Dim ColDC8 = New PdfPCell(New Phrase(sdkresp.CertificadoSAT, Font))
-        'ColDC8.Border = 0
-        'ColDC8.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
-        'Table2.AddCell(ColDC8)
 
         Dim ColDCFP = New PdfPCell(New Phrase("FORMA DE PAGO", Font8Bold))
         ColDCFP.Border = 0
@@ -990,27 +977,7 @@ Public Class reciboaimprimir
         Table1.AddCell(Table2)
 
 
-        'Dim ColDCMeP = New PdfPCell(New Phrase("Método de Pago ", Font))
-        'ColDCMeP.Border = 0
-        'ColDCMeP.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
-        'Table2.AddCell(ColDCMeP)
 
-        'Dim ColDCMeP2 = New PdfPCell(New Phrase(New decodificadorSAT().getMetodo(metodo), Font))
-        'ColDCMeP2.Border = 0
-        'ColDCMeP2.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
-        'Table2.AddCell(ColDCMeP2)
-
-        'Dim ColDCUsoCFDI = New PdfPCell(New Phrase("Uso CFDI ", Font))
-        'ColDCUsoCFDI.Border = 0
-        'ColDCUsoCFDI.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
-        'Table2.AddCell(ColDCUsoCFDI)
-
-        'Dim ColDCUsoCFDI2 = New PdfPCell(New Phrase(New decodificadorSAT().getUso(varuso), Font))
-        'ColDCUsoCFDI2.Border = 0
-        'ColDCUsoCFDI2.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
-        'Table2.AddCell(ColDCUsoCFDI2)
-
-        'Table1.AddCell(Table2)
 
 
         'Tabala datos del usuario encabezado
@@ -1058,7 +1025,7 @@ Public Class reciboaimprimir
         tabladatosEncUusario.AddCell(ColdatosEncUsuario1)
 
 
-        ColdatosEncUsuario2 = New PdfPCell(New Phrase($"{direccionusuario} No. {numExterior}, {colonia}, {municipio}", Font8))
+        ColdatosEncUsuario2 = New PdfPCell(New Phrase($"{direccionusuario} No. {numExterior}, {colonia}, {comunidad}, {municipio}", Font8))
         ColdatosEncUsuario2.Border = 0
         ColdatosEncUsuario2.HorizontalAlignment = PdfPCell.ALIGN_LEFT
         tabladatosEncUusario.AddCell(ColdatosEncUsuario2)
@@ -1071,7 +1038,7 @@ Public Class reciboaimprimir
         tabladatosEncUusario.AddCell(ColdatosEncUsuario3)
 
 
-        ColdatosEncUsuario4 = New PdfPCell(New Phrase(tarifa.ToString().ToUpper(), Font8))
+        ColdatosEncUsuario4 = New PdfPCell(New Phrase(descripcionTarifa.ToString().ToUpper(), Font8))
         ColdatosEncUsuario4.Border = 0
         ColdatosEncUsuario4.HorizontalAlignment = PdfPCell.ALIGN_LEFT
         tabladatosEncUusario.AddCell(ColdatosEncUsuario4)
@@ -1133,11 +1100,11 @@ Public Class reciboaimprimir
         TableGeneralConceptos.PaddingTop = 30
         TableGeneralConceptos.DefaultCell.Border = BorderStyle.FixedSingle
 
-        Dim widthsInfConc As Single() = New Single() {50.0F, 350.0F, 100.0F, 100.0F, 60.0F}
+        Dim widthsInfConc As Single() = New Single() {55.0F, 350.0F, 100.0F, 100.0F, 60.0F}
         TableGeneralConceptos.SetWidths(widthsInfConc)
 
 
-        Dim ColInfoConceptos = New PdfPCell(New Phrase("Cantidad", Font8White)) With {
+        Dim ColInfoConceptos = New PdfPCell(New Phrase("CANTIDAD", Font8White)) With {
         .Border = 0,
         .HorizontalAlignment = PdfPCell.ALIGN_LEFT,
         .BackgroundColor = New iTextSharp.text.BaseColor(23, 162, 184)
@@ -1145,21 +1112,21 @@ Public Class reciboaimprimir
 
         TableGeneralConceptos.AddCell(ColInfoConceptos)
 
-        ColInfoConceptos = New PdfPCell(New Phrase("Concepto", Font9White)) With {
+        ColInfoConceptos = New PdfPCell(New Phrase("CONCEPTO", Font9White)) With {
         .Border = 0,
         .HorizontalAlignment = PdfPCell.ALIGN_LEFT,
         .BackgroundColor = New iTextSharp.text.BaseColor(23, 162, 184)
     }
         TableGeneralConceptos.AddCell(ColInfoConceptos)
 
-        ColInfoConceptos = New PdfPCell(New Phrase("Precio Unitario", Font9White)) With {
+        ColInfoConceptos = New PdfPCell(New Phrase("PRECIO UNITARIO", Font9White)) With {
         .Border = 0,
         .HorizontalAlignment = PdfPCell.ALIGN_RIGHT,
         .BackgroundColor = New iTextSharp.text.BaseColor(23, 162, 184)
     }
         TableGeneralConceptos.AddCell(ColInfoConceptos)
 
-        ColInfoConceptos = New PdfPCell(New Phrase("Importe", Font9White)) With {
+        ColInfoConceptos = New PdfPCell(New Phrase("IMPORTE", Font9White)) With {
         .Border = 0,
         .HorizontalAlignment = PdfPCell.ALIGN_RIGHT,
         .BackgroundColor = New iTextSharp.text.BaseColor(23, 162, 184)
@@ -1186,6 +1153,15 @@ Public Class reciboaimprimir
 
         While CONTE.Read()
 
+            Dim precioUnitarioConcepto As Decimal = 0.0
+            Dim importeConcepto As Decimal = 0.0
+            Dim ivaConcepto As Decimal = 0.0
+
+            precioUnitarioConcepto = CONTE("monto")
+            importeConcepto = CONTE("IMPORTE")
+            ivaConcepto = CONTE("MontoIVa")
+
+
             contenido = contenido & CONTE("Cantidad") & "|"
 
             ColInfoConceptos = New PdfPCell(New Phrase(CONTE("Cantidad"), Font12)) With {
@@ -1206,9 +1182,8 @@ Public Class reciboaimprimir
             TableGeneralConceptos.AddCell(ColInfoConceptos)
 
 
-            Dim monto As Decimal = CONTE("MONTO")
-            Dim montoMoneda As Decimal = monto.ToString("C")
-            ColInfoConceptos = New PdfPCell(New Phrase(montoMoneda, Font12)) With {
+
+            ColInfoConceptos = New PdfPCell(New Phrase(precioUnitarioConcepto.ToString("C"), Font12)) With {
             .Border = 0,
             .HorizontalAlignment = PdfPCell.ALIGN_RIGHT
         }
@@ -1217,9 +1192,8 @@ Public Class reciboaimprimir
             TableGeneralConceptos.AddCell(ColInfoConceptos)
 
 
-            Dim importe As Decimal = CONTE("IMPORTE")
-            Dim importeMoneda As Decimal = importe.ToString("C")
-            ColInfoConceptos = New PdfPCell(New Phrase(importeMoneda, Font12)) With {
+
+            ColInfoConceptos = New PdfPCell(New Phrase(importeConcepto.ToString("C"), Font12)) With {
             .Border = 0,
             .HorizontalAlignment = PdfPCell.ALIGN_RIGHT
         }
@@ -1228,9 +1202,8 @@ Public Class reciboaimprimir
             TableGeneralConceptos.AddCell(ColInfoConceptos)
 
 
-            Dim monotoIVA As Decimal = CONTE("MontoIVA")
-            Dim montoIVAMoneda As Decimal = monotoIVA.ToString("C")
-            ColInfoConceptos = New PdfPCell(New Phrase(montoIVAMoneda, Font12)) With {
+
+            ColInfoConceptos = New PdfPCell(New Phrase(ivaConcepto.ToString("C"), Font12)) With {
             .Border = 0,
             .HorizontalAlignment = PdfPCell.ALIGN_RIGHT
         }

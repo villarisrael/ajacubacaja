@@ -336,6 +336,7 @@ Module FuncFacturas_v4
             con("cer") = My.Settings.CER
             con("key") = My.Settings.KEY
             con("pass") = My.Settings.KeyContrasena
+
         End If
         ' Se indica la ruta y contraseña de los archivos CSD (Archivos CSD de pruebas)
 

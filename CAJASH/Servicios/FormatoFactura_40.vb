@@ -11,6 +11,7 @@ Public Class FormatoFactura_40
 
 
         Dim cadenaOriginalCertificado As String = ""
+        Dim rutaPDF As String
 
         ' Obtener XML
         Dim archivoXMLFactura As XmlDocument = ObtenerDatosXML(serieFacturaP, folioFacturaP)
@@ -56,7 +57,7 @@ Public Class FormatoFactura_40
 
             'Dar propiedades al Documento
             Dim pdfDoc As New Document(iTextSharp.text.PageSize.LETTER, 15.0F, 15.0F, 30.0F, 30.0F)
-            Dim rutaPDF As String
+
 
             Dim colordefinido = New Clscolorreporte()
             colordefinido.ClsColoresReporte(My.Settings.colorfactura)
@@ -70,7 +71,7 @@ Public Class FormatoFactura_40
 
                 Dim cadenaFolderComplementoReimpreso As String = (Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) & "\FacturasReimpresas" & Year(Now) & acompletacero(Month(Now).ToString(), 2).Trim)
 
-                Dim pdfWrite As PdfWriter = PdfWriter.GetInstance(pdfDoc, New System.IO.FileStream(cadenaFolderComplementoReimpreso & "\Facturas" & datosCFDI40_XML.Serie & datosCFDI40_XML.Folio & ".pdf", FileMode.Create))
+                Dim pdfWrite As PdfWriter = PdfWriter.GetInstance(pdfDoc, New System.IO.FileStream(cadenaFolderComplementoReimpreso & "\Factura_" & datosCFDI40_XML.Serie & datosCFDI40_XML.Folio & ".pdf", FileMode.Create))
 
                 rutaPDF = $"{cadenaFolderComplementoReimpreso}\Factura_{datosCFDI40_XML.Serie}{datosCFDI40_XML.Folio}.pdf"
 
@@ -80,7 +81,7 @@ Public Class FormatoFactura_40
 
                 Dim cadenafolderComplemento As String = (Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) & "\Facturas\" & Year(Now) & acompletacero(Month(Now).ToString(), 2).Trim)
 
-                Dim pdfWrite As PdfWriter = PdfWriter.GetInstance(pdfDoc, New System.IO.FileStream(cadenafolderComplemento & "\Facturas" & datosCFDI40_XML.Serie & datosCFDI40_XML.Folio & ".pdf", FileMode.Create))
+                Dim pdfWrite As PdfWriter = PdfWriter.GetInstance(pdfDoc, New System.IO.FileStream(cadenafolderComplemento & "\Factura_" & datosCFDI40_XML.Serie & datosCFDI40_XML.Folio & ".pdf", FileMode.Create))
 
                 rutaPDF = $"{cadenafolderComplemento}\Factura_{datosCFDI40_XML.Serie}{datosCFDI40_XML.Folio}.pdf"
 
@@ -106,6 +107,7 @@ Public Class FormatoFactura_40
             Dim Font9Bold As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 9, iTextSharp.text.Font.BOLD))
             Dim Font9 As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 9, iTextSharp.text.Font.BOLD))
             Dim Font10Normal As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 10, iTextSharp.text.Font.NORMAL))
+            Dim Font9Normal As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 9, iTextSharp.text.Font.NORMAL))
             Dim Font8WhiteBold As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 8, iTextSharp.text.Font.BOLD, BaseColor.WHITE))
             Dim FontCurier7Bold As New Font(FontFactory.GetFont(FontFactory.COURIER, 7, iTextSharp.text.Font.BOLD))
 
@@ -158,8 +160,8 @@ Public Class FormatoFactura_40
 
             Tabledireccion.AddCell(Col1)
 
-            Dim DIRECCIONE As String = Direccion & " " & coloniaEMPRESA & " " & poblacionEMPRESA & " " & Estadoempresa
-            Dim Col1d = New PdfPCell(New Phrase(DIRECCIONE, Font10Normal))
+            Dim DIRECCIONE As String = $"{Direccion}, {coloniaEMPRESA}, {poblacionEMPRESA}, {Estadoempresa} {vbCrLf} CP. {CODPOSempresa}"
+            Dim Col1d = New PdfPCell(New Phrase(DIRECCIONE, Font9Normal))
             Col1d.Border = 0
             Col1d.HorizontalAlignment = PdfPCell.ALIGN_CENTER
 
@@ -167,7 +169,7 @@ Public Class FormatoFactura_40
 
             'RFCORGANISMO = "CAA0207082R3"
 
-            Dim Col1rfe = New PdfPCell(New Phrase(datosCFDI40_XML.Emisor.Rfc, Font8Normal))
+            Dim Col1rfe = New PdfPCell(New Phrase($"RFC. {datosCFDI40_XML.Emisor.Rfc}", Font8Normal))
             Col1rfe.Border = 0
             Col1rfe.HorizontalAlignment = PdfPCell.ALIGN_CENTER
             Tabledireccion.AddCell(Col1rfe)
@@ -839,40 +841,7 @@ Public Class FormatoFactura_40
             Table11.AddCell(Col111)
 
 
-            'Dim TableF As PdfPTable = New PdfPTable(3)
-            'Dim ColF1 As PdfPCell
-            'Dim ColF2 As PdfPCell
-            'Dim ColF3 As PdfPCell
-            ''Dim ColF4 As PdfPCell
 
-            'TableF.WidthPercentage = 100
-            'Dim widthsTF As Single() = New Single() {400.0F, 200.0F, 400.0F}
-            'TableF.SetWidths(widthsTF)
-
-            'ColF1 = New PdfPCell(New Phrase(" ", Font9))
-            'ColF1.Border = 0
-            'ColF1.HorizontalAlignment = PdfPCell.ALIGN_LEFT
-            'TableF.AddCell(ColF1)
-
-            'ColF2 = New PdfPCell(New Phrase("FIRMA DEL USUARIO", Font9Bold))
-            'ColF2.Border = 1
-            'ColF2.HorizontalAlignment = PdfPCell.ALIGN_CENTER
-            'TableF.AddCell(ColF2)
-
-
-            ''TableF.AddCell(ColF1)
-
-
-            'ColF3 = New PdfPCell(New Phrase(" ", Font9))
-            'ColF3.Border = 0
-            'ColF3.HorizontalAlignment = PdfPCell.ALIGN_CENTER
-            'TableF.AddCell(ColF3)
-            'TableF.AddCell(ColF3)
-
-
-
-
-            'Cargar las tablas
             pdfDoc.Add(Table1)
             pdfDoc.Add(TableEspacio)
             pdfDoc.Add(TableEspacio)
@@ -894,6 +863,9 @@ Public Class FormatoFactura_40
             pdfDoc.Add(TableEspacio)
             pdfDoc.Close()
 
+
+            VisualizarPDF(rutaPDF)
+
         Catch ex As Exception
 
             MessageBox.Show($"OCURRIO UN ERROR: {ex.ToString()}")
@@ -902,28 +874,6 @@ Public Class FormatoFactura_40
 
     End Sub
 
-
-
-
-
-
-    Public Sub VisualizarPDF(rutaPDFP As String)
-
-        Try
-            Dim psi As New ProcessStartInfo(rutaPDFP)
-            'psi.WorkingDirectory = cadenafolder & "\factura\" + nombresespacios
-
-            psi.WindowStyle = ProcessWindowStyle.Hidden
-            Dim p As Process = Process.Start(psi)
-
-
-        Catch ex As Exception
-
-            MessageBox.Show("Ocurrio un error al visualizar el pdf" & ex.Message)
-
-        End Try
-
-    End Sub
 
     Public Function FormarCadenaOriginalCertificado(datosCFDI40_XML As NodoXMLCFDI_40) As String
 
@@ -975,6 +925,64 @@ Public Class FormatoFactura_40
             Return Nothing
 
         End Try
+
     End Function
+
+    Public Sub ImprimirFormato(rutaArchivo As String)
+
+        Try
+            For index As Integer = 1 To 2 Step 1
+                imprimirpdf(rutaArchivo)
+            Next
+        Catch ex As Exception
+            MessageBox.Show("Error al imprimir la factura, puedes buscarla en la reimpresión de facturas. " & ex.ToString())
+        End Try
+
+    End Sub
+
+    Public Sub VisualizarPDF(rutaPDFP As String)
+
+        Try
+            Dim psi As New ProcessStartInfo(rutaPDFP)
+            'psi.WorkingDirectory = cadenafolder & "\factura\" + nombresespacios
+
+            psi.WindowStyle = ProcessWindowStyle.Hidden
+            Dim p As Process = Process.Start(psi)
+
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ocurrio un error al visualizar el pdf" & ex.Message)
+
+        End Try
+
+    End Sub
+
+    Public Sub imprimirpdf(ByVal _pdf As String)
+
+        Try
+
+
+            Dim psi As New ProcessStartInfo
+
+            psi.UseShellExecute = True
+
+            psi.Verb = "print"
+
+            psi.WindowStyle = ProcessWindowStyle.Hidden
+
+
+            'psi.Arguments = PrintDialog1.PrinterSettings.PrinterName.ToString()
+
+            psi.FileName = _pdf
+
+            Process.Start(psi)
+
+        Catch ex As Exception
+
+            MessageBox.Show($"OCURRIO UN ERROR: {ex.ToString()}")
+
+        End Try
+    End Sub
 
 End Class

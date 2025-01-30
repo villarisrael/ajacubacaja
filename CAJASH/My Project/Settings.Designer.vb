@@ -416,7 +416,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("SI")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("NO")>  _
         Public Property TimbrarPrueba() As String
             Get
                 Return CType(Me("TimbrarPrueba"),String)
@@ -680,7 +680,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("CAS141230736")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("CAYSA2025")>  _
         Public Property PassFacturaMultifacturas() As String
             Get
                 Return CType(Me("PassFacturaMultifacturas"),String)
@@ -704,7 +704,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("C:\\sdk24\\certificados\\caysa.cer")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("C:\\sdk2\\certificados\\caysa.cer")>  _
         Public Property CER() As String
             Get
                 Return CType(Me("CER"),String)
@@ -716,7 +716,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("C:\\sdk24\\certificados\\caysa.key")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("C:\\sdk2\\certificados\\caysa.key")>  _
         Public Property KEY() As String
             Get
                 Return CType(Me("KEY"),String)
@@ -728,7 +728,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("caysa123")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("CAYSA202427")>  _
         Public Property KeyContrasena() As String
             Get
                 Return CType(Me("KeyContrasena"),String)

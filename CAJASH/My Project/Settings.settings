@@ -93,7 +93,7 @@
       <Value Profile="(Default)">tarifa</Value>
     </Setting>
     <Setting Name="TimbrarPrueba" Type="System.String" Scope="User">
-      <Value Profile="(Default)">SI</Value>
+      <Value Profile="(Default)">NO</Value>
     </Setting>
     <Setting Name="copiasderecibo" Type="System.String" Scope="User">
       <Value Profile="(Default)">1</Value>
@@ -164,20 +164,20 @@ DEPARTAMENTO COMERCIAL</Value>
       <Value Profile="(Default)">CAS141230736</Value>
     </Setting>
     <Setting Name="PassFacturaMultifacturas" Type="System.String" Scope="User">
-      <Value Profile="(Default)">CAS141230736</Value>
+      <Value Profile="(Default)">CAYSA2025</Value>
     </Setting>
     <Setting Name="ProduccionMultifacturas" Type="System.String" Scope="User">
       <Value Profile="(Default)">SI
 </Value>
     </Setting>
     <Setting Name="CER" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\\sdk24\\certificados\\caysa.cer</Value>
+      <Value Profile="(Default)">C:\\sdk2\\certificados\\caysa.cer</Value>
     </Setting>
     <Setting Name="KEY" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\\sdk24\\certificados\\caysa.key</Value>
+      <Value Profile="(Default)">C:\\sdk2\\certificados\\caysa.key</Value>
     </Setting>
     <Setting Name="KeyContrasena" Type="System.String" Scope="User">
-      <Value Profile="(Default)">caysa123</Value>
+      <Value Profile="(Default)">CAYSA202427</Value>
     </Setting>
     <Setting Name="ProvedorFacturacion" Type="System.String" Scope="User">
       <Value Profile="(Default)">MULTIFACTURAS</Value>

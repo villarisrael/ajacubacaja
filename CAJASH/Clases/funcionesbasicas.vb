@@ -38,6 +38,7 @@ Module funcionesbasicas
     Public LMedNuevo As String = "O"
     Public PORC_RECA_OTRO As Integer
     Public TELEMPRESA As String
+    Public direccionOrganismo As String
     'Public VARIABLE_IVA As Double = My.Settings.
 
     Public TIPODESCUENTO = "SOBRE MINIMO" ' "SOBRE TOTAL"
