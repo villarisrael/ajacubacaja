@@ -348,10 +348,12 @@ Public Class Frmvalidafactura
 
         'End Try
 
+        Dim formaPago As String = cmbformapago.SelectedValue
+
 
         If vienede = "CAJA" Then
             If chksinrecibo.Checked = False Then
-                grabareimprimir()
+                grabareimprimir(formaPago)
             End If
 
         End If
@@ -565,7 +567,7 @@ Public Class Frmvalidafactura
 #End Region
 
     ' graba el recibo 25/10/2016
-    Public Sub grabareimprimir()
+    Public Sub grabareimprimir(ByVal formaPagoReciboFactura As String)
 
         Dim save As New base
 
@@ -589,7 +591,7 @@ Public Class Frmvalidafactura
 
             'save.ejecutar("INSERT INTO pagos (FECHA_ACT, PERIODO, PAGOS, FECHA_DEUDA, IVA, TOTAL, NOMBRE, RECIBO, CANCELADO, CUENTA, COMUNIDAD, COLONIA, SERIE, USUARIO, CAJA, UBICACION, TARIFA, CCODPAGO, ESFIJO, FACTURADO, esusuario,observacion, Descuento, Descuentopesos) VALUES ('" & recibo.Fecha_Act & "', '" & recibo.periodo & "'," & recibo.subtotal & ", '" & recibo.fecha_deuda & "', '" & recibo.iva & "', '" & recibo.total & "', '" & recibo.nombre & "', '" & My.Settings.folio + 1 & "', '" & recibo.cancelado & "', '" & recibo.cuenta & "', '" & recibo.comunidad & "', '" & recibo.colonia & "', '" & My.Settings.serie & "', '" & recibo.usuarios & "', '" & My.Settings.caja & "', '" & recibo.ubicacion & "', '" & recibo.tarifa & "', '" & recibo.ccodpago & "','" & control.EsFijo & "," & facturado & "," & recibo.esusuario & ",''," & recibo.descuento & "," & recibo.Totaldescuentoenpesos & ")")
 
-            save.ejecutar("INSERT INTO pagos (FECHA_ACT, PERIODO, PAGOS, FECHA_DEUDA, IVA, TOTAL, NOMBRE, RECIBO, CANCELADO, CUENTA, COMUNIDAD, COLONIA, SERIE, USUARIO, CAJA, UBICACION, TARIFA, CCODPAGO, ESFIJO, FACTURADO, esusuario,observacion, Descuento,Descuentopesos) VALUES ('" & recibo.Fecha_Act & "', '" & recibo.periodo & "'," & recibo.subtotal & ", '" & recibo.fecha_deuda & "', '" & recibo.iva & "', '" & recibo.total & "', '" & recibo.nombre & "', '" & My.Settings.folio + 1 & "', '" & recibo.cancelado & "', '" & recibo.cuenta & "', '" & recibo.comunidad & "', '" & recibo.colonia & "', '" & My.Settings.serie & "', '" & recibo.usuarios & "', '" & My.Settings.caja & "', '" & recibo.ubicacion & "', '" & recibo.tarifa & "', '" & recibo.ccodpago & "'," & control.EsFijo & "," & facturado & "," & recibo.esusuario & ",'', " & recibo.descuento & "," & recibo.Totaldescuentoenpesos & " )")
+            save.ejecutar("INSERT INTO pagos (FECHA_ACT, PERIODO, PAGOS, FECHA_DEUDA, IVA, TOTAL, NOMBRE, RECIBO, CANCELADO, CUENTA, COMUNIDAD, COLONIA, SERIE, USUARIO, CAJA, UBICACION, TARIFA, CCODPAGO, ESFIJO, FACTURADO, esusuario,observacion, Descuento,Descuentopesos) VALUES ('" & recibo.Fecha_Act & "', '" & recibo.periodo & "'," & recibo.subtotal & ", '" & recibo.fecha_deuda & "', '" & recibo.iva & "', '" & recibo.total & "', '" & recibo.nombre & "', '" & My.Settings.folio + 1 & "', '" & recibo.cancelado & "', '" & recibo.cuenta & "', '" & recibo.comunidad & "', '" & recibo.colonia & "', '" & My.Settings.serie & "', '" & recibo.usuarios & "', '" & My.Settings.caja & "', '" & recibo.ubicacion & "', '" & recibo.tarifa & "', '" & formaPagoReciboFactura & "'," & control.EsFijo & "," & facturado & "," & recibo.esusuario & ",'', " & recibo.descuento & "," & recibo.Totaldescuentoenpesos & " )")
 
             Try
                 save.ejecutar("update descuentorecargo set descuentorecargo=" & control.totaldescuentorecargo & ",ESTADO='Aplicado' where cuenta=" & control.cuenta & " and estado='Pendiente'")
