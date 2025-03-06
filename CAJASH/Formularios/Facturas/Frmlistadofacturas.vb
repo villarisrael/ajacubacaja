@@ -40,9 +40,9 @@ Public Class Frmlistadofacturas
             ToolStripButton2.Enabled = True
         Else
             btnreimprimir.Visible = True
-            btncancelarrecibo.Enabled = False
+            btncancelarrecibo.Enabled = True
             ToolStripButton1.Visible = True
-            ToolStripButton2.Enabled = False
+            ToolStripButton2.Enabled = True
         End If
     End Sub
 
