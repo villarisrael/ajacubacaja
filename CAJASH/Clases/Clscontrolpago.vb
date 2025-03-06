@@ -480,6 +480,9 @@ Public Class Clscontrolpago
                 recargos.pordescuento = descuentoarecargo
 
                 recargos.calcular(consumo.collection, alcantarillado2.collection, "FIJO")
+
+                '   MessageBox.Show(recargos.recargo & " d: " & recargos.pagocondescuento)
+
                 If recargos.recargo <= 0.1 Then
                     recargos.recargo = 0
                 End If
@@ -493,13 +496,17 @@ Public Class Clscontrolpago
                     conceptoreca.clavesat = obtenerCampo("select clavesat From conceptoscxc where id_concepto='" & conceptoreca.Clave & "'", "clavesat")
                     conceptoreca.unidadsat = obtenerCampo("select unidadsat From conceptoscxc where id_concepto='" & conceptoreca.Clave & "'", "unidadsat")
 
-
+                    '       MessageBox.Show(recargos.recargo & " d: " & recargos.pagocondescuento)
 
                     conceptoreca.Cantidad = 1
                     conceptoreca.Concepto = "RECARGO "
                     conceptoreca.Preciounitario = recargos.pagocondescuento
-                    conceptoreca.calcula()
+                    ' conceptoreca.calcula()
+                    conceptoreca.importe = recargos.pagocondescuento
+                    conceptoreca.IVA = 0
                     totaldescuentorecargo = recargos.recargo - recargos.pagocondescuento
+
+
                     If totaldescuentorecargo < 0.1 Then
                         totaldescuentorecargo = 0
                     End If

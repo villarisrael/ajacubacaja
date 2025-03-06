@@ -135,7 +135,7 @@ Public Class frmListadoRecibos
 
 
                         dato.conexion.Dispose()
-                        DesconectarRemoto()
+                        '  DesconectarRemoto()
                     Catch ex As Exception
 
                     End Try

@@ -55,6 +55,7 @@
                 montoalcan = alcantarillado.Item(i).Total
             Catch ex As Exception
                 montoalcan = 0
+
             End Try
 
             objeto1 = consumo.Item(i)
@@ -98,7 +99,7 @@
             concepto.recargo = mesestranscurridos * porcrecargo
             concepto.total = montomes * concepto.recargo
 
-
+            ' MessageBox.Show(" M:" & montomes & " t:" & concepto.total & " R:" & valorderecargo)
             'If (My.MySettings.Default.TopeRecargo > 0) Then
 
             '    'If concepto.total > montomes Then
@@ -110,7 +111,9 @@
 
             acumulador = acumulador + concepto.total
 
-            If i <= periodoscondescuento Then
+            '    MessageBox.Show(acumulador)
+
+            If i <= periodoscondescuento And pordescuento > 0 Then
                 If pordescuento > 0 Then
                     concepto.descuento = concepto.total * (pordescuento / 100)
                     concepto.totalcondescuento = concepto.total - concepto.descuento
@@ -139,6 +142,8 @@
 
 
         Next
+
+
 
         recargo = acumulador
         pagocondescuento = acumuladorcondescuento

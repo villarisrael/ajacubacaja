@@ -90,7 +90,7 @@ Public Class reciboaimprimir
         End If
 
         If DATOS("ESUSUARIO") = 2 Then
-            DATOSUSUARIO = ConsultaSql("SELECT * FROM NOUSUARIOs WHERE CLAVE=" & DATOS("CUENTA")).ExecuteReader
+            DATOSUSUARIO = ConsultaSql("SELECT * FROM nousuarios WHERE CLAVE=" & DATOS("CUENTA")).ExecuteReader
             DATOSUSUARIO.Read()
             direccionusuario = DATOSUSUARIO("direccion") + DATOSUSUARIO("numext") + DATOSUSUARIO("numint")
             colonia = DATOSUSUARIO("colonia")
@@ -760,11 +760,11 @@ Public Class reciboaimprimir
 
         If DATOS("ESUSUARIO") = 2 Then
 
-            DATOSUSUARIO = ConsultaSql("SELECT * FROM NOUSUARIO WHERE CLAVE=" & DATOS("CUENTA")).ExecuteReader
+            DATOSUSUARIO = ConsultaSql("SELECT * FROM NOUSUARIOs WHERE CLAVE=" & DATOS("CUENTA")).ExecuteReader
             DATOSUSUARIO.Read()
             direccionusuario = DATOSUSUARIO("direccion") + DATOSUSUARIO("numext") + DATOSUSUARIO("numint")
             colonia = DATOSUSUARIO("colonia")
-            municipio = DATOSUSUARIO("municipio")
+            municipio = DATOSUSUARIO("COMUNIDAD")
 
         End If
 
@@ -1107,11 +1107,18 @@ Public Class reciboaimprimir
         tabladatosEncUusario.AddCell(ColCuentaAnterior)
 
 
+        If DATOS("ESUSUARIO") <> 1 Then
+            ColCuentaAnterior = New PdfPCell(New Phrase("", Font8))
+            ColCuentaAnterior.Border = 0
+            ColCuentaAnterior.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+            tabladatosEncUusario.AddCell(ColCuentaAnterior)
+        Else
+            ColCuentaAnterior = New PdfPCell(New Phrase(DATOSUSUARIO("cuentaAnterior").ToString(), Font8))
+            ColCuentaAnterior.Border = 0
+            ColCuentaAnterior.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+            tabladatosEncUusario.AddCell(ColCuentaAnterior)
 
-        ColCuentaAnterior = New PdfPCell(New Phrase(DATOSUSUARIO("cuentaAnterior").ToString(), Font8))
-        ColCuentaAnterior.Border = 0
-        ColCuentaAnterior.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
-        tabladatosEncUusario.AddCell(ColCuentaAnterior)
+        End If
 
 
         pdfDoc.Add(Table1)
