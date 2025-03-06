@@ -39,7 +39,7 @@ Public Class CorteCajaITSharp
 
     Public Sub CorteDiario(ByVal sql As String, ByVal filtro As String, ByVal Caja As String, sqldescuento As String, sqlDescuentosRecargosP As String, sqlformapago As String, sqlmixto As String)
 
-        'Ejecucion("delete from tempcortecaja")
+        Ejecucion("delete from tempcortecaja")
 
 
         fechaActual = DateTime.Now.ToString("dd-MMM-yyyy").ToUpper()
