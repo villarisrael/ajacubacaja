@@ -416,7 +416,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("NO")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("SI")>  _
         Public Property TimbrarPrueba() As String
             Get
                 Return CType(Me("TimbrarPrueba"),String)
@@ -896,7 +896,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("AzulLogoCuau")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Blanco")>  _
         Public Property colorfactura() As String
             Get
                 Return CType(Me("colorfactura"),String)

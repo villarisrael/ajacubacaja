@@ -621,7 +621,7 @@ Public Class Frmvalidafacturapublico
 
                 mf = MakeFileToSendMultifacturas_v4(control, iva, subtotal, total, seriefactura, foliofactura, "01", "PUE", "S01", txtnombre.Text, txtrfc.Text, nombreEM, "616", txtcp.Text, True)
 
-                sdkresp = mf.Timbrar("C:\sdk24\timbrar32.bat", "C:\sdk24\timbrados\", "factura", False)
+                sdkresp = mf.Timbrar("C:\sdk2\timbrar32.bat", "C:\sdk2\timbrados\", "factura", False)
 
 
                 'Validar que este generando un nuevo UUID, si no, no esta haciendo un correcto timbrado
@@ -707,7 +707,11 @@ Public Class Frmvalidafacturapublico
                     Catch ex As Exception
 
                     End Try
-                    Dim filtro As String
+                Dim filtro As String
+
+                Try
+
+
 
                     Ejecucion("insert into encfac SET FECHA=CONCAT(CURDATE(), ' ' ,curtime()) " &
                               ",NOMBRE='PUBLICO EN GENERAL" &
@@ -737,9 +741,9 @@ Public Class Frmvalidafacturapublico
                                "', serie='" & seriefactura & "', numero=" & foliofactura &
                                ", recibo=0, serierecibo='" & My.Settings.serie & "'")
 
-                Ejecucion("update empresa set foliofactura=" & foliofactura & " WHERE CODEMP='1'")
+                    Ejecucion("update empresa set foliofactura=" & foliofactura & " WHERE CODEMP='1'")
 
-                fechaincial = DTPincio.Value.Year & "/" & DTPincio.Value.Month & "/" & DTPincio.Value.Day
+                    fechaincial = DTPincio.Value.Year & "/" & DTPincio.Value.Month & "/" & DTPincio.Value.Day
                     fechafinal = DtPfin.Value.Year & "/" & DtPfin.Value.Month & "/" & DtPfin.Value.Day
 
                     If txtcaja.Text = "" Then
@@ -748,20 +752,15 @@ Public Class Frmvalidafacturapublico
                         Ejecucion("update pagos SET facturado=" & foliofactura & ", seriefactura='" & seriefactura & "' where fecha_act>='" & fechaincial & "' and fecha_act<='" & fechafinal & "' and caja=" & txtcaja.Text & " and cancelado='A' and facturado=0")
                     End If
 
+                Catch ex As Exception
+
+                    MessageBox.Show($"Ocurrio un error al grabar la factura en el sistema: {ex.ToString()}")
+
+                End Try
 
 
 
-
-
-
-                    ' Se crea la factura
-
-
-
-
-
-
-                    iva = Math.Round(total - subtotal, 2)
+                iva = Math.Round(total - subtotal, 2)
 
 
                     Dim con = control
@@ -769,6 +768,8 @@ Public Class Frmvalidafacturapublico
 
 
             Catch err As Exception
+
+                MessageBox.Show($"Ocurrio un error al timbrar la factura: {err.ToString()}")
 
             End Try
 
@@ -863,6 +864,7 @@ Public Class Frmvalidafacturapublico
 
             Dim Font As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 8, iTextSharp.text.Font.NORMAL))
             Dim Font8N As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 8, iTextSharp.text.Font.BOLD))
+            Dim Font10N As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 10, iTextSharp.text.Font.BOLD))
             Dim Font88 As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 15, iTextSharp.text.Font.BOLD))
             Dim Font12 As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 12, iTextSharp.text.Font.BOLD))
             Dim Font9 As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 9, iTextSharp.text.Font.NORMAL))
@@ -933,7 +935,7 @@ Public Class Frmvalidafacturapublico
 
 
             Dim Tabledireccion As PdfPTable = New PdfPTable(1)
-            Col1 = New PdfPCell(New Phrase(Empresa, Font8N))
+            Col1 = New PdfPCell(New Phrase(Empresa, Font10N))
             Col1.Border = 0
             Col1.HorizontalAlignment = PdfPCell.ALIGN_CENTER
 
@@ -1278,7 +1280,7 @@ Public Class Frmvalidafacturapublico
             Col72.HorizontalAlignment = PdfPCell.ALIGN_CENTER
             Table7.AddCell(Col72)
 
-            Col73 = New PdfPCell(New Phrase("Subtotal: ", Font))
+            Col73 = New PdfPCell(New Phrase("SUBTOTAL: ", Font))
             Col73.Border = 0
             Col73.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
             Table7.AddCell(Col73)

@@ -93,7 +93,7 @@
       <Value Profile="(Default)">tarifa</Value>
     </Setting>
     <Setting Name="TimbrarPrueba" Type="System.String" Scope="User">
-      <Value Profile="(Default)">NO</Value>
+      <Value Profile="(Default)">SI</Value>
     </Setting>
     <Setting Name="copiasderecibo" Type="System.String" Scope="User">
       <Value Profile="(Default)">1</Value>
@@ -219,7 +219,7 @@ DEPARTAMENTO COMERCIAL</Value>
       <Value Profile="(Default)">CON001</Value>
     </Setting>
     <Setting Name="colorfactura" Type="System.String" Scope="User">
-      <Value Profile="(Default)">AzulLogoCuau</Value>
+      <Value Profile="(Default)">Blanco</Value>
     </Setting>
     <Setting Name="CAJAs_SoapCancelar_Timbrado_Remoto_de_INI" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://pac1.multifacturas.com/pac/timbrarini.php</Value>

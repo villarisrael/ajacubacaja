@@ -913,23 +913,23 @@ Public Class Frmlistadofacturas
 
 
 
-                            'Dim CADENA() As String = datosfac("respuestaoriginal").ToString().TrimStart().Split("**********")
+                            ''Dim CADENA() As String = datosfac("respuestaoriginal").ToString().TrimStart().Split("**********")
 
-                            '  Dim pngs As Byte() = System.Convert.FromBase64String(Buscavariable(CADENA, "png"))
-                            ' CONSTRIUIMOS LA CADENA
-                            CADENAORIGINAL = CONSTRUIRCADENACFDI(FolderBrowserDialog1.SelectedPath & "\FACTURA" & serie & factura & ".XML")
+                            ''  Dim pngs As Byte() = System.Convert.FromBase64String(Buscavariable(CADENA, "png"))
+                            '' CONSTRIUIMOS LA CADENA
+                            'CADENAORIGINAL = CONSTRUIRCADENACFDI(FolderBrowserDialog1.SelectedPath & "\FACTURA" & serie & factura & ".XML")
 
-                            ' MANDAMOS CONSTRUIR EL QR 
+                            '' MANDAMOS CONSTRUIR EL QR 
 
-                            Dim image As System.Drawing.Image = qr(FolderBrowserDialog1.SelectedPath & "\FACTURA" & serie & factura & ".XML")
+                            'Dim image As System.Drawing.Image = qr(FolderBrowserDialog1.SelectedPath & "\FACTURA" & serie & factura & ".XML")
 
-                            Dim imageConverter As New ImageConverter()
-                            Dim pngs As Byte() = DirectCast(imageConverter.ConvertTo(image, GetType(Byte())), Byte())
+                            'Dim imageConverter As New ImageConverter()
+                            'Dim pngs As Byte() = DirectCast(imageConverter.ConvertTo(image, GetType(Byte())), Byte())
 
 
 
-                            Dim dts As New DatosReciboTableAdapters.cajasTableAdapter
-                            dts.UpdateQueryimagen(pngs, My.Settings.caja)
+                            'Dim dts As New DatosReciboTableAdapters.cajasTableAdapter
+                            'dts.UpdateQueryimagen(pngs, My.Settings.caja)
 
                         End If
                     Catch ex As Exception
@@ -997,6 +997,7 @@ Public Class Frmlistadofacturas
 
                     Dim Font As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 8, iTextSharp.text.Font.NORMAL))
                     Dim Font8N As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 8, iTextSharp.text.Font.BOLD))
+                    Dim Font10N As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 10, iTextSharp.text.Font.BOLD))
                     Dim Font88 As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 15, iTextSharp.text.Font.BOLD))
                     Dim Font12 As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 12, iTextSharp.text.Font.BOLD))
                     Dim Font9 As New Font(FontFactory.GetFont(FontFactory.HELVETICA, 9, iTextSharp.text.Font.NORMAL))
@@ -1067,7 +1068,7 @@ Public Class Frmlistadofacturas
 
 
                     Dim Tabledireccion As PdfPTable = New PdfPTable(1)
-                    Col1 = New PdfPCell(New Phrase(Empresa, Font8N))
+                    Col1 = New PdfPCell(New Phrase(Empresa, Font10N))
                     Col1.Border = 0
                     Col1.HorizontalAlignment = PdfPCell.ALIGN_CENTER
 
@@ -1419,8 +1420,8 @@ Public Class Frmlistadofacturas
                     Table7.AddCell(Col73)
 
 
-                    iva = Decimal.Parse(datosfac("IVA")).ToString("C")
-                    Col74 = New PdfPCell(New Phrase(iva, Font))
+                    iva = Decimal.Parse(datosfac("IVA"))
+                    Col74 = New PdfPCell(New Phrase(iva.ToString("C"), Font))
                     Col74.Border = 0
                     Col74.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
                     Table7.AddCell(Col74)
