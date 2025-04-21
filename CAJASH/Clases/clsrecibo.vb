@@ -92,7 +92,7 @@ Public Class reciboaimprimir
         End If
 
         If DATOS("ESUSUARIO") = 2 Then
-            DATOSUSUARIO = ConsultaSql("SELECT * FROM NOUSUARIOs WHERE CLAVE=" & DATOS("CUENTA")).ExecuteReader
+            DATOSUSUARIO = ConsultaSql("SELECT * FROM NOUSUARIOS WHERE CLAVE=" & DATOS("CUENTA")).ExecuteReader
             DATOSUSUARIO.Read()
             direccionusuario = DATOSUSUARIO("direccion") + DATOSUSUARIO("numext") + DATOSUSUARIO("numint")
             colonia = DATOSUSUARIO("colonia")
@@ -744,6 +744,7 @@ Public Class reciboaimprimir
         Dim descripcionTarifa As String = String.Empty
         Dim nodemedidor As String = String.Empty
         Dim numExterior As String = String.Empty
+        Dim cuentaAnterior As String = ""
 
 
         Nombre = DATOS("Nombre")
@@ -762,6 +763,7 @@ Public Class reciboaimprimir
             descripcionTarifa = DATOSUSUARIO("Descripcion_cuota")
             nodemedidor = DATOSUSUARIO("nodemedidor")
             numExterior = DATOSUSUARIO("numext")
+            cuentaAnterior = DATOSUSUARIO("cuentaAnterior").ToString()
 
         End If
 
@@ -777,11 +779,11 @@ Public Class reciboaimprimir
 
         If DATOS("ESUSUARIO") = 2 Then
 
-            DATOSUSUARIO = ConsultaSql("SELECT * FROM NOUSUARIO WHERE CLAVE=" & DATOS("CUENTA")).ExecuteReader
+            DATOSUSUARIO = ConsultaSql("SELECT * FROM NOUSUARIOS WHERE CLAVE=" & DATOS("CUENTA")).ExecuteReader
             DATOSUSUARIO.Read()
             direccionusuario = DATOSUSUARIO("direccion") + DATOSUSUARIO("numext") + DATOSUSUARIO("numint")
             colonia = DATOSUSUARIO("colonia")
-            municipio = DATOSUSUARIO("municipio")
+            'municipio = DATOSUSUARIO("municipio")
             comunidad = DATOSUSUARIO("Comunidad")
 
         End If
@@ -1079,7 +1081,7 @@ Public Class reciboaimprimir
 
 
 
-        ColCuentaAnterior = New PdfPCell(New Phrase(DATOSUSUARIO("cuentaAnterior").ToString(), Font8))
+        ColCuentaAnterior = New PdfPCell(New Phrase(cuentaAnterior, Font8))
         ColCuentaAnterior.Border = 0
         ColCuentaAnterior.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
         tabladatosEncUusario.AddCell(ColCuentaAnterior)

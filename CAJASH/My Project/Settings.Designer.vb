@@ -344,7 +344,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("-7")>  _
         Public Property clavedesaneamiento() As String
             Get
                 Return CType(Me("clavedesaneamiento"),String)
