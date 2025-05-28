@@ -476,6 +476,7 @@
     <Compile Include="Modelos\DatosFiscalesUsuario.vb" />
     <Compile Include="Modelos\Factura_v_40.vb" />
     <Compile Include="Modelos\NodoXMLCFDI_40.vb" />
+    <Compile Include="Modelos\UltimasLecturas.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

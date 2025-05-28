@@ -1003,4 +1003,36 @@ Module funcionesbasicas
     End Function
 
 
+    Public Function SafeConvertToDateTime(value As Object) As DateTime
+        If value IsNot DBNull.Value AndAlso value IsNot Nothing Then
+            Return Convert.ToDateTime(value)
+        Else
+            Return DateTime.MinValue ' O cualquier fecha predeterminada
+        End If
+    End Function
+
+    Public Function SafeConvertToDecimal(value As Object) As Decimal
+        If value IsNot DBNull.Value AndAlso value IsNot Nothing Then
+            Return Convert.ToDecimal(value)
+        Else
+            Return 0D ' Valor predeterminado para decimales
+        End If
+    End Function
+
+    Public Function SafeConvertToString(value As Object) As String
+        If value IsNot DBNull.Value AndAlso value IsNot Nothing Then
+            Return value.ToString()
+        Else
+            Return String.Empty ' Cadena vacía predeterminada
+        End If
+    End Function
+
+    Public Function SafeConvertToInt(value As Object) As Integer
+        If value IsNot DBNull.Value AndAlso value IsNot Nothing Then
+            Return Convert.ToUInt32(value)
+        Else
+            Return 0 ' Cadena vacía predeterminada
+        End If
+    End Function
+
 End Module

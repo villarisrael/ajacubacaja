@@ -147,54 +147,93 @@ Public Class Frmvalidafacturapublico
 
         control = New Clscontrolpago
 
-            basemy.conectar()
-            fechaincial = DTPincio.Value.Year & "-" & DTPincio.Value.Month & "-" & DTPincio.Value.Day
-            fechafinal = DtPfin.Value.Year & "-" & DtPfin.Value.Month & "-" & DtPfin.Value.Day
+        basemy.conectar()
+        fechaincial = DTPincio.Value.Year & "-" & DTPincio.Value.Month & "-" & DTPincio.Value.Day
+        fechafinal = DtPfin.Value.Year & "-" & DtPfin.Value.Month & "-" & DtPfin.Value.Day
 
+        If txtcaja.Text.Trim() = "" Then
 
-            '  basemy.ejecutarSIMPLE("drop table if exists temfacpuB ; CREATE TABLE temfacpub (  `id` INT NOT NULL AUTO_INCREMENT,  `CONCEPTO` VARCHAR(100) NULL,  `CANTIDAD` INT NOT NULL DEFAULT 1,  `PRECIOUNI` DECIMAL(18,2) NOT NULL DEFAULT 1,  `IMPORTE` VARCHAR(45) NOT NULL DEFAULT '1',  `IVA` TINYINT NOT NULL DEFAULT 1,  PRIMARY KEY (`id`))")
             basemy.ejecutarSIMPLE("truncate table temfacpub")
             'basemy.ejecutarSIMPLE("INSERT INTO temfacpub (CONCEPTO,CANTIDAD,IMPORTE, IVA, MONTO) SELECT otroscobros.descripcion as concepto, 1 , sum(PAGOTROS.IMPORTE) AS IMPORTE , sum(pagotros.monto) AS MONTO, PAGOTROS.IVA  FROM PAGOS,PAGOTROS,otroscobros WHERE PAGOS.SERIE=PAGOTROS.SERIE AND PAGOS.RECIBO=PAGOTROS.RECIBO AND  FECHA_ACT>='" & fechaincial & "' and fecha_act<='" & fechafinal & "' and facturado=0 and PAGOTROS.NUMCONCEPTO=OTROSCOBROS.CLAVE GROUP BY CONCEPTO,IVA")
             ' basemy.ejecutarSIMPLE("INSERT INTO temfacpub (CONCEPTO,CANTIDAD,IMPORTE,preciouni, IVA, MONTO) SELECT otroscobros.descripcion as concepto, 1 , sum(PAGOTROS.IMPORTE), sum(PAGOTROS.IMPORTE)  , PAGOTROS.IVA as IVA, sum(pagotros.monto) AS MONTO FROM PAGOS,PAGOTROS,otroscobros WHERE PAGOS.SERIE=PAGOTROS.SERIE AND PAGOS.CANCELADO='A' AND PAGOS.RECIBO=PAGOTROS.RECIBO AND  FECHA_ACT>='" & fechaincial & "' and fecha_act<='" & fechafinal & "' and facturado=0 and PAGOTROS.NUMCONCEPTO=OTROSCOBROS.CLAVE GROUP BY CONCEPTO,IVA")
 
             'basemy.ejecutarSIMPLE("INSERT INTO temfacpub (CONCEPTO,CANTIDAD,PRECIOUNI,IMPORTE, IVA,MONTO, CONCEPTOSAT,UNIDADSAT) SELECT if (pagotros.IVA=0,conceptoscxc.descripcion, CONCAT(conceptoscxc.descripcion,' GRABADO'))  as concepto, 1 , sum(PAGOTROS.IMPORTE) AS IMPORTE ,round( sum(PAGOTROS.IMPORTE),2) , PAGOTROS.IVA, round( sum(PAGOTROS.IMPORTE),2),conceptoscxc.clavesat , conceptoscxc.unidadsat  FROM PAGOS,PAGOTROS,conceptoscxc WHERE PAGOS.SERIE=PAGOTROS.SERIE AND PAGOS.RECIBO=PAGOTROS.RECIBO AND  FECHA_ACT>='" & fechaincial & "' and fecha_act<='" & fechafinal & "' and facturado=0 and Pagos.Cancelado='A' and PAGOTROS.NUMCONCEPTO=conceptoscxc.id_concepto GROUP BY CONCEPTO,IVA")
 
-
-            basemy.ejecutarSIMPLE($"INSERT INTO temfacpub (CONCEPTO, CANTIDAD, PRECIOUNI, IMPORTE, IVA, MONTO, CONCEPTOSAT, UNIDADSAT) SELECT IF(pagotros.IVA = 0, conceptoscxc.descripcion, CONCAT(conceptoscxc.descripcion, ' GRABADO')) AS concepto, 1 AS CANTIDAD, SUM(pagotros.IMPORTE) AS PRECIOUNI, 
-ROUND(SUM(pagotros.IMPORTE), 2) AS IMPORTE, pagotros.IVA, ROUND(SUM(pagotros.IMPORTE), 2) AS MONTO, conceptoscxc.clavesat AS CONCEPTOSAT, conceptoscxc.unidadsat AS UNIDADSAT FROM PAGOS LEFT JOIN PAGOTROS ON PAGOS.SERIE = PAGOTROS.SERIE AND PAGOS.RECIBO = PAGOTROS.RECIBO 
-LEFT JOIN conceptoscxc ON PAGOTROS.NUMCONCEPTO = conceptoscxc.id_concepto WHERE FECHA_ACT BETWEEN '{fechaincial}' AND '{fechafinal}' AND facturado = 0 AND Pagos.Cancelado = 'A' GROUP BY concepto, pagotros.IVA")
+            Try
 
 
-            basemy.llenaGrid(DtgConceptos, "SELECT id, CONCEPTO, CANTIDAD, PRECIOUNI, IMPORTE, IVA, CONCEPTOSAT,unidadsat FROM TEMFACPUB")
 
-            conectar()
-            Dim DATOS2 As OdbcDataReader = ConsultaSql("SELECT * FROM TEMFACPUB").ExecuteReader
+                basemy.ejecutarSIMPLE($"INSERT INTO temfacpub (CONCEPTO, CANTIDAD, PRECIOUNI, IMPORTE, IVA, MONTO, CONCEPTOSAT, UNIDADSAT) SELECT IF(pagotros.IVA = 0, conceptoscxc.descripcion, CONCAT(conceptoscxc.descripcion, ' GRABADO')) AS concepto, 1 AS CANTIDAD, ROUND(SUM(pagotros.IMPORTE), 2) AS PRECIOUNI, 
+            ROUND(SUM(pagotros.IMPORTE), 2) AS IMPORTE, pagotros.IVA, ROUND(SUM(pagotros.IMPORTE), 2) AS MONTO, conceptoscxc.clavesat AS CONCEPTOSAT, conceptoscxc.unidadsat AS UNIDADSAT FROM PAGOS LEFT JOIN PAGOTROS ON PAGOS.SERIE = PAGOTROS.SERIE AND PAGOS.RECIBO = PAGOTROS.RECIBO 
+            LEFT JOIN conceptoscxc ON PAGOTROS.NUMCONCEPTO = conceptoscxc.id_concepto WHERE FECHA_ACT BETWEEN '{fechaincial}' AND '{fechafinal}' AND facturado = 0 AND Pagos.Cancelado = 'A' GROUP BY concepto, pagotros.IVA")
 
-            Dim contador As Int16 = 1
+            Catch ex As Exception
+
+                MessageBox.Show($"OCURRIO UN ERROR AL CARGAR LOS DATOS: {ex.ToString()}")
+
+            End Try
+
+        ElseIf txtcaja.Text <> "" Then
+
+
+
+            basemy.ejecutarSIMPLE("truncate table temfacpub")
+            'basemy.ejecutarSIMPLE("INSERT INTO temfacpub (CONCEPTO,CANTIDAD,IMPORTE, IVA, MONTO) SELECT otroscobros.descripcion as concepto, 1 , sum(PAGOTROS.IMPORTE) AS IMPORTE , sum(pagotros.monto) AS MONTO, PAGOTROS.IVA  FROM PAGOS,PAGOTROS,otroscobros WHERE PAGOS.SERIE=PAGOTROS.SERIE AND PAGOS.RECIBO=PAGOTROS.RECIBO AND  FECHA_ACT>='" & fechaincial & "' and fecha_act<='" & fechafinal & "' and facturado=0 and PAGOTROS.NUMCONCEPTO=OTROSCOBROS.CLAVE GROUP BY CONCEPTO,IVA")
+            ' basemy.ejecutarSIMPLE("INSERT INTO temfacpub (CONCEPTO,CANTIDAD,IMPORTE,preciouni, IVA, MONTO) SELECT otroscobros.descripcion as concepto, 1 , sum(PAGOTROS.IMPORTE), sum(PAGOTROS.IMPORTE)  , PAGOTROS.IVA as IVA, sum(pagotros.monto) AS MONTO FROM PAGOS,PAGOTROS,otroscobros WHERE PAGOS.SERIE=PAGOTROS.SERIE AND PAGOS.CANCELADO='A' AND PAGOS.RECIBO=PAGOTROS.RECIBO AND  FECHA_ACT>='" & fechaincial & "' and fecha_act<='" & fechafinal & "' and facturado=0 and PAGOTROS.NUMCONCEPTO=OTROSCOBROS.CLAVE GROUP BY CONCEPTO,IVA")
+
+            'basemy.ejecutarSIMPLE("INSERT INTO temfacpub (CONCEPTO,CANTIDAD,PRECIOUNI,IMPORTE, IVA,MONTO, CONCEPTOSAT,UNIDADSAT) SELECT if (pagotros.IVA=0,conceptoscxc.descripcion, CONCAT(conceptoscxc.descripcion,' GRABADO'))  as concepto, 1 , sum(PAGOTROS.IMPORTE) AS IMPORTE ,round( sum(PAGOTROS.IMPORTE),2) , PAGOTROS.IVA, round( sum(PAGOTROS.IMPORTE),2),conceptoscxc.clavesat , conceptoscxc.unidadsat  FROM PAGOS,PAGOTROS,conceptoscxc WHERE PAGOS.SERIE=PAGOTROS.SERIE AND PAGOS.RECIBO=PAGOTROS.RECIBO AND  FECHA_ACT>='" & fechaincial & "' and fecha_act<='" & fechafinal & "' and facturado=0 and Pagos.Cancelado='A' and PAGOTROS.NUMCONCEPTO=conceptoscxc.id_concepto GROUP BY CONCEPTO,IVA")
 
             Try
 
 
 
-                While DATOS2.Read
-
-                    Dim con2 As New Clsconcepto
-                    con2.Clave = contador
-                    con2.Cantidad = 1
-                    con2.clavesat = DATOS2("conceptosat")
-                    con2.unidadsat = DATOS2("unidadsat")
-                    con2.Concepto = DATOS2("concepto")
-                    con2.Preciounitario = DATOS2("preciouni")
-                    con2.importe = DATOS2("importe")
-                    con2.IVA = DATOS2("iva")
-                    control.Listadeconceptos.Add(con2)
-                    contador = contador + 1
-
-                End While
+                basemy.ejecutarSIMPLE($"INSERT INTO temfacpub (CONCEPTO, CANTIDAD, PRECIOUNI, IMPORTE, IVA, MONTO, CONCEPTOSAT, UNIDADSAT) SELECT IF(pagotros.IVA = 0, conceptoscxc.descripcion, CONCAT(conceptoscxc.descripcion, ' GRABADO')) AS concepto, 1 AS CANTIDAD, SUM(pagotros.IMPORTE) AS PRECIOUNI, 
+            ROUND(SUM(pagotros.IMPORTE), 2) AS IMPORTE, pagotros.IVA, ROUND(SUM(pagotros.IMPORTE), 2) AS MONTO, conceptoscxc.clavesat AS CONCEPTOSAT, conceptoscxc.unidadsat AS UNIDADSAT FROM PAGOS LEFT JOIN PAGOTROS ON PAGOS.SERIE = PAGOTROS.SERIE AND PAGOS.RECIBO = PAGOTROS.RECIBO 
+            LEFT JOIN conceptoscxc ON PAGOTROS.NUMCONCEPTO = conceptoscxc.id_concepto WHERE FECHA_ACT BETWEEN '{fechaincial}' AND '{fechafinal}' AND facturado = 0 AND Pagos.Cancelado = 'A' and Pagos.CAJA = {txtcaja.Text.Trim()} GROUP BY concepto, pagotros.IVA")
 
 
+            Catch ex As Exception
 
-                basemy.conectar()
+                MessageBox.Show($"OCURRIO UN ERROR AL CARGAR LOS DATOS: {ex.ToString()}")
+
+            End Try
+
+        End If
+
+        '  basemy.ejecutarSIMPLE("drop table if exists temfacpuB ; CREATE TABLE temfacpub (  `id` INT NOT NULL AUTO_INCREMENT,  `CONCEPTO` VARCHAR(100) NULL,  `CANTIDAD` INT NOT NULL DEFAULT 1,  `PRECIOUNI` DECIMAL(18,2) NOT NULL DEFAULT 1,  `IMPORTE` VARCHAR(45) NOT NULL DEFAULT '1',  `IVA` TINYINT NOT NULL DEFAULT 1,  PRIMARY KEY (`id`))")
+
+
+
+        basemy.llenaGrid(DtgConceptos, "SELECT id, CONCEPTO, CANTIDAD, PRECIOUNI, IMPORTE, IVA, CONCEPTOSAT,unidadsat FROM TEMFACPUB")
+
+        conectar()
+        Dim DATOS2 As OdbcDataReader = ConsultaSql("SELECT * FROM TEMFACPUB").ExecuteReader
+
+        Dim contador As Int16 = 1
+
+        Try
+
+
+
+            While DATOS2.Read
+
+                Dim con2 As New Clsconcepto
+                con2.Clave = contador
+                con2.Cantidad = 1
+                con2.clavesat = DATOS2("conceptosat")
+                con2.unidadsat = DATOS2("unidadsat")
+                con2.Concepto = DATOS2("concepto")
+                con2.Preciounitario = DATOS2("preciouni")
+                con2.importe = DATOS2("importe")
+                con2.IVA = DATOS2("iva")
+                control.Listadeconceptos.Add(con2)
+                contador = contador + 1
+
+            End While
+
+
+
+            basemy.conectar()
 
 
             'Dim DATOS As OdbcDataReader = basemy.consultasql("SELECT SUM(MONTO) AS SUBTOTAL , SUM(MONTO * temfacpub.IVA*(EMPRESA.PorcIVA/100)) AS IVA FROM TEMFACPUB,EMPRESA WHERE EMPRESA.CODEMP=1")
@@ -231,7 +270,17 @@ LEFT JOIN conceptoscxc ON PAGOTROS.NUMCONCEPTO = conceptoscxc.id_concepto WHERE 
             MessageBox.Show(ex.Message)
         End Try
 
-        txtobservaciones.Text = "FACTURA CORRESPONDIENTE AL PERIODO DEL DIA " & DTPincio.Value.ToShortDateString & " AL DIA " & DtPfin.Value.ToShortDateString
+
+        If txtcaja.Text = "" Then
+
+            txtobservaciones.Text = "FACTURA CORRESPONDIENTE AL PERIODO DEL DIA " & DTPincio.Value.ToShortDateString & " AL DIA " & DtPfin.Value.ToShortDateString
+
+        ElseIf txtcaja.Text <> "" Then
+
+            txtobservaciones.Text = $"FACTURA CORRESPONDIENTE AL PERIODO DEL DIA {DTPincio.Value.ToShortDateString} AL DIA {DtPfin.Value.ToShortDateString} | CAJA: {txtcaja.Text}"
+
+        End If
+
 
     End Sub
 

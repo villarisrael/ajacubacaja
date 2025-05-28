@@ -720,6 +720,9 @@ Public Class reciboaimprimir
         Dim CONTE As IDataReader
         Dim rutaPDF As String
 
+        Dim ultimasLecturas As New List(Of UltimasLecturas)()
+        Dim contratoMedido As Boolean = False
+
 
         Try
 
@@ -745,6 +748,8 @@ Public Class reciboaimprimir
         Dim nodemedidor As String = String.Empty
         Dim numExterior As String = String.Empty
         Dim cuentaAnterior As String = ""
+        Dim EsMedido As Int16 = 0
+        Dim codigoPostal As String = ""
 
 
         Nombre = DATOS("Nombre")
@@ -755,7 +760,7 @@ Public Class reciboaimprimir
 
             DATOSUSUARIO = ConsultaSql("SELECT * FROM VUSUARIO WHERE CUENTA=" & DATOS("CUENTA")).ExecuteReader
             DATOSUSUARIO.Read()
-            direccionusuario = DATOSUSUARIO("Direccion")
+            direccionusuario = DATOSUSUARIO("Domicilio")
             colonia = DATOSUSUARIO("colonia")
             comunidad = DATOSUSUARIO("Comunidad")
             municipio = DATOSUSUARIO("municipio")
@@ -764,6 +769,79 @@ Public Class reciboaimprimir
             nodemedidor = DATOSUSUARIO("nodemedidor")
             numExterior = DATOSUSUARIO("numext")
             cuentaAnterior = DATOSUSUARIO("cuentaAnterior").ToString()
+            codigoPostal = DATOSUSUARIO("cp").ToString()
+
+            EsMedido = DATOSUSUARIO("MEDIDO").ToString()
+
+
+
+            Dim que As New base
+            Dim queryPivoteLecturas As String = ""
+            Dim ordenLecturaPivote As Int32 = 0
+            ultimasLecturas = New List(Of UltimasLecturas)()
+
+
+            If EsMedido = 1 Then
+
+                Try
+
+
+
+                    Dim lecturasPagadas As IDataReader = ConsultaSql($"SELECT L.ORDEN FROM PAGO_MES PM INNER JOIN  VLECTURAS L ON PM.CUENTA=L.CUENTA AND PM.MES=L.MES AND PM.ANO=L.AN_PER WHERE PM.SERIE = '{Serie}' AND PM.RECIBO = {folio} AND CONCEPTO LIKE '%CONSUMO%' ORDER BY L.ORDEN DESC").ExecuteReader
+
+
+                    While lecturasPagadas.Read()
+
+
+
+
+                        'ordenLecturaPivote = obtenerCampo($"SELECT L.ORDEN FROM PAGO_MES PM LEFT JOIN  VLECTURAS L ON PM.CUENTA=L.CUENTA AND PM.MES=L.MES AND PM.ANO=L.AN_PER WHERE PM.SERIE = '{Serie}' AND PM.RECIBO = {folio} AND CONCEPTO LIKE '%CONSUMO%' ORDER BY L.ORDEN DESC LIMIT 1;", "ORDEN")
+
+
+
+
+                        Dim queryLecturas As String = ""
+                        Dim ordenLecturaActual As String = ""
+
+                        ordenLecturaActual = lecturasPagadas("ORDEN")
+
+                        queryLecturas = $" SELECT mes, an_per, lecturaant, lectura, consumo FROM VLECTURAS WHERE CUENTA = {DATOS("CUENTA")} AND ORDEN = {ordenLecturaActual}"
+                        Dim datos3UltimasLecturas As DataTable = que.EjecutarConsultaDataTable(queryLecturas)
+
+                        If datos3UltimasLecturas.Rows.Count > 0 Then
+                            'Inicializo la lista de desglose
+
+
+
+                            For Each row As DataRow In datos3UltimasLecturas.Rows
+
+
+                                Dim desglose As New UltimasLecturas() With {
+                        .mes = SafeConvertToString(row("mes")),
+                        .periodo = SafeConvertToInt(row("an_per")),
+                        .lecturaAnterior = SafeConvertToInt(row("lecturaant")),
+                        .lecturaActual = SafeConvertToInt(row("lectura")),
+                        .M3 = SafeConvertToInt(row("consumo"))
+                        }
+
+
+                                ultimasLecturas.Add(desglose)
+
+                            Next
+
+                            contratoMedido = True
+
+                        End If
+
+                    End While
+
+                Catch ex As Exception
+
+                    MessageBox.Show($"OCURRIO UN ERROR AL OBTENER EL DESGLOSE DE ELCTURAS DEL RECIBO: {ex.ToString()}")
+
+                End Try
+
+            End If
 
         End If
 
@@ -785,6 +863,7 @@ Public Class reciboaimprimir
             colonia = DATOSUSUARIO("colonia")
             'municipio = DATOSUSUARIO("municipio")
             comunidad = DATOSUSUARIO("Comunidad")
+            codigoPostal = DATOSUSUARIO("cp")
 
         End If
 
@@ -827,8 +906,10 @@ Public Class reciboaimprimir
         Dim Font8Bold As New Font(FontFactory.GetFont(FontFactory.TIMES_ROMAN, 8, iTextSharp.text.Font.BOLD))
         Dim Font5 As New Font(FontFactory.GetFont(FontFactory.TIMES_ROMAN, 5, iTextSharp.text.Font.NORMAL))
         Dim Font6 As New Font(FontFactory.GetFont(FontFactory.TIMES_ROMAN, 6, iTextSharp.text.Font.NORMAL))
+        Dim Font6Bold As New Font(FontFactory.GetFont(FontFactory.TIMES_ROMAN, 6, iTextSharp.text.Font.BOLD))
         Dim Font6n As New Font(FontFactory.GetFont(FontFactory.TIMES_ROMAN, 6, iTextSharp.text.Font.BOLD))
         Dim Font7 As New Font(FontFactory.GetFont(FontFactory.TIMES_ROMAN, 7, iTextSharp.text.Font.NORMAL))
+        Dim Font7Bold As New Font(FontFactory.GetFont(FontFactory.TIMES_ROMAN, 7, iTextSharp.text.Font.BOLD))
         Dim Font4 As New Font(FontFactory.GetFont(FontFactory.TIMES_ROMAN, 4, iTextSharp.text.Font.NORMAL))
         Dim Font8N As New Font(FontFactory.GetFont(FontFactory.TIMES_ROMAN, 8, iTextSharp.text.Font.BOLD))
         Dim Font13N As New Font(FontFactory.GetFont(FontFactory.TIMES_ROMAN, 13, iTextSharp.text.Font.BOLD))
@@ -979,6 +1060,20 @@ Public Class reciboaimprimir
         Table1.AddCell(Table2)
 
 
+        pdfDoc.Add(Table1)
+        pdfDoc.Add(TableVacio)
+        pdfDoc.Add(TableVacio)
+
+
+
+        'Tabala datos del usuario encabezado
+        Dim tablaGeneralDatosUsuario = New PdfPTable(2)
+        tablaGeneralDatosUsuario.PaddingTop = 20
+        tablaGeneralDatosUsuario.DefaultCell.Border = BorderStyle.None
+        tablaGeneralDatosUsuario.WidthPercentage = 95
+        Dim anchoDatosGeneral As Single() = New Single() {600.0F, 400.0F}
+        tablaGeneralDatosUsuario.SetWidths(anchoDatosGeneral)
+
 
 
 
@@ -987,7 +1082,7 @@ Public Class reciboaimprimir
         tabladatosEncUusario.PaddingTop = 20
         tabladatosEncUusario.DefaultCell.Border = BorderStyle.None
         tabladatosEncUusario.WidthPercentage = 95
-        Dim anchodatos As Single() = New Single() {60.0F, 360.0F}
+        Dim anchodatos As Single() = New Single() {100.0F, 400.0F}
         tabladatosEncUusario.SetWidths(anchodatos)
 
 
@@ -1027,7 +1122,7 @@ Public Class reciboaimprimir
         tabladatosEncUusario.AddCell(ColdatosEncUsuario1)
 
 
-        ColdatosEncUsuario2 = New PdfPCell(New Phrase($"{direccionusuario} No. {numExterior}, {colonia}, {comunidad}, {municipio}", Font8))
+        ColdatosEncUsuario2 = New PdfPCell(New Phrase($"{direccionusuario} No. {numExterior}, {colonia}, CP. {codigoPostal}, {comunidad}, {municipio}", Font8))
         ColdatosEncUsuario2.Border = 0
         ColdatosEncUsuario2.HorizontalAlignment = PdfPCell.ALIGN_LEFT
         tabladatosEncUusario.AddCell(ColdatosEncUsuario2)
@@ -1081,16 +1176,25 @@ Public Class reciboaimprimir
 
 
 
-        ColCuentaAnterior = New PdfPCell(New Phrase(cuentaAnterior, Font8))
+        ColCuentaAnterior = New PdfPCell(New Phrase(cuentaAnterior, Font12))
         ColCuentaAnterior.Border = 0
-        ColCuentaAnterior.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
+        ColCuentaAnterior.HorizontalAlignment = PdfPCell.ALIGN_LEFT
         tabladatosEncUusario.AddCell(ColCuentaAnterior)
 
 
-        pdfDoc.Add(Table1)
-        pdfDoc.Add(TableVacio)
-        pdfDoc.Add(TableVacio)
-        pdfDoc.Add(tabladatosEncUusario)
+
+        tablaGeneralDatosUsuario.AddCell(tabladatosEncUusario)
+
+
+
+
+
+        ' Agregar la celda que contiene la tabla a la tabla principal
+        tablaGeneralDatosUsuario.AddCell("")
+
+
+
+        pdfDoc.Add(tablaGeneralDatosUsuario)
         pdfDoc.Add(TableVacio)
         pdfDoc.Add(TableVacio)
         pdfDoc.Add(TableVacio)
@@ -1334,7 +1438,7 @@ Public Class reciboaimprimir
 
         Dim ColCadena = New PdfPCell(New Phrase($"{cadena}", Font9))
         ColCadena.Border = 1
-        ColCadena.HorizontalAlignment = PdfPCell.ALIGN_LEFT
+        ColCadena.HorizontalAlignment = PdfPCell.ALIGN_CENTER
         TableCadena.AddCell(ColCadena)
 
 
@@ -1372,6 +1476,24 @@ Public Class reciboaimprimir
 
 
 
+        Dim parrafoLecturas As New Paragraph("DESGLOSE DE LECTURAS COBRADAS", Font7Bold)
+
+        ' Centramos el párrafo
+        parrafoLecturas.Alignment = Element.ALIGN_CENTER
+
+
+
+
+        Dim TableGeneralLecturas As PdfPTable = New PdfPTable(3)
+        TableGeneralLecturas.WidthPercentage = 100
+        TableGeneralLecturas.DefaultCell.Border = BorderStyle.None
+        Dim widthsGeneralFirmas As Single() = New Single() {150.0F, 700.0F, 150.0F}
+        TableGeneralLecturas.SetWidths(widthsGeneralFirmas)
+
+
+        TableGeneralLecturas.AddCell("")
+
+
 
         Dim TableFirmas As PdfPTable = New PdfPTable(1)
         TableFirmas.WidthPercentage = 100
@@ -1381,6 +1503,87 @@ Public Class reciboaimprimir
 
 
 
+
+        ' Tabla para lecturas
+        Dim tablaLecturas As New PdfPTable(4)
+        tablaLecturas.WidthPercentage = 100
+        tablaLecturas.SetWidths(New Single() {25, 25, 25, 25})
+
+
+
+        tablaLecturas.AddCell(New PdfPCell(New Phrase("MES", Font7Bold)) With {
+            .HorizontalAlignment = Element.ALIGN_CENTER,
+            .Border = Rectangle.BOTTOM_BORDER,
+            .BackgroundColor = New iTextSharp.text.BaseColor(23, 162, 184)
+        })
+        tablaLecturas.AddCell(New PdfPCell(New Phrase("LECT. ANT", Font7Bold)) With {
+                .HorizontalAlignment = Element.ALIGN_CENTER,
+            .Border = Rectangle.BOTTOM_BORDER,
+            .BackgroundColor = New iTextSharp.text.BaseColor(23, 162, 184)
+            })
+        tablaLecturas.AddCell(New PdfPCell(New Phrase("LECT. ACT", Font7Bold)) With {
+                .HorizontalAlignment = Element.ALIGN_CENTER,
+            .Border = Rectangle.BOTTOM_BORDER,
+            .BackgroundColor = New iTextSharp.text.BaseColor(23, 162, 184)
+            })
+
+        tablaLecturas.AddCell(New PdfPCell(New Phrase("M3", Font7Bold)) With {
+                .HorizontalAlignment = Element.ALIGN_CENTER,
+            .Border = Rectangle.BOTTOM_BORDER,
+            .BackgroundColor = New iTextSharp.text.BaseColor(23, 162, 184)
+            })
+
+
+        If contratoMedido Then
+
+
+
+            ' CICLO PARA OBTENER LECTURAS DEL CONTRATO
+
+            For Each lectura In ultimasLecturas
+
+                'Dim descuentoConcepto As Decimal = 0.0
+
+                'descuentoConcepto = detalle.MontoSinDescuento - detalle.Monto
+
+                tablaLecturas.AddCell(New PdfPCell(New Phrase($"{lectura.mes} {lectura.periodo}", Font7)) With {
+                    .HorizontalAlignment = Element.ALIGN_CENTER,
+                    .Border = Rectangle.NO_BORDER
+                })
+
+                tablaLecturas.AddCell(New PdfPCell(New Phrase(lectura.lecturaAnterior, Font7)) With {
+                    .HorizontalAlignment = Element.ALIGN_CENTER,
+                    .Border = Rectangle.NO_BORDER
+                })
+
+                tablaLecturas.AddCell(New PdfPCell(New Phrase(lectura.lecturaActual, Font7)) With {
+                    .HorizontalAlignment = Element.ALIGN_CENTER,
+                    .Border = Rectangle.NO_BORDER
+                })
+
+                tablaLecturas.AddCell(New PdfPCell(New Phrase(lectura.M3, Font7)) With {
+                    .HorizontalAlignment = Element.ALIGN_CENTER,
+                    .Border = Rectangle.NO_BORDER
+                })
+
+
+
+            Next
+
+        End If
+
+        'tablaGeneralDatosUsuario.AddCell(tablaLecturas)
+
+        Dim celdaConTablaLecturas As New PdfPCell(tablaLecturas) With {
+            .PaddingTop = 10, ' <-- Aquí defines el espacio que quieres en la parte superior
+            .Border = Rectangle.NO_BORDER ' Opcional, depende si quieres bordes en esa celda
+        }
+
+
+        TableGeneralLecturas.AddCell(celdaConTablaLecturas)
+
+
+        TableGeneralLecturas.AddCell("")
 
 
         Try
@@ -1436,13 +1639,15 @@ Public Class reciboaimprimir
 
         pdfDoc.Add(Tablevalidacion)
 
-        pdfDoc.Add(TableVacio)
-        pdfDoc.Add(TableVacio)
+        pdfDoc.Add(parrafoLecturas)
+
+        pdfDoc.Add(TableGeneralLecturas)
+
         pdfDoc.Add(TableVacio)
         pdfDoc.Add(TableVacio)
         pdfDoc.Add(TableFirmas)
-        pdfDoc.Add(TableVacio)
-        pdfDoc.Add(TableVacio)
+        'pdfDoc.Add(TableVacio)
+        'pdfDoc.Add(TableVacio)
         pdfDoc.Add(TableVacio)
         pdfDoc.Add(TableLeyenda)
 
