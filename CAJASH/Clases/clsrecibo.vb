@@ -750,9 +750,12 @@ Public Class reciboaimprimir
         Dim cuentaAnterior As String = ""
         Dim EsMedido As Int16 = 0
         Dim codigoPostal As String = ""
+        Dim formaPagoRecibo As String = ""
 
 
         Nombre = DATOS("Nombre")
+        formaPagoRecibo = DATOS("CCODPAGO")
+        formaPago = formaPagoRecibo
 
         Dim DATOSUSUARIO As IDataReader
 
@@ -1052,7 +1055,7 @@ Public Class reciboaimprimir
 
 
 
-        Dim ColDC11 = New PdfPCell(New Phrase(New decodificadorSAT().getFormapago(formaPago), Font8))
+        Dim ColDC11 = New PdfPCell(New Phrase(New decodificadorSAT().getFormapago(formaPagoRecibo), Font8))
         ColDC11.Border = 0
         ColDC11.HorizontalAlignment = PdfPCell.ALIGN_RIGHT
         Table2.AddCell(ColDC11)
