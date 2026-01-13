@@ -38,6 +38,7 @@ Public Class Caja
     Private Property OtroscobrosTableAdapter As Object
     Private Sub btnBuscar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBuscarUserRegistrado.Click
         usuario = 1
+        limpiar()
         Dim bu As New frmBuscaruser
         bu.ShowDialog()
     End Sub
@@ -1139,6 +1140,7 @@ Line1:      Dim datosdescuento As IDataReader = ConsultaSql("select * from  desc
 
     Private Sub bynbuscaruserpadron_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles bynbuscaruserpadron.Click
         usuario = 2
+        limpiar()
         Dim x As New fmrBuscaruserxpadron
         x.ShowDialog()
     End Sub
@@ -1364,6 +1366,7 @@ Line1:      Dim datosdescuento As IDataReader = ConsultaSql("select * from  desc
         control.periodoscondescuentoderecargo = 0
     End Sub
 
+    ' esta funcion limpia la pantalla y limpia la funcion control
     Public Sub limpiar()
         txtcolonia.Text = ""
         txtcomunidad.Text = ""
@@ -1387,6 +1390,10 @@ Line1:      Dim datosdescuento As IDataReader = ConsultaSql("select * from  desc
         Total = 0
 
         txtCuentaCliente.Focus()
+
+        ' iniciar el estado de control
+        control = New Clscontrolpago()
+
     End Sub
 
     Private Sub CambiarFolioToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CambiarFolioToolStripMenuItem.Click
@@ -1427,6 +1434,7 @@ Line1:      Dim datosdescuento As IDataReader = ConsultaSql("select * from  desc
 
     Private Sub btnSolicitud_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSolicitud.Click
         usuario = 3
+        limpiar()
         Dim frSol As New FrmBuscaSolicitud
         frSol.ShowDialog()
     End Sub
