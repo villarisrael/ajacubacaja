@@ -1,9 +1,9 @@
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmListadoRecibos
     Inherits DevComponents.DotNetBar.OfficeForm
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,9 +20,11 @@ Partial Class frmListadoRecibos
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmListadoRecibos))
         Me.label2 = New System.Windows.Forms.Label()
         Me.label1 = New System.Windows.Forms.Label()
@@ -104,14 +106,16 @@ Partial Class frmListadoRecibos
         '
         'dtfinal
         '
-        Me.dtfinal.Location = New System.Drawing.Point(59, 28)
+        Me.dtfinal.Location = New System.Drawing.Point(79, 34)
+        Me.dtfinal.Margin = New System.Windows.Forms.Padding(4)
         Me.dtfinal.Name = "dtfinal"
         Me.dtfinal.Size = New System.Drawing.Size(200, 20)
         Me.dtfinal.TabIndex = 1
         '
         'dtinicio
         '
-        Me.dtinicio.Location = New System.Drawing.Point(59, 2)
+        Me.dtinicio.Location = New System.Drawing.Point(79, 2)
+        Me.dtinicio.Margin = New System.Windows.Forms.Padding(4)
         Me.dtinicio.Name = "dtinicio"
         Me.dtinicio.Size = New System.Drawing.Size(200, 20)
         Me.dtinicio.TabIndex = 0
@@ -134,7 +138,8 @@ Partial Class frmListadoRecibos
         Me.superTabrecibos.Controls.Add(Me.superTabControlPanel1)
         Me.superTabrecibos.Controls.Add(Me.superTabControlPanel3)
         Me.superTabrecibos.Controls.Add(Me.superTabControlPanel2)
-        Me.superTabrecibos.Location = New System.Drawing.Point(6, 62)
+        Me.superTabrecibos.Location = New System.Drawing.Point(8, 76)
+        Me.superTabrecibos.Margin = New System.Windows.Forms.Padding(4)
         Me.superTabrecibos.Name = "superTabrecibos"
         Me.superTabrecibos.ReorderTabsEnabled = True
         Me.superTabrecibos.SelectedTabFont = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold)
@@ -150,7 +155,8 @@ Partial Class frmListadoRecibos
         Me.superTabControlPanel1.Controls.Add(Me.toolStrip1)
         Me.superTabControlPanel1.Controls.Add(Me.dataGridView1)
         Me.superTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.superTabControlPanel1.Location = New System.Drawing.Point(0, 25)
+        Me.superTabControlPanel1.Location = New System.Drawing.Point(0, 28)
+        Me.superTabControlPanel1.Margin = New System.Windows.Forms.Padding(4)
         Me.superTabControlPanel1.Name = "superTabControlPanel1"
         Me.superTabControlPanel1.Size = New System.Drawing.Size(800, 475)
         Me.superTabControlPanel1.TabIndex = 1
@@ -253,7 +259,8 @@ Partial Class frmListadoRecibos
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dataGridView1.Location = New System.Drawing.Point(6, 28)
+        Me.dataGridView1.Location = New System.Drawing.Point(8, 34)
+        Me.dataGridView1.Margin = New System.Windows.Forms.Padding(4)
         Me.dataGridView1.Name = "dataGridView1"
         Me.dataGridView1.ReadOnly = True
         Me.dataGridView1.RowHeadersWidth = 51
@@ -272,7 +279,8 @@ Partial Class frmListadoRecibos
         '
         Me.superTabControlPanel3.Controls.Add(Me.dataGridViewRectifica)
         Me.superTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.superTabControlPanel3.Location = New System.Drawing.Point(0, 25)
+        Me.superTabControlPanel3.Location = New System.Drawing.Point(0, 31)
+        Me.superTabControlPanel3.Margin = New System.Windows.Forms.Padding(4)
         Me.superTabControlPanel3.Name = "superTabControlPanel3"
         Me.superTabControlPanel3.Size = New System.Drawing.Size(708, 312)
         Me.superTabControlPanel3.TabIndex = 0
@@ -283,19 +291,36 @@ Partial Class frmListadoRecibos
         '
         Me.dataGridViewRectifica.AllowUserToAddRows = False
         Me.dataGridViewRectifica.AllowUserToDeleteRows = False
-        Me.dataGridViewRectifica.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dataGridViewRectifica.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dataGridViewRectifica.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        Me.dataGridViewRectifica.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dataGridViewRectifica.DefaultCellStyle = DataGridViewCellStyle2
         Me.dataGridViewRectifica.GridColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(229, Byte), Integer))
-        Me.dataGridViewRectifica.Location = New System.Drawing.Point(3, 3)
+        Me.dataGridViewRectifica.Location = New System.Drawing.Point(4, 4)
+        Me.dataGridViewRectifica.Margin = New System.Windows.Forms.Padding(4)
         Me.dataGridViewRectifica.Name = "dataGridViewRectifica"
         Me.dataGridViewRectifica.ReadOnly = True
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dataGridViewRectifica.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dataGridViewRectifica.RowHeadersWidth = 51
         Me.dataGridViewRectifica.Size = New System.Drawing.Size(597, 327)
         Me.dataGridViewRectifica.TabIndex = 0
@@ -312,6 +337,7 @@ Partial Class frmListadoRecibos
         Me.superTabControlPanel2.Controls.Add(Me.advDetalles)
         Me.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.superTabControlPanel2.Location = New System.Drawing.Point(0, 0)
+        Me.superTabControlPanel2.Margin = New System.Windows.Forms.Padding(4)
         Me.superTabControlPanel2.Name = "superTabControlPanel2"
         Me.superTabControlPanel2.Size = New System.Drawing.Size(708, 337)
         Me.superTabControlPanel2.TabIndex = 0
@@ -328,7 +354,8 @@ Partial Class frmListadoRecibos
         Me.advDetalles.BackgroundStyle.Class = "TreeBorderKey"
         Me.advDetalles.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.advDetalles.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F"
-        Me.advDetalles.Location = New System.Drawing.Point(3, 3)
+        Me.advDetalles.Location = New System.Drawing.Point(4, 4)
+        Me.advDetalles.Margin = New System.Windows.Forms.Padding(4)
         Me.advDetalles.Name = "advDetalles"
         Me.advDetalles.NodesConnector = Me.nodeConnector2
         Me.advDetalles.NodeStyle = Me.elementStyle2
@@ -360,7 +387,8 @@ Partial Class frmListadoRecibos
         Me.btncerrar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btncerrar.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
         Me.btncerrar.Image = CType(resources.GetObject("btncerrar.Image"), System.Drawing.Image)
-        Me.btncerrar.Location = New System.Drawing.Point(818, 11)
+        Me.btncerrar.Location = New System.Drawing.Point(1091, 14)
+        Me.btncerrar.Margin = New System.Windows.Forms.Padding(4)
         Me.btncerrar.Name = "btncerrar"
         Me.btncerrar.Size = New System.Drawing.Size(89, 37)
         Me.btncerrar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -372,7 +400,8 @@ Partial Class frmListadoRecibos
         Me.btncargar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btncargar.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
         Me.btncargar.Image = CType(resources.GetObject("btncargar.Image"), System.Drawing.Image)
-        Me.btncargar.Location = New System.Drawing.Point(710, 11)
+        Me.btncargar.Location = New System.Drawing.Point(947, 14)
+        Me.btncargar.Margin = New System.Windows.Forms.Padding(4)
         Me.btncargar.Name = "btncargar"
         Me.btncargar.Size = New System.Drawing.Size(102, 37)
         Me.btncargar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -390,16 +419,19 @@ Partial Class frmListadoRecibos
         Me.GroupBox1.Controls.Add(Me.Label5)
         Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Controls.Add(Me.Label3)
-        Me.GroupBox1.Location = New System.Drawing.Point(806, 72)
+        Me.GroupBox1.Location = New System.Drawing.Point(1075, 89)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(200, 157)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupBox1.Size = New System.Drawing.Size(267, 193)
         Me.GroupBox1.TabIndex = 3
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Renumerar"
         '
         'txtserie
         '
-        Me.txtserie.Location = New System.Drawing.Point(98, 25)
+        Me.txtserie.Location = New System.Drawing.Point(131, 31)
+        Me.txtserie.Margin = New System.Windows.Forms.Padding(4)
         Me.txtserie.Name = "txtserie"
         Me.txtserie.Size = New System.Drawing.Size(37, 20)
         Me.txtserie.TabIndex = 0
@@ -417,7 +449,8 @@ Partial Class frmListadoRecibos
         '
         Me.btnRenumerar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
         Me.btnRenumerar.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
-        Me.btnRenumerar.Location = New System.Drawing.Point(98, 128)
+        Me.btnRenumerar.Location = New System.Drawing.Point(131, 158)
+        Me.btnRenumerar.Margin = New System.Windows.Forms.Padding(4)
         Me.btnRenumerar.Name = "btnRenumerar"
         Me.btnRenumerar.Size = New System.Drawing.Size(75, 23)
         Me.btnRenumerar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -432,7 +465,8 @@ Partial Class frmListadoRecibos
         Me.IIsumando.BackgroundStyle.Class = "DateTimeInputBackground"
         Me.IIsumando.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.IIsumando.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
-        Me.IIsumando.Location = New System.Drawing.Point(97, 100)
+        Me.IIsumando.Location = New System.Drawing.Point(129, 123)
+        Me.IIsumando.Margin = New System.Windows.Forms.Padding(4)
         Me.IIsumando.Name = "IIsumando"
         Me.IIsumando.ShowUpDown = True
         Me.IIsumando.Size = New System.Drawing.Size(50, 20)
@@ -446,7 +480,8 @@ Partial Class frmListadoRecibos
         Me.IIfoliofinal.BackgroundStyle.Class = "DateTimeInputBackground"
         Me.IIfoliofinal.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.IIfoliofinal.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
-        Me.IIfoliofinal.Location = New System.Drawing.Point(97, 75)
+        Me.IIfoliofinal.Location = New System.Drawing.Point(129, 92)
+        Me.IIfoliofinal.Margin = New System.Windows.Forms.Padding(4)
         Me.IIfoliofinal.Name = "IIfoliofinal"
         Me.IIfoliofinal.ShowUpDown = True
         Me.IIfoliofinal.Size = New System.Drawing.Size(80, 20)
@@ -460,7 +495,8 @@ Partial Class frmListadoRecibos
         Me.IIfolioinicio.BackgroundStyle.Class = "DateTimeInputBackground"
         Me.IIfolioinicio.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.IIfolioinicio.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
-        Me.IIfolioinicio.Location = New System.Drawing.Point(97, 50)
+        Me.IIfolioinicio.Location = New System.Drawing.Point(129, 62)
+        Me.IIfolioinicio.Margin = New System.Windows.Forms.Padding(4)
         Me.IIfolioinicio.Name = "IIfolioinicio"
         Me.IIfolioinicio.ShowUpDown = True
         Me.IIfolioinicio.Size = New System.Drawing.Size(80, 20)
@@ -499,7 +535,8 @@ Partial Class frmListadoRecibos
         '
         '
         Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX1.Location = New System.Drawing.Point(289, 0)
+        Me.LabelX1.Location = New System.Drawing.Point(385, 0)
+        Me.LabelX1.Margin = New System.Windows.Forms.Padding(4)
         Me.LabelX1.Name = "LabelX1"
         Me.LabelX1.Size = New System.Drawing.Size(48, 20)
         Me.LabelX1.TabIndex = 28
@@ -512,7 +549,8 @@ Partial Class frmListadoRecibos
         '
         Me.txtcaja.Border.Class = "TextBoxBorder"
         Me.txtcaja.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.txtcaja.Location = New System.Drawing.Point(343, 2)
+        Me.txtcaja.Location = New System.Drawing.Point(457, 2)
+        Me.txtcaja.Margin = New System.Windows.Forms.Padding(4)
         Me.txtcaja.Name = "txtcaja"
         Me.txtcaja.PreventEnterBeep = True
         Me.txtcaja.Size = New System.Drawing.Size(102, 20)
@@ -524,7 +562,8 @@ Partial Class frmListadoRecibos
         '
         '
         Me.lblcuantos.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.lblcuantos.Location = New System.Drawing.Point(291, 30)
+        Me.lblcuantos.Location = New System.Drawing.Point(388, 37)
+        Me.lblcuantos.Margin = New System.Windows.Forms.Padding(4)
         Me.lblcuantos.Name = "lblcuantos"
         Me.lblcuantos.Size = New System.Drawing.Size(184, 17)
         Me.lblcuantos.TabIndex = 30

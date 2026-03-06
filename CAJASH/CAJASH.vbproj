@@ -470,6 +470,9 @@
     <Compile Include="Formularios\Reportes\ReporteRubros.vb" />
     <Compile Include="Formularios\Reportes\RptCajaDesglozado.vb" />
     <Compile Include="Formularios\Reportes\Ticket.vb" />
+    <Compile Include="Modelos\DatosFiscalesUsuario.vb" />
+    <Compile Include="Modelos\Factura_v_40.vb" />
+    <Compile Include="Modelos\NodoXMLCFDI_40.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -486,6 +489,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Servicios\FormatoFactura_40.vb" />
+    <Compile Include="Servicios\XMLReaderFactura40.vb" />
     <Compile Include="Settings.vb" />
     <Compile Include="Web References\cancelafactupronto\Reference.vb">
       <AutoGen>True</AutoGen>

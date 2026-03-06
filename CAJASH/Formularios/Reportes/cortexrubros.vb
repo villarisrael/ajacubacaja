@@ -432,11 +432,6 @@ Public Class cortexrubros
 
 
 
-
-            'Actopan
-            '30,3,4,5
-
-
             Dim Tabletitdescuentos As PdfPTable = New PdfPTable(1)
             Tabletitdescuentos.DefaultCell.Border = BorderStyle.None
             Tabletitdescuentos.WidthPercentage = 100

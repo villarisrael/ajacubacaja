@@ -191,7 +191,7 @@ Public Class FrmReportexrubros
 
                     sqlmixto = "select pagos.ccodpago as formaori,pagomixto.id_forma as formareal, pagomixto.monto as monto from pagos inner join pagomixto on pagos.serie=pagomixto.serie and pagos.recibo= pagomixto.folio where fecha_Act between '" & dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & "' and '" & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd") & " 23:59'  and cancelado='A' and caja=" & txtcaja.Text
 
-                    SqlITSharp = "select numconcepto,concepto, sum(pagos) as total,iva,sum(montoiva) as Montoiva from pagotros where fecha between '" & dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & "' and '" & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd") & "' and  cancelado='A' and caja=" & txtcaja.Text & " group by numconcepto,iva"
+                    SqlITSharp = "select numconcepto,concepto, sum(monto) as total,iva,sum(montoiva) as Montoiva from pagotros where fecha between '" & dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & "' and '" & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd") & "' and  cancelado='A' and caja=" & txtcaja.Text & " group by numconcepto,iva"
 
                     SqlITSharpVIRTUALES = "SELECT count(d.iddescuentopago) as cuantos ,d.concepto, d.porcentaje, sum(d.monto) as monto from pagos p inner join descuentospagos d on p.serie=d.serie and p.recibo=d.recibo  where p.fecha_Act between '" & dtpfechainicio.SelectionStart.ToString("yyyy-MM-dd") & "' and '" & dtpfechafinal.SelectionEnd.ToString("yyyy-MM-dd") & "' and p.Caja = '" & txtcaja.Text & "'" & " and p.cancelado='A' group by d.concepto, d.porcentaje "
 

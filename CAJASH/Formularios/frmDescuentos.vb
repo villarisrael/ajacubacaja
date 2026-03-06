@@ -90,6 +90,9 @@ Public Class FrmDescuentos
             diporcrecargo.Value = 0
             DiporcRezago.Value = 0
             diporcsanemiento.Value = 0
+
+
+
             If My.Settings.esAdministrativa.ToUpper = "DIRECTOR" Then
 
                 Dim resultfacturas As DialogResult = MessageBox.Show("¿ Desea Grabar el descuento para caja ?", "Alerta", MessageBoxButtons.OKCancel)
