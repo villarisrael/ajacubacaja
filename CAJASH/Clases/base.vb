@@ -251,4 +251,26 @@ Public Class base
         'End Try
 
     End Sub
+
+    Public Function EjecutarConsultaDataTable(ByVal txtsql As String) As DataTable
+        Dim dataTable As New DataTable()
+
+        Try
+            conectar()
+
+            Using comando As New OdbcCommand(txtsql, conexion)
+                Using adapter As New OdbcDataAdapter(comando)
+                    adapter.Fill(dataTable) ' Llena el DataTable
+                End Using
+            End Using
+
+        Catch ex As Exception
+            MessageBox.Show("Error: " & ex.Message)
+        Finally
+            desconectar()
+        End Try
+
+        Return dataTable
+    End Function
+
 End Class

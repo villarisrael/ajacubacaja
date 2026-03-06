@@ -97,7 +97,7 @@ Public Class Frmvalidafactura
             ElseIf TIPO.ToUpper = "NO USUARIO" Or TIPO = "CLIENTE" Then
 
                 tipousuario = 2
-            ElseIf TIPO.ToUpper = "SOLICITUD" Then
+            ElseIf TIPO.ToUpper = "FACTIBILIDAD" Then
 
 
                 tipousuario = 3
@@ -352,65 +352,39 @@ Public Class Frmvalidafactura
 
 
         If vienede = "CAJA" Then
+
             If chksinrecibo.Checked = False Then
-                grabareimprimir(formaPago)
+
+                grabareimprimir(formaPago, False)
+
             End If
 
         End If
 
 
-        '  GuardarLecturasAD()
+
+        Try
 
 
-        Timbrar()
+            If chkmandarmail.Checked Then
 
+                Timbrar(True)
 
-        If chkmandarmail.Checked Then
-            Dim mail As New MailMessage
+            Else
 
-            Dim send As New SmtpClient
-            Dim directorio As String = ""
+                Timbrar(False)
 
-            directorio = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) & "\facturas\" & txtnombre.Text.Replace(" ", "") & "\"
-            Try
-                mail.To.Clear()
-                mail.Body = My.MySettings.Default.MENSAJECORREO
+            End If
 
-                ' mail.Body = My.MySettings.Default.
-                mail.Subject = My.MySettings.Default.Asuntocorreo
-                mail.IsBodyHtml = False
-                mail.To.Add(Trim(txtmail.Text))
-                mail.Attachments.Add(New Attachment(directorio & "\xmlFactura" & seriefactura & foliofactura & ".xml"))
-                mail.Attachments.Add(New Attachment(directorio & "\Factura" & seriefactura & foliofactura & ".pdf"))
-                mail.From = New MailAddress(My.MySettings.Default.CorreoFacturas, My.Settings.Correodefault)
-                send.Host = "smtp.gmail.com"
-                send.Port = 587
-                send.EnableSsl = True
-                send.DeliveryMethod = SmtpDeliveryMethod.Network
-                send.UseDefaultCredentials = False
-                send.Credentials = New Net.NetworkCredential(My.Settings.CorreoFacturas, My.Settings.Passwordcorreo)
+        Catch ex As Exception
 
-                '        End If
-                'If cboMail.SelectedIndex = 2 Then
-                '    send.Host = "smtp.live.com"
-                '    send.Port = 587
-                '    send.EnableSsl = False
-                'End If
-                send.Send(mail)
-                ' Me.Cursor = Cursors.Default
-                '  Me.Text = "Enviar Mensaje"
-                MsgBox("Un correo fue enviado correctamente", MsgBoxStyle.Information, "Mensaje")
+            MessageBox.Show($"{ex.ToString()}")
 
-            Catch ex As Exception
-                MessageBox.Show(ex.Message, "Mensajeria", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-        End If
-
-
-
+        End Try
 
 
         btnaceptar.Enabled = True
+
     End Sub
 
 
@@ -567,7 +541,7 @@ Public Class Frmvalidafactura
 #End Region
 
     ' graba el recibo 25/10/2016
-    Public Sub grabareimprimir(ByVal formaPagoReciboFactura As String)
+    Public Sub grabareimprimir(ByVal formaPagoReciboFactura As String, ByVal imprimirRecibo As Boolean)
 
         Dim save As New base
 
@@ -1517,7 +1491,7 @@ Public Class Frmvalidafactura
 
 
 
-    Public Sub Timbrar()
+    Public Sub Timbrar(ByVal enviarFacturaMail As Boolean)
 
 
 
@@ -1557,6 +1531,7 @@ Public Class Frmvalidafactura
                 sdkresp = mf.Timbrar("C:\sdk2\timbrar32.bat", "C:\sdk2\timbrados\", "factura", False)
             Catch ex As Exception
                 MessageBox.Show(sdkresp.Codigo_MF_Texto.ToString())
+                MessageBox.Show($"Ocurrio en el timbrado: {ex.ToString()}")
             End Try
 
 
@@ -1680,11 +1655,17 @@ Public Class Frmvalidafactura
                   ", recibo=" & My.Settings.folio & ", serierecibo='" & My.Settings.serie & "'" &
                    ", CuentaDatosFiscales='" & cuenta & "'")
             End If
+
             Ejecucion("update cajas set folio=" & foliofactura & " WHERE id_caja='" & My.Settings.caja & "'")
+            Ejecucion("update empresa set foliofactura=" & foliofactura & "")
+
+
             If vienede = "CAJA" Then
                 Ejecucion("update pagos set factura=" & foliofactura & ",facturado=" & foliofactura & ", seriefactura='" & seriefactura & "' where recibo=" & My.Settings.folio & " and serie='" & My.Settings.serie & "'")
                 filtro = "{cajas1.id_caja}='" & My.Settings.caja & "' and {pagos1.recibo}=" & My.Settings.folio & " and {pagos1.serie}='" & My.Settings.serie & "'"
             End If
+
+
             If vienede = "RECIBO" Then
                 Ejecucion("update pagos set factura=" & foliofactura & ",facturado=" & foliofactura & ", seriefactura='" & seriefactura & "' where recibo=" & Reciboqueseestafacturando & " and serie='" & seriedelreciboqueseestafacturando & "'")
                 filtro = "{cajas1.id_caja}='" & My.Settings.caja & "' and {pagos1.recibo}=" & Reciboqueseestafacturando & " and {pagos1.serie}='" & seriedelreciboqueseestafacturando & "'"
@@ -1697,16 +1678,20 @@ Public Class Frmvalidafactura
         End Try
 
 
+        Try
 
-        Dim objComplemento As New FormatoFactura_40()
-        objComplemento.GenerarPDFFactura_CFDI4(seriefactura, foliofactura, cuenta, False)
+            'Dim tipoUsuario As Short = ConvertirTipoUsuario()
 
+            Dim objFactura As New FormatoFactura_40()
+            objFactura.GenerarPDFFactura_CFDI4(seriefactura, foliofactura, cuenta, False, recibo.esusuario, enviarFacturaMail)
 
+        Catch ex As Exception
 
-        Ejecucion("update empresa set foliofactura=" & foliofactura & "")
+            MessageBox.Show($"Ocurrio un error al generar el PDF de la factura: {ex.ToString()}")
 
+        End Try
 
-
+        Me.Close()
 
 
     End Sub ' para multifacturas ITextSharp

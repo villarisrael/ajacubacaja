@@ -894,31 +894,145 @@ Module funcionesbasicas
     End Function
 
 
-    Public Function ObtenerDatosFiscales(nombreReceptor As String, cuentaUsuarioP As String) As DatosFiscalesUsuario
+    Public Function ObtenerDatosFiscales(nombreReceptor As String, cuentaUsuarioP As String, tipoUsuario As Short) As DatosFiscalesUsuario
         Dim datosFiscalesUsuario As New DatosFiscalesUsuario()
 
-        Using datosFiscales As IDataReader = ConsultaSql($"SELECT * FROM datosfiscales WHERE datosfiscales.nombre='{nombreReceptor}' AND CUENTA = '{cuentaUsuarioP}'").ExecuteReader()
-            If datosFiscales.Read() Then
+        Try
 
-                datosFiscalesUsuario.RazonSocial = datosFiscales("NOMBRE").ToString()
-                datosFiscalesUsuario.cuenta = Convert.ToInt32(datosFiscales("CUENTA"))
-                datosFiscalesUsuario.calleUsuario = datosFiscales("CALLE").ToString()
-                datosFiscalesUsuario.numInteriorUsuario = datosFiscales("NUMINT").ToString()
-                datosFiscalesUsuario.numExteriorUsuario = datosFiscales("NUMEXT").ToString()
-                datosFiscalesUsuario.coloniaUsuario = datosFiscales("COLONIA").ToString()
-                datosFiscalesUsuario.tipoUsuario = datosFiscales("TIPO").ToString()
-                datosFiscalesUsuario.poblacionUsuario = datosFiscales("POBLACION").ToString()
-                datosFiscalesUsuario.delegacionUsuario = datosFiscales("DELEGACION").ToString()
-                datosFiscalesUsuario.estadoUsuario = datosFiscales("ESTADO").ToString()
-                datosFiscalesUsuario.CPUsuario = datosFiscales("CP").ToString()
-                datosFiscalesUsuario.RegimenFiscal = datosFiscales("RegimenFiscal").ToString()
+            'Dim tipoUsuario As String = ConvertirTipoUsuarioInverso(tipoUsuario)
 
-            End If
-        End Using
+            Using datosFiscales As IDataReader = ConsultaSql($"SELECT * FROM datosfiscales WHERE datosfiscales.nombre='{nombreReceptor}' AND CUENTA = '{cuentaUsuarioP}' AND TIPO = '{tipoUsuario}'").ExecuteReader()
+                If datosFiscales.Read() Then
+
+                    datosFiscalesUsuario.RazonSocial = datosFiscales("NOMBRE").ToString().Trim()
+                    datosFiscalesUsuario.cuenta = Convert.ToInt32(datosFiscales("CUENTA"))
+                    datosFiscalesUsuario.calleUsuario = datosFiscales("CALLE").ToString().Trim()
+                    datosFiscalesUsuario.numInteriorUsuario = datosFiscales("NUMINT").ToString().Trim()
+                    datosFiscalesUsuario.numExteriorUsuario = datosFiscales("NUMEXT").ToString().Trim()
+                    datosFiscalesUsuario.coloniaUsuario = datosFiscales("COLONIA").ToString().Trim()
+                    datosFiscalesUsuario.tipoUsuario = datosFiscales("TIPO").ToString().Trim()
+                    datosFiscalesUsuario.poblacionUsuario = datosFiscales("POBLACION").ToString().Trim()
+                    datosFiscalesUsuario.delegacionUsuario = datosFiscales("DELEGACION").ToString().Trim()
+                    datosFiscalesUsuario.estadoUsuario = datosFiscales("ESTADO").ToString().Trim()
+                    datosFiscalesUsuario.CPUsuario = datosFiscales("CP").ToString().Trim()
+                    datosFiscalesUsuario.RegimenFiscal = datosFiscales("RegimenFiscal").ToString().Trim()
+
+                End If
+            End Using
+
+        Catch ex As Exception
+
+            MessageBox.Show($"Ocurrio un error al obteenr la infromación del usuario: {ex.ToString()}")
+
+        End Try
 
         Return datosFiscalesUsuario
 
     End Function
 
+    Public Function ObtenerDatosFacturaPeriodo(nombreReceptor As String) As DatosFiscalesUsuario
+        Dim datosFiscalesUsuario As New DatosFiscalesUsuario()
+
+        Try
+
+
+
+            'Using datosFiscales As IDataReader = ConsultaSql($"SELECT * FROM datosfiscales WHERE datosfiscales.nombre='{nombreReceptor}' AND CUENTA = '{cuentaUsuarioP}'").ExecuteReader()
+            '    If datosFiscales.Read() Then
+
+            datosFiscalesUsuario.RazonSocial = "PUBLICO EN GENERAL".Trim()
+            datosFiscalesUsuario.cuenta = ""
+            datosFiscalesUsuario.calleUsuario = $"{Direccion}".Trim()
+            datosFiscalesUsuario.numInteriorUsuario = ""
+            datosFiscalesUsuario.numExteriorUsuario = ""
+            datosFiscalesUsuario.coloniaUsuario = $"{coloniaEMPRESA}".Trim()
+            datosFiscalesUsuario.tipoUsuario = $"PERIODO".Trim()
+            datosFiscalesUsuario.poblacionUsuario = $"{poblacionEMPRESA}".Trim()
+            datosFiscalesUsuario.delegacionUsuario = $"{poblacionEMPRESA}".Trim()
+            datosFiscalesUsuario.estadoUsuario = $"{Estadoempresa}".Trim()
+            datosFiscalesUsuario.CPUsuario = $"{CODPOSempresa}".Trim()
+            datosFiscalesUsuario.RegimenFiscal = $"".Trim()
+
+            'End If
+            'End Using
+
+        Catch ex As Exception
+
+            MessageBox.Show($"Ocurrio un error al obtener la información del usuario: {ex.ToString()}")
+
+        End Try
+
+        Return datosFiscalesUsuario
+
+    End Function
+
+
+    Public Function ConvertirTipoUsuario(tipo As String) As Integer
+        Select Case tipo.ToUpper() ' Convertimos a mayúsculas para evitar errores de minúsculas
+            Case "USUARIO"
+                Return 1
+            Case "CLIENTE"
+                Return 2
+            Case "NO USUARIO"
+                Return 2
+            Case "FACTIBILIDAD"
+                Return 3
+            Case "SOLICITUD"
+                Return 3
+            Case "PERIODO"
+                Return 4
+            Case Else
+                Return 0 ' Devuelve 0 si el tipo no es válido
+        End Select
+    End Function
+
+    Public Function ConvertirTipoUsuarioInverso(tipo As Short) As String
+        Select Case tipo
+            Case 1
+                Return "USUARIO"
+            Case 2
+                Return "CLIENTE"
+            Case 3
+                Return "FACTIBILIDAD"
+            Case 4
+                Return "PERIODO"
+            Case Else
+                Return "DESCONOCIDO"
+        End Select
+
+    End Function
+
+
+    Public Function SafeConvertToDateTime(value As Object) As DateTime
+        If value IsNot DBNull.Value AndAlso value IsNot Nothing Then
+            Return Convert.ToDateTime(value)
+        Else
+            Return DateTime.MinValue ' O cualquier fecha predeterminada
+        End If
+    End Function
+
+    Public Function SafeConvertToDecimal(value As Object) As Decimal
+        If value IsNot DBNull.Value AndAlso value IsNot Nothing Then
+            Return Convert.ToDecimal(value)
+        Else
+            Return 0D ' Valor predeterminado para decimales
+        End If
+    End Function
+
+    Public Function SafeConvertToString(value As Object) As String
+        If value IsNot DBNull.Value AndAlso value IsNot Nothing Then
+            Return value.ToString()
+        Else
+            Return String.Empty ' Cadena vacía predeterminada
+        End If
+    End Function
+
+    Public Function SafeConvertToInt(value As Object) As Integer
+        If value IsNot DBNull.Value AndAlso value IsNot Nothing Then
+            Return Convert.ToUInt32(value)
+        Else
+            Return 0 ' Cadena vacía predeterminada
+        End If
+    End Function
 
 End Module

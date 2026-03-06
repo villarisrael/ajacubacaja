@@ -56,6 +56,11 @@ Public Class Clscolorreporte
 
             color = New CMYKColor(125, 0, 110, 10)
         End If
+
+        If (_color = "Blanco") Then
+
+            color = New CMYKColor(0, 0, 0, 0)
+        End If
     End Sub
 
 
